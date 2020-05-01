@@ -19,7 +19,7 @@ const Footer = () => {
         Email
       </a>
       |
-      <a href="./../pdfs/Resume.pdf" rel="noopener noreferrer" target="_blank">
+      <a href="/pdfs/resume.pdf" rel="noopener noreferrer" target="_blank">
         Resume
       </a>
     </footer>
