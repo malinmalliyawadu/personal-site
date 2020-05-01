@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import Footer from "./components/Footer";
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header>
+        <span className="anim-type">@malinmalliyawadu</span>
+        <span className="cursor--blink">_</span>
       </header>
+      <main>
+        <section className="bio">
+          I'm a delivery-oriented software engineer currently based in
+          Wellington with a passion for building beautiful, performant and
+          accessible products that your customers will love.
+        </section>
+      </main>
+
+      <Footer />
     </div>
   );
-}
+};
 
 export default App;
