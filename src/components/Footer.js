@@ -20,8 +20,16 @@ const Footer = () => {
         Email
       </a>
       <span role="presentation">{" } { "}</span>
-      <a href="pdfs/resume.pdf" rel="noopener noreferrer" target="_blank">
+      <a href="/pdfs/resume.pdf" rel="noopener noreferrer" target="_blank">
         Resume
+      </a>
+      <span role="presentation">{" } { "}</span>
+      <a
+        href="https://github.com/malinmalliyawadu"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        GitHub
       </a>
       <span role="presentation">{" }"}</span>
     </footer>
