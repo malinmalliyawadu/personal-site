@@ -37,7 +37,7 @@ main {
 
 .bio {
   max-width: 500px;
-  opacity: 0.7;
+  color: #b8babc;
 }
 
 footer {
@@ -47,12 +47,12 @@ footer {
 /* Animation */
 @media (prefers-reduced-motion: no-preference) {
   .anim-type {
-    animation: typewriter 1s steps(17) 500ms 1 normal both;
+    animation: typewriter 1s steps(6) 500ms 1 normal both;
     white-space: nowrap;
     overflow: hidden;
   }
   .cursor--blink {
-    animation: blinkTextCursor 700ms steps(17) infinite normal;
+    animation: blinkTextCursor 700ms steps(6) infinite normal;
   }
 }
 .anim-type {
@@ -70,7 +70,7 @@ footer {
     width: 0;
   }
   to {
-    width: 490px;
+    width: 173px;
   }
 }
 @keyframes blinkTextCursor {
