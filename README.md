@@ -2,4 +2,4 @@
 
 Basic static site for resume + portfolio.
 
-[malin.nz](https://www.malin.nz)
+[malin.nz](https://malin.nz)

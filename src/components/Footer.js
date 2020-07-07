@@ -3,7 +3,9 @@ import React from "react";
 const Footer = () => {
   return (
     <footer>
-      <span role="presentation">{"{ "}</span>
+      <span className="footer-link-sep" role="presentation">
+        {"{ "}
+      </span>
       <a
         href="https://www.linkedin.com/in/malin-malliya-wadu-94956522/"
         rel="noopener noreferrer"
@@ -11,7 +13,9 @@ const Footer = () => {
       >
         LinkedIn
       </a>
-      <span role="presentation">{" } { "}</span>
+      <span className="footer-link-sep" role="presentation">
+        {" } { "}
+      </span>
       <a
         href="mailto:malin.malliya.wadu@gmail.com"
         rel="noopener noreferrer"
@@ -19,11 +23,15 @@ const Footer = () => {
       >
         Email
       </a>
-      <span role="presentation">{" } { "}</span>
+      <span className="footer-link-sep" role="presentation">
+        {" } { "}
+      </span>
       <a href="/pdfs/resume.pdf" rel="noopener noreferrer" target="_blank">
         Resume
       </a>
-      <span role="presentation">{" } { "}</span>
+      <span className="footer-link-sep" role="presentation">
+        {" } { "}
+      </span>
       <a
         href="https://github.com/malinmalliyawadu"
         rel="noopener noreferrer"
@@ -31,7 +39,9 @@ const Footer = () => {
       >
         GitHub
       </a>
-      <span role="presentation">{" }"}</span>
+      <span className="footer-link-sep" role="presentation">
+        {" }"}
+      </span>
     </footer>
   );
 };
