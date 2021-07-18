@@ -24,7 +24,7 @@ a:hover {
 .App {
   text-align: left;
   color: white;
-  padding: 3rem;
+  padding: 3rem 2rem;
 }
 
 header {
@@ -47,7 +47,7 @@ footer {
 /* Animation */
 @media (prefers-reduced-motion: no-preference) {
   .anim-type {
-    animation: typewriter 1s steps(6) 500ms 1 normal both;
+    animation: typewriter 1s steps(6) 800ms 1 normal both;
     white-space: nowrap;
     overflow: hidden;
   }
@@ -74,7 +74,7 @@ footer {
     width: 0;
   }
   to {
-    width: 173px;
+    width: 6ch;
   }
 }
 @keyframes blinkTextCursor {
@@ -84,4 +84,8 @@ footer {
   to {
     opacity: 0;
   }
+}
+
+ul {
+  list-style: none;
 }

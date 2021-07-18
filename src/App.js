@@ -12,12 +12,17 @@ const App = () => {
       <main>
         <section className="bio">
           Hi!
-          <span role="img" aria-label="Waving hand">
+          <span role="img" aria-label="waving hand">
             👋
           </span>{" "}
-          I'm a delivery-oriented software engineer currently based in
-          Wellington with a passion for building beautiful, performant and
-          accessible products that your customers will love.
+          I'm a 🚀delivery-oriented Software Engineer based in Wellington with a
+          passion for{" "}
+          <div>
+            building <span aria-hidden>🤩</span>beautiful,{" "}
+            <span aria-hidden>⚡️</span>performant and{" "}
+            <span aria-hidden>🕊</span>accessible
+          </div>
+          web experiences that your customers will love.
         </section>
       </main>
 
