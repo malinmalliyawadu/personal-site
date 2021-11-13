@@ -1,37 +1,27 @@
 {
-  "name": "personal-site",
-  "version": "0.1.0",
-  "private": true,
-  "homepage": "https://malin.nz",
-  "dependencies": {
-    "gh-pages": "^2.2.0",
-    "prettier": "^2.3.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "^4.0.3",
-    "styled-components": "^5.3.0"
-  },
+  "name": "react-ts",
+  "version": "0.0.0",
   "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "serve": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -b master -d build",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "deploy": "gh-pages -b master -d dist"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "dependencies": {
+    "gh-pages": "^3.2.3",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "react-spring": "^9.3.0"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@vitejs/plugin-react": "^1.0.0",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.3.11",
+    "tailwindcss": "^2.2.19",
+    "typescript": "^4.3.2",
+    "vite": "^2.6.4"
   }
 }
