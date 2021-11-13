@@ -2,31 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: "Jetbrains Mono";
-  src: url("fonts/eot/JetBrainsMono-Regular.eot"); /* IE9 Compat Modes */
-  src: url("fonts/eot/JetBrainsMono-Regular.eot?#iefix")
-      format("embedded-opentype"),
-    /* IE6-IE8 */ url("fonts/woff2/JetBrainsMono-Regular.woff2") format("woff2"),
-    /* Super Modern Browsers */ url("fonts/woff/JetBrainsMono-Regular.woff")
-      format("woff"); /* Pretty Modern Browsers */
-}
-@font-face {
-  font-family: "Jetbrains Mono";
-  src: url("fonts/eot/JetBrainsMono-Bold.eot"); /* IE9 Compat Modes */
-  src: url("fonts/eot/JetBrainsMono-Bold.eot?#iefix")
-      format("embedded-opentype"),
-    /* IE6-IE8 */ url("fonts/woff2/JetBrainsMono-Bold.woff2") format("woff2"),
-    /* Super Modern Browsers */ url("fonts/woff/JetBrainsMono-Bold.woff")
-      format("woff"); /* Pretty Modern Browsers */
-  font-size: bold;
-}
-
 body {
   margin: 0;
-  font-family: "JetBrains Mono", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* background-color: rgba(17, 24, 39, 1); */

@@ -13,9 +13,9 @@ function App() {
 
         <div>
           <h1 className="text-5xl md:text-6xl font-black mb-4">
-            Hi, I'm Malin! 👋
+            Hi, I'm Malin!&nbsp;👋
           </h1>
-          <p className="text-2xl text-white">
+          <p className="text-2xl text-white text-opacity-90">
             A full-stack developer based in Wellington, NZ with a passion for
             building 🤩&nbsp;beautiful, ⚡️&nbsp;performant and&nbsp;🕊
             accessible web experiences that your customers will love.
@@ -24,7 +24,7 @@ function App() {
       </div>
 
       <div>
-        <ul className="flex gap-6 items-center">
+        <ul className="flex gap-6 items-end">
           <li className="text-8xl hidden md:block">{"{"}</li>
           <li>
             <a
