@@ -4,7 +4,7 @@ Basic static site for resume + portfolio.
 
 [malin.nz](https://malin.nz)
 
-## Deploy
+## 🚀 Deploy
 
 ```bash
 npm run deploy
