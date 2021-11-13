@@ -6,12 +6,12 @@ function App() {
       <div className="flex md:gap-20 flex-col md:flex-row-reverse items-center mb-10 md:mb-20">
         <img
           src={profilePic}
-          className="rounded-full max w-52 h-52 border-4 shadow-2xl border-gray-100"
+          className="rounded-full max w-52 h-52 border-4 shadow-2xl border-gray-100 border-opacity-40 drop-shadow-2xl"
           alt="Photo of me"
         />
 
         <div>
-          <h1 className="text-5xl md:text-6xl font-black mt-10 mb-4">
+          <h1 className="text-5xl md:text-6xl font-black mb-4">
             Hi, I'm Malin! 👋
           </h1>
           <p className="text-2xl text-white">
