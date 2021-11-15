@@ -7,7 +7,7 @@ function App() {
       <div className="flex md:gap-20 flex-col md:flex-row-reverse items-center mb-10 md:mb-20">
         <img
           src={profilePic}
-          className="rounded-full max w-52 h-52 border-4 shadow-2xl border-gray-100 border-opacity-40 drop-shadow-2xl"
+          className="rounded-full max w-52 h-52 border-4 shadow-2xl border-gray-100 border-opacity-40 drop-shadow-2xl mb-10"
           alt="Photo of me"
         />
 
