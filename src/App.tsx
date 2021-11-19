@@ -3,11 +3,11 @@ import resume from "./pdfs/resume.pdf";
 
 function App() {
   return (
-    <div className="min-h-screen text-white max-w-screen-lg mx-auto flex flex-col justify-center p-6">
+    <div className="min-h-screen text-white max-w-screen-lg mx-auto flex flex-col md:justify-center p-6">
       <div className="flex md:gap-20 flex-col md:flex-row-reverse items-center mb-10 md:mb-20">
         <img
           src={profilePic}
-          className="rounded-full max w-52 h-52 border-4 shadow-2xl border-gray-100 border-opacity-40 drop-shadow-2xl mb-10"
+          className="rounded-full max w-52 h-52 md:w-80 md:h-80 border-4 shadow-2xl border-gray-100 border-opacity-10 drop-shadow-2xl mb-10 md:mb-0"
           alt="Photo of me"
         />
 
@@ -17,8 +17,8 @@ function App() {
           </h1>
           <p className="text-2xl text-white text-opacity-90">
             A full-stack developer based in Wellington, NZ with a passion for
-            building 🤩&nbsp;beautiful, ⚡️&nbsp;performant and&nbsp;🕊
-            accessible web experiences that your customers will love.
+            building 🤩&nbsp;beautiful, ⚡️&nbsp;performant and
+            🕊&nbsp;accessible web experiences that your customers will love.
           </p>
         </div>
       </div>
