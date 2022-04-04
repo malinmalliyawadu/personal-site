@@ -13,7 +13,7 @@ function App() {
 
         <div>
           <h1 className="text-5xl md:text-6xl font-black mb-4">
-            Hi, I'm Malin!&nbsp;👋
+            Hi, I'm Malin!&nbsp;<span className="wave">👋</span>
           </h1>
           <p className="text-2xl text-white text-opacity-90">
             A full-stack developer based in Wellington, NZ with a passion for
