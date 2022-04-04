@@ -2,7 +2,7 @@
   "name": "react-ts",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "start": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
     "predeploy": "npm run build",
