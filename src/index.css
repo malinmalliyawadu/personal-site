@@ -55,3 +55,32 @@ code {
     transform: rotate(0deg);
   }
 }
+
+.carousel:before,
+.carousel:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  width: 1.5rem;
+  top: 0;
+  height: 100%;
+  pointer-events: none;
+}
+
+.carousel:before {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    rgb(13, 40, 67) 0.3rem,
+    rgba(0, 0, 0, 0)
+  );
+}
+
+.carousel:after {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    rgb(13, 40, 67) 0.3rem,
+    rgba(0, 0, 0, 0)
+  );
+}
