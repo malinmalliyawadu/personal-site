@@ -24,8 +24,8 @@ function App() {
           </div>
         </div>
 
-        <div className="carousel overflow-y-hidden overflow-x-hidden md:overflow-x-visible relative -mx-6">
-          <ul className="flex gap-6 items-end overflow-y-hidden overflow-x-auto md:overflow-visible px-6">
+        <div className="carousel overflow-y-hidden md:overflow-x-visible relative -mx-6">
+          <ul className="flex gap-6 items-end overflow-x-auto md:overflow-visible px-6 py-4">
             <li className="text-8xl hidden md:block">{"{"}</li>
             <li>
               <a
