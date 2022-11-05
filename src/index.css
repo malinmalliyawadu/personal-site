@@ -66,6 +66,12 @@ code {
   height: 100%;
   pointer-events: none;
 }
+@media (min-width: 768px) {
+  .carousel:before,
+  .carousel:after {
+    content: none;
+  }
+}
 
 .carousel:before {
   left: 0;
