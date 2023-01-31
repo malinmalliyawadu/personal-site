@@ -19,7 +19,7 @@ function App() {
             <p className="text-2xl text-white text-opacity-90">
               A full-stack developer based in Wellington, NZ with a passion for
               building 🤩&nbsp;beautiful, ⚡️&nbsp;performant and
-              🕊&nbsp;accessible web experiences that your customers will love.
+              ❤️&nbsp;accessible web experiences that your customers will love.
             </p>
           </div>
         </div>
