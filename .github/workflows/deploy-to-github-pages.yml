@@ -17,7 +17,7 @@ jobs:
 
       - run: |
           git config --global user.email "malin.malliya.wadu@gmail.com"
-          git config --global user.name "Malin Malliya Wadu"
+          git config --global user.name "malinmalliyawadu"
 
       - run: |
           npm i
