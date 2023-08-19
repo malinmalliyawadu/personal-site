@@ -24,7 +24,7 @@ import Link from "../components/Link.astro";
 
         <div>
           <h1 class="text-5xl md:text-6xl font-black mb-4 drop-shadow">
-            Hi, I'm Malin!&nbsp;<span class="wave">👋</span>
+            Hi, I'm Malin!&nbsp;<div class="animate-wave">👋</div>
           </h1>
           <p class="text-2xl text-white text-opacity-90 drop-shadow-lg">
             A full-stack developer based in Wellington, NZ with a passion for
@@ -163,3 +163,10 @@ import Link from "../components/Link.astro";
     </div>
   </main>
 </Layout>
+
+<style>
+  .animate-wave {
+    transform-origin: 70% 70%; /* Pivot around the bottom-left palm */
+    display: inline-block;
+  }
+</style>
