@@ -8,7 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "deploy": "gh-pages -b master -d dist"
+    "deploy": "gh-pages -b gh-pages -d dist"
   },
   "dependencies": {
     "@astrojs/tailwind": "^4.0.0",
