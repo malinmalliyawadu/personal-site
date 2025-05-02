@@ -11,59 +11,182 @@ interface Props {
 const { title, description, tags, image, github, demo } = Astro.props;
 ---
 
-<div class="bg-gray-800 bg-opacity-50 rounded-xl overflow-hidden backdrop-blur-sm border border-gray-700 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] hover:border-indigo-500/40 group">
-  <div class="h-full flex flex-col">
+<div class="project-card relative group overflow-hidden rounded-xl border border-gray-800 bg-gradient-to-br from-gray-900 to-gray-950">
+  <div class="shine-effect"></div>
+  <div class="p-6 flex flex-col h-full z-10 relative">
     {image && (
-      <div class="aspect-video overflow-hidden">
+      <div class="mb-6 rounded-lg overflow-hidden">
         <img
           src={image}
           alt={title}
-          class="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-500 ease-in-out"
+          class="w-full h-auto object-cover object-center transform group-hover:scale-105 transition-transform duration-500 ease-out"
         />
       </div>
     )}
-    <div class="p-6 flex-grow flex flex-col">
-      <h3 class="text-xl font-bold mb-2 text-white group-hover:text-indigo-400 transition-colors">{title}</h3>
-      <p class="text-gray-300 mb-4 flex-grow">{description}</p>
-      
-      <div class="flex flex-wrap gap-2 mb-4">
-        {tags.map((tag) => (
-          <span class="px-2 py-1 rounded-full text-xs font-medium bg-gray-700 text-gray-200">
-            {tag}
-          </span>
-        ))}
-      </div>
-      
-      <div class="flex gap-3 mt-auto">
+    
+    <h3 class="text-xl font-bold mb-2 text-white">{title}</h3>
+    <p class="text-gray-300 mb-6 flex-grow">{description}</p>
+    
+    <div class="flex flex-wrap gap-2 mb-6">
+      {tags.map((tag) => (
+        <span class="tag-pill">{tag}</span>
+      ))}
+    </div>
+    
+    <div class="flex gap-3 mt-auto">
+      <a
+        href={github}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="card-button card-button-github"
+        aria-label="View GitHub repository"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"></path>
+        </svg>
+        GitHub
+      </a>
+      {demo && (
         <a
-          href={github}
+          href={demo}
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-1 px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-600 text-white transition-colors"
+          class="card-button card-button-demo"
+          aria-label="View live demo"
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-            <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"></path>
+            <path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"></path>
+            <path d="M11 13l9 -9"></path>
+            <path d="M15 4h5v5"></path>
           </svg>
-          GitHub
+          Live Demo
         </a>
-        {demo && (
-          <a
-            href={demo}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-1 px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white transition-colors"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-              <path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"></path>
-              <path d="M11 13l9 -9"></path>
-              <path d="M15 4h5v5"></path>
-            </svg>
-            Live Demo
-          </a>
-        )}
-      </div>
+      )}
     </div>
   </div>
-</div> 
+</div>
+
+<style>
+  .project-card {
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.25);
+  }
+  
+  .project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 10px 10px rgba(0, 0, 0, 0.2);
+    border-color: rgba(99, 102, 241, 0.4);
+  }
+  
+  .project-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      800px circle at var(--mouse-x) var(--mouse-y),
+      rgba(99, 102, 241, 0.1),
+      transparent 40%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  .project-card:hover::before {
+    opacity: 1;
+  }
+  
+  .shine-effect {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: linear-gradient(
+      45deg,
+      transparent,
+      rgba(99, 102, 241, 0.05) 45%,
+      rgba(99, 102, 241, 0.1) 50%,
+      rgba(99, 102, 241, 0.05) 55%,
+      transparent
+    );
+    transform: translateX(-100%) rotate(45deg);
+    transition: transform 0.6s;
+    pointer-events: none;
+  }
+  
+  .project-card:hover .shine-effect {
+    transform: translateX(100%) rotate(45deg);
+  }
+  
+  .tag-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    border-radius: 9999px;
+    transition: all 0.3s ease;
+  }
+  
+  .card-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .card-button-github {
+    color: white;
+    background-color: rgba(31, 41, 55, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(75, 85, 99, 0.3);
+  }
+  
+  .card-button-github:hover {
+    background-color: rgba(55, 65, 81, 0.9);
+    transform: translateY(-2px);
+  }
+  
+  .card-button-demo {
+    color: white;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.8), rgba(79, 70, 229, 0.8));
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(99, 102, 241, 0.4);
+  }
+  
+  .card-button-demo:hover {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.9), rgba(79, 70, 229, 0.9));
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
+  }
+</style>
+
+<script>
+  // Mouse move effect for cards
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.project-card');
+    
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e: Event) => {
+        const mouseEvent = e as MouseEvent;
+        const rect = (card as HTMLElement).getBoundingClientRect();
+        const x = mouseEvent.clientX - rect.left;
+        const y = mouseEvent.clientY - rect.top;
+        
+        (card as HTMLElement).style.setProperty('--mouse-x', `${x}px`);
+        (card as HTMLElement).style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+  });
+</script> 

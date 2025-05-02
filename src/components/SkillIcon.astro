@@ -7,33 +7,136 @@ interface Props {
 const { name, icon } = Astro.props;
 ---
 
-<div class="skill-icon flex flex-col items-center justify-center gap-3 backdrop-blur-sm border hover:backdrop-blur-3xl border-gray-700/30 rounded-xl p-5 transition-all duration-300 hover:shadow-glow hover:scale-105 hover:bg-gray-50/5 group w-32 h-32">
-  <div class="icon-container relative">
-    <img 
-      src={icon} 
-      alt={name} 
-      class="w-12 h-12 object-contain transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
-    />
-    <div class="absolute inset-0 bg-indigo-500/20 filter blur-xl rounded-full opacity-0 group-hover:opacity-70 transition-opacity duration-300"></div>
+<div class="skill-card group">
+  <div class="skill-card-inner">
+    <div class="glow-effect"></div>
+    <div class="skill-icon-container">
+      <img 
+        src={icon} 
+        alt={name} 
+        class="skill-icon"
+        loading="lazy"
+      />
+    </div>
+    <span class="skill-name">{name}</span>
   </div>
-  <span class="text-sm font-medium text-center text-gray-300 group-hover:text-white transition-colors duration-300">{name}</span>
 </div>
 
 <style>
-  .skill-icon {
-    transform-origin: center;
+  .skill-card {
+    position: relative;
+    width: 8.5rem;
+    height: 8.5rem;
     margin: 0.5rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    perspective: 1000px;
   }
   
-  .icon-container {
-    height: 3rem;
+  .skill-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(99, 102, 241, 0.1);
+    border-radius: 1rem;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    box-shadow: 
+      0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+      0 2px 4px -1px rgba(0, 0, 0, 0.06),
+      0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  }
+  
+  .skill-card:hover .skill-card-inner {
+    transform: translateY(-8px);
+    border-color: rgba(99, 102, 241, 0.3);
+    box-shadow: 
+      0 15px 30px rgba(0, 0, 0, 0.3), 
+      0 10px 10px rgba(0, 0, 0, 0.2),
+      0 0 0 1px rgba(99, 102, 241, 0.2) inset;
+  }
+  
+  .glow-effect {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgba(99, 102, 241, 0.15),
+      transparent 50%
+    );
+    opacity: 0;
+    transition: opacity 0.6s;
+    pointer-events: none;
+  }
+  
+  .skill-card:hover .glow-effect {
+    opacity: 1;
+  }
+  
+  .skill-icon-container {
+    position: relative;
+    width: 3.5rem;
+    height: 3.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 0.75rem;
   }
   
-  .hover\:shadow-glow:hover {
-    box-shadow: 0 0 15px rgba(99, 102, 241, 0.5), 0 0 5px rgba(129, 140, 248, 0.3);
+  .skill-icon-container::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+      circle at center,
+      rgba(99, 102, 241, 0.5) 0%,
+      transparent 70%
+    );
+    border-radius: 50%;
+    opacity: 0;
+    filter: blur(8px);
+    transition: all 0.4s ease;
+    transform: scale(0.8);
+  }
+  
+  .skill-card:hover .skill-icon-container::after {
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
+  
+  .skill-icon {
+    width: 3rem;
+    height: 3rem;
+    object-fit: contain;
+    z-index: 1;
+    position: relative;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.1));
+    transition: all 0.4s ease;
+  }
+  
+  .skill-card:hover .skill-icon {
+    transform: scale(1.15) rotate(5deg);
+    filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.4));
+  }
+  
+  .skill-name {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    margin-top: auto;
+    transition: all 0.3s ease;
+    z-index: 1;
+  }
+  
+  .skill-card:hover .skill-name {
+    color: white;
+    text-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
   }
 </style> 

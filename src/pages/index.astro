@@ -1,11 +1,14 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar.astro";
-import Background from "../components/Background.astro";
+import MagicParticles from "../components/MagicParticles.astro";
 import Section from "../components/Section.astro";
 import SkillIcon from "../components/SkillIcon.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import Footer from "../components/Footer.astro";
+import AnimatedText from "../components/AnimatedText.astro";
+import SparklesText from "../components/SparklesText.astro";
+import AuroraText from "../components/AuroraText.astro";
 
 import profilePic from "../images/profile.jpg";
 import resume from "../pdfs/resume.pdf";
@@ -131,7 +134,9 @@ const projects = [
 ---
 
 <Layout title="Malin Malliya Wadu | Full-stack Developer">
-  <Background />
+  <div id="background-container">
+    <MagicParticles />
+  </div>
   <Navbar />
 
   <!-- Hero Section -->
@@ -142,9 +147,13 @@ const projects = [
           <div class="inline-block mb-2 px-3 py-1 bg-indigo-900/30 border border-indigo-800/50 rounded-full text-sm font-medium text-indigo-300">
             Full-stack Developer
           </div>
-          <h1 class="text-6xl md:text-6xl font-black mb-2">
-            Hi, I'm <span class="hover-animated gradient-text font-outfit">Malin</span>
-            <div class="inline-block animate-wave">👋</div>
+          <h1 class="text-6xl md:text-7xl font-black mb-2">
+            Hi, I'm <AuroraText 
+              class="font-outfit font-extrabold" 
+              colors={["#818cf8", "#c084fc", "#6366f1", "#a855f7"]}
+              speed={0.8}
+            >Malin</AuroraText>
+            <span class="inline-block">👋</span>
           </h1>
           <p class="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
             A full-stack developer from Wellington, NZ specializing in building beautiful, performant, and accessible web experiences.
@@ -168,7 +177,7 @@ const projects = [
         </div>
         <div class="md:w-1/2 flex justify-center">
           <div class="relative">
-            <div class="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full blur-3xl opacity-20 animate-pulse"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full blur-3xl opacity-20"></div>
             <img
               src={profilePic.src}
               alt="Malin Malliya Wadu"
@@ -450,6 +459,143 @@ const projects = [
   
   .skills-nav-button:hover:not(.active) {
     background-color: rgba(75, 85, 99, 0.5);
+  }
+  
+  /* Profile image styling */
+  .profile-image-container {
+    position: relative;
+    width: 16rem;
+    height: 16rem;
+    border-radius: 50%;
+    overflow: visible;
+    filter: drop-shadow(0 0 25px rgba(99, 102, 241, 0.3));
+    transition: transform 0.3s ease-out;
+  }
+
+  .profile-image-container:hover {
+    transform: scale(1.03);
+    filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.4));
+  }
+
+  @media (min-width: 768px) {
+    .profile-image-container {
+      width: 24rem;
+      height: 24rem;
+    }
+  }
+  
+  .profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid rgba(99, 102, 241, 0.3);
+    position: relative;
+    z-index: 1;
+    box-shadow: 
+      0 10px 25px -5px rgba(0, 0, 0, 0.3),
+      0 0 0 1px rgba(99, 102, 241, 0.2);
+    transition: all 0.3s ease;
+  }
+  
+  .profile-image-container:hover .profile-image {
+    border-color: rgba(139, 92, 246, 0.5);
+    box-shadow: 
+      0 15px 30px -5px rgba(0, 0, 0, 0.3),
+      0 0 0 2px rgba(139, 92, 246, 0.3);
+  }
+  
+  .profile-image-glow {
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    background: conic-gradient(
+      from 180deg at 50% 50%,
+      rgba(99, 102, 241, 0.8) 0deg,
+      rgba(168, 85, 247, 0.8) 72deg,
+      rgba(139, 92, 246, 0.8) 144deg,
+      rgba(124, 58, 237, 0.8) 216deg,
+      rgba(99, 102, 241, 0.8) 288deg,
+      rgba(99, 102, 241, 0.8) 360deg
+    );
+    filter: blur(20px);
+    z-index: 0;
+    opacity: 0.6;
+    animation: pulse 8s ease-in-out infinite alternate, rotate 12s linear infinite;
+    mix-blend-mode: overlay;
+  }
+  
+  .profile-image-accent {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: #6366f1;
+    border-radius: 50%;
+    bottom: 15%;
+    right: 0;
+    z-index: 2;
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.6);
+    opacity: 0.9;
+    transform: translateX(50%);
+    transition: all 0.3s ease;
+  }
+  
+  .profile-image-container:hover .profile-image-accent {
+    background-color: #8b5cf6;
+    transform: translateX(50%) scale(1.1);
+  }
+  
+  @keyframes pulse {
+    0% {
+      opacity: 0.4;
+      transform: scale(0.97);
+    }
+    100% {
+      opacity: 0.7;
+      transform: scale(1.03);
+    }
+  }
+  
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Don't delete this - may be used elsewhere */
+  .text-reveal:not(.aurora-text) {
+    position: relative;
+    display: inline-block;
+    color: #818cf8;
+    overflow: hidden;
+    background: linear-gradient(90deg, #818cf8, #a855f7);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .text-reveal:not(.aurora-text)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: #111827;
+    animation: showRight 1s ease forwards;
+    animation-delay: 0.5s;
+  }
+  
+  @keyframes showRight {
+    0% {
+      width: 100%;
+    }
+    100% {
+      width: 0;
+    }
   }
 </style>
 
