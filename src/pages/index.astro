@@ -30,12 +30,13 @@ const skillCategories = [
       { name: "Storybook", icon: "/icons/storybook.svg" },
       { name: "Styled Components", icon: "/icons/styled-components.svg" },
       { name: "Radix UI", icon: "/icons/radix.svg" },
+      { name: "Vite", icon: "/icons/vite.svg" },
     ]
   },
   {
     name: "Backend",
     skills: [
-      { name: ".NET", icon: "/icons/dotnet.svg" },
+      { name: ".NET", icon: "/icons/dotnetcore.svg" },
       { name: "Node.js", icon: "/icons/nodejs.svg" },
       { name: "SQL Server", icon: "/icons/sqlserver.svg" },
       { name: "MySQL", icon: "/icons/mysql.svg" },
@@ -50,7 +51,7 @@ const skillCategories = [
   {
     name: "DevOps & CI/CD",
     skills: [
-      { name: "GitHub Actions", icon: "/icons/github-actions.svg" },
+      { name: "GitHub Actions", icon: "/icons/githubactions.svg" },
       { name: "TeamCity", icon: "/icons/teamcity.svg" },
       { name: "Octopus Deploy", icon: "/icons/octopus.svg" },
       { name: "Docker", icon: "/icons/docker.svg" },
@@ -171,7 +172,7 @@ const projects = [
             <img
               src={profilePic.src}
               alt="Malin Malliya Wadu"
-              class="relative rounded-full w-64 h-64 md:w-80 md:h-80 object-cover border-4 border-gray-800 shadow-2xl"
+              class="relative rounded-full w-64 h-64 md:w-96 md:h-96 object-cover border-4 border-gray-800 shadow-2xl"
             />
           </div>
         </div>
@@ -194,19 +195,68 @@ const projects = [
     subtitle="Learn more about my background and what drives me"
   >
     <div class="max-w-4xl mx-auto">
-      <div class="bg-gray-800 bg-opacity-50 rounded-xl p-8 backdrop-blur-sm border border-gray-700">
-        <p class="text-lg mb-4 leading-relaxed">
-          I'm a full-stack developer with expertise in .NET, TypeScript, React, and AWS.
-          I specialize in Continuous Delivery, DevOps, and Cloud-first development, focusing
-          on creating clean, efficient, and scalable solutions.
-        </p>
-        <p class="text-lg mb-4 leading-relaxed">
-          With a passion for cutting-edge technologies, I'm currently exploring Expo, Remix, and
-          Prisma to expand my toolkit and stay ahead of industry trends.
-        </p>
-        <p class="text-lg leading-relaxed">
-          Off the keyboard, you'll find me chasing sunsets in my van 🚐, exploring hidden corners of the globe 🌏, crushing PRs at the gym 💪, and finding my zen through hot yoga 🧘‍♂️. Life's too short for boring code—or boring adventures.
-        </p>
+      <div class="bg-gray-800/40 rounded-xl p-8 backdrop-blur-sm border border-gray-700/50 shadow-xl relative overflow-hidden">
+        <!-- Gradient accent -->
+        <div class="absolute -top-24 -right-24 w-48 h-48 bg-indigo-600/20 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-24 -left-24 w-48 h-48 bg-purple-600/20 rounded-full blur-3xl"></div>
+        
+        <!-- Content with subtle grid layout -->
+        <div class="relative z-10 grid md:grid-cols-2 gap-8">
+          <!-- Professional section -->
+          <div class="space-y-4">
+            <div class="flex items-center mb-4">
+              <div class="p-2 bg-indigo-900/30 rounded-lg mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-white">Professional Skills</h3>
+            </div>
+            <p class="text-lg leading-relaxed">
+              I'm a full-stack developer with expertise in .NET, TypeScript, React, and AWS.
+              I specialize in Continuous Delivery, DevOps, and Cloud-first development, focusing
+              on creating clean, efficient, and scalable solutions.
+            </p>
+            <p class="text-lg leading-relaxed">
+              With a passion for cutting-edge technologies, I'm currently exploring Expo, Remix, and
+              Prisma to expand my toolkit and stay ahead of industry trends.
+            </p>
+          </div>
+          
+          <!-- Personal section -->
+          <div class="space-y-4">
+            <div class="flex items-center mb-4">
+              <div class="p-2 bg-purple-900/30 rounded-lg mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-white">Beyond Coding</h3>
+            </div>
+            <p class="text-lg leading-relaxed mb-4">
+              Off the keyboard, you'll find me:
+            </p>
+            <ul class="space-y-3">
+              <li class="flex items-center">
+                <span class="text-xl mr-3">🚐</span>
+                <span>Chasing sunsets in my van</span>
+              </li>
+              <li class="flex items-center">
+                <span class="text-xl mr-3">🌏</span>
+                <span>Exploring hidden corners of the globe</span>
+              </li>
+              <li class="flex items-center">
+                <span class="text-xl mr-3">💪</span>
+                <span>Crushing PRs at the gym</span>
+              </li>
+              <li class="flex items-center">
+                <span class="text-xl mr-3">🧘‍♂️</span>
+                <span>Finding my zen through hot yoga</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
       </div>
     </div>
   </Section>
@@ -410,6 +460,7 @@ const projects = [
     const slides = document.querySelectorAll('.skills-carousel-slide');
     const navButtons = document.querySelectorAll('.skills-nav-button');
     const skillsSection = document.querySelector('#skills');
+    const carouselContainer = document.querySelector('.skills-carousel-container');
     
     let currentIndex = 0;
     let interval: ReturnType<typeof setInterval> | undefined;
@@ -445,6 +496,19 @@ const projects = [
       }, 5000); // Change slide every 5 seconds
     }
     
+    // Pause auto-scrolling
+    function pauseAutoPlay() {
+      isAutoPlaying = false;
+    }
+    
+    // Resume auto-scrolling
+    function resumeAutoPlay() {
+      if (!interval) {
+        startAutoPlay();
+      }
+      isAutoPlaying = true;
+    }
+    
     // Permanently stop auto-scrolling
     function stopAutoPlay() {
       isAutoPlaying = false;
@@ -473,6 +537,12 @@ const projects = [
     // Add click event to the entire skills section to stop auto-scrolling
     if (skillsSection) {
       skillsSection.addEventListener('click', stopAutoPlay);
+    }
+    
+    // Add hover events to pause/resume auto-scrolling
+    if (carouselContainer) {
+      carouselContainer.addEventListener('mouseenter', pauseAutoPlay);
+      carouselContainer.addEventListener('mouseleave', resumeAutoPlay);
     }
     
     // Initialize

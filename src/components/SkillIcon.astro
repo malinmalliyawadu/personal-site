@@ -7,18 +7,33 @@ interface Props {
 const { name, icon } = Astro.props;
 ---
 
-<div class="skill-icon w-32 h-32 flex flex-col items-center justify-center gap-2 bg-gray-800 bg-opacity-50 rounded-xl p-4 hover:bg-gray-700 hover:scale-105 transition-all duration-300">
-  <img 
-    src={icon} 
-    alt={name} 
-    class="w-10 h-10 object-contain"
-  />
-  <span class="text-sm font-medium text-center flex items-center justify-center h-10">{name}</span>
+<div class="skill-icon flex flex-col items-center justify-center gap-3 backdrop-blur-sm border hover:backdrop-blur-3xl border-gray-700/30 rounded-xl p-5 transition-all duration-300 hover:shadow-glow hover:scale-105 hover:bg-gray-50/5 group w-32 h-32">
+  <div class="icon-container relative">
+    <img 
+      src={icon} 
+      alt={name} 
+      class="w-12 h-12 object-contain transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
+    />
+    <div class="absolute inset-0 bg-indigo-500/20 filter blur-xl rounded-full opacity-0 group-hover:opacity-70 transition-opacity duration-300"></div>
+  </div>
+  <span class="text-sm font-medium text-center text-gray-300 group-hover:text-white transition-colors duration-300">{name}</span>
 </div>
 
 <style>
   .skill-icon {
     transform-origin: center;
     margin: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  .icon-container {
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .hover\:shadow-glow:hover {
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.5), 0 0 5px rgba(129, 140, 248, 0.3);
   }
 </style> 
