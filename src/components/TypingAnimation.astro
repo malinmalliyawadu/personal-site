@@ -1,0 +1,214 @@
+---
+interface Props {
+  className?: string;
+  delay?: number;
+  duration?: number;
+  as?: string;
+  showCursor?: boolean;
+}
+
+const { 
+  className = "", 
+  delay = 0, 
+  duration = 100,
+  as: Component = "span",
+  showCursor = true
+} = Astro.props;
+---
+
+<Component
+  class={`${className} typing-hidden`}
+  data-typing-animation
+  data-delay={delay}
+  data-duration={duration}
+  data-show-cursor={showCursor}
+  data-content={
+    // This will be processed client-side
+    "CONTENT_PLACEHOLDER"
+  }
+>
+  <slot />
+</Component>
+
+<style>
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .typing-cursor::after {
+    content: '|';
+    display: inline-block;
+    animation: blink 1s steps(1) infinite;
+    margin-left: 2px;
+    color: #ffffff;
+  }
+  
+  /* Hide content initially */
+  .typing-hidden {
+    visibility: hidden;
+  }
+  
+  /* Hide cursor when typing is complete */
+  .typing-complete::after {
+    display: none;
+  }
+</style>
+
+<script>
+  // Initialize typing animations
+  function setupTypingAnimations() {
+    const typingElements = document.querySelectorAll('[data-typing-animation]');
+    
+    // Store original content before processing
+    typingElements.forEach((element) => {
+      const content = element.innerHTML;
+      // Store original content as data attribute
+      element.setAttribute('data-content', content);
+      // Clear visible content
+      element.innerHTML = '';
+      // Make element visible again but empty
+      element.classList.remove('typing-hidden');
+    });
+    
+    // Process animations in sequence
+    const animationsQueue = Array.from(typingElements);
+    
+    // Track active element for cursor
+    let activeElement: Element | null = null;
+    
+    // Process each animation
+    function processNextAnimation(index = 0) {
+      if (index >= animationsQueue.length) return;
+      
+      const element = animationsQueue[index];
+      const originalContent = element.getAttribute('data-content') || '';
+      const delay = parseInt(element.getAttribute('data-delay') || '0', 10);
+      const duration = parseInt(element.getAttribute('data-duration') || '100', 10);
+      const showCursor = element.getAttribute('data-show-cursor') === 'true';
+      
+      // Remove cursor from previous element
+      if (activeElement) {
+        activeElement.classList.remove('typing-cursor');
+      }
+      
+      // Add cursor to current element if needed
+      if (showCursor) {
+        element.classList.add('typing-cursor');
+        activeElement = element;
+      }
+      
+      // Set timeout to start animation after delay
+      setTimeout(() => {
+        animateTyping(element, originalContent, duration, showCursor, () => {
+          // After animation is done, move to next one
+          processNextAnimation(index + 1);
+        });
+      }, delay);
+    }
+    
+    // Start the animation sequence
+    if (animationsQueue.length > 0) {
+      processNextAnimation();
+    }
+  }
+
+  function animateTyping(element: Element, content: string, duration: number, showCursor: boolean, onComplete?: () => void) {
+    // Create a temporary div to parse the HTML
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = content;
+    
+    // If the content has HTML elements, use a different approach
+    const hasHtml = content.includes('<');
+    
+    if (hasHtml) {
+      // Extract all HTML nodes and text nodes
+      const nodes = Array.from(tempDiv.childNodes);
+      let currentNodeIndex = 0;
+      let currentNode = nodes[0];
+      let currentTextIndex = 0;
+      
+      // Start empty
+      element.innerHTML = '';
+      
+      function processNextNode() {
+        if (currentNodeIndex >= nodes.length) {
+          // Done with all nodes
+          if (onComplete) onComplete();
+          return;
+        }
+        
+        const node = nodes[currentNodeIndex];
+        
+        // If it's a text node, type it character by character
+        if (node.nodeType === Node.TEXT_NODE) {
+          const text = node.textContent || '';
+          if (currentTextIndex < text.length) {
+            // Add one character
+            const textNode = document.createTextNode(text.charAt(currentTextIndex));
+            element.appendChild(textNode);
+            currentTextIndex++;
+            setTimeout(processNextNode, duration);
+          } else {
+            // Move to next node
+            currentNodeIndex++;
+            currentTextIndex = 0;
+            setTimeout(processNextNode, 0);
+          }
+        } 
+        // If it's an element node, clone and append it
+        else if (node.nodeType === Node.ELEMENT_NODE) {
+          // Add the element immediately - this preserves styling
+          const clone = (node as Element).cloneNode(true);
+          element.appendChild(clone);
+          
+          // Move to next node immediately
+          currentNodeIndex++;
+          currentTextIndex = 0;
+          setTimeout(processNextNode, 0);
+        } 
+        // Skip other node types
+        else {
+          currentNodeIndex++;
+          setTimeout(processNextNode, 0);
+        }
+      }
+      
+      // Start processing nodes
+      processNextNode();
+    } else {
+      // For plain text, use the old approach
+      // Get text content to animate typing
+      const textContent = tempDiv.textContent || '';
+      let currentIndex = 0;
+      
+      // Start empty
+      element.innerHTML = '';
+      
+      // Function to add one character at a time
+      function typeNextChar() {
+        if (currentIndex < textContent.length) {
+          element.textContent += textContent[currentIndex];
+          currentIndex++;
+          setTimeout(typeNextChar, duration);
+        } else {
+          // When done typing text, restore any HTML formatting
+          element.innerHTML = content;
+          if (showCursor) {
+            element.classList.add('typing-complete');
+          }
+          // Call the completion callback
+          if (onComplete) onComplete();
+        }
+      }
+      
+      // Start typing
+      typeNextChar();
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', setupTypingAnimations);
+  
+  // Handle Astro view transitions
+  document.addEventListener('astro:page-load', setupTypingAnimations);
+</script> 

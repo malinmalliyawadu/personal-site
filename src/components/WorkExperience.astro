@@ -1,0 +1,246 @@
+---
+import AnimatedBeam from "./magicui/AnimatedBeam.astro";
+
+interface Job {
+  company: string;
+  role: string;
+  period: string;
+  description: string;
+  technologies: string[];
+  logo?: string;
+}
+
+interface Props {
+  jobs: Job[];
+}
+
+const { jobs } = Astro.props;
+---
+
+<div class="work-experience-wrapper">
+  <div id="work-experience-container" class="relative w-full">
+    {jobs.map((job, index) => (
+      <div class={`work-experience-item mb-24 ${index % 2 === 0 ? 'left-item' : 'right-item'}`}>
+        <div class={`flex flex-col md:flex-row gap-8 ${index % 2 === 0 ? '' : 'md:flex-row-reverse'}`}>
+          <div id={`job-${index}-marker`} class="relative flex-shrink-0 w-16 h-16 md:w-24 md:h-24 z-10">
+            <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-full blur-md"></div>
+            {job.logo ? (
+              <img 
+                src={job.logo}
+                alt={`${job.company} logo`}
+                class="relative w-full h-full object-cover p-0 rounded-full bg-gray-800/70 border border-gray-700"
+              />
+            ) : (
+              <div class="relative w-full h-full flex items-center justify-center rounded-full bg-gray-800/70 border border-gray-700">
+                <span class="text-2xl font-bold text-indigo-300">{job.company.charAt(0)}</span>
+              </div>
+            )}
+          </div>
+          
+          <div id={`job-${index}-content`} class="job-content flex-1 bg-gray-800/40 rounded-lg backdrop-blur-sm border border-gray-700/50 p-6 shadow-lg z-10">
+            <div class="mb-4 inline-block px-3 py-1 bg-indigo-900/30 border border-indigo-800/50 rounded-full text-sm text-indigo-300">
+              {job.period}
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold mb-1">{job.role}</h3>
+            <h4 class="text-lg md:text-xl text-indigo-300 mb-4">{job.company}</h4>
+            <p class="text-gray-300 mb-4">{job.description}</p>
+            
+            <div class="flex flex-wrap gap-2">
+              {job.technologies.map((tech) => (
+                <span class="bg-gray-700/50 text-xs rounded-full px-3 py-1 text-gray-300">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Set up the animated beams after the page layout is complete
+    setTimeout(() => {
+      const container = document.getElementById('work-experience-container');
+      if (!container) return;
+      
+      // Create beams container
+      const beamsContainer = document.createElement('div');
+      beamsContainer.className = 'beams-container absolute inset-0 z-0';
+      container.appendChild(beamsContainer);
+      
+      // Get all job markers
+      const markers = Array.from(document.querySelectorAll('[id^="job-"]')).filter(el => 
+        el.id.includes('-marker')
+      );
+      
+      // Sort markers by index to ensure chronological order (oldest to newest)
+      markers.sort((a, b) => {
+        const indexA = parseInt(a.id.split('-')[1]);
+        const indexB = parseInt(b.id.split('-')[1]);
+        return indexA - indexB;
+      });
+      
+      // Reverse the markers array to start from most recent (at top) to oldest (at bottom)
+      // This reverses the visual order but keeps animation going forward in time
+      // markers.reverse();
+      
+      // Create beams between consecutive markers
+      for (let i = 0; i < markers.length - 1; i++) {
+        const fromRef = markers[i].id;
+        const toRef = markers[i + 1].id;
+        
+        // Calculate progression factor - LOWER for more recent jobs (closer to top/start of array)
+        // Since markers are sorted from oldest (higher index) to newest (lower index)
+        const progressFactor = (markers.length - 1 - i) / (markers.length - 1);
+        
+        // Apply exponential scaling to create even stronger contrast
+        const enhancedFactor = Math.pow(progressFactor, 1.5);
+        
+        // Scale stroke width from 1 to 8 for more dramatic progression
+        const strokeWidth = 1 + (enhancedFactor * 7);
+        
+        // Increase opacity contrast for more recent jobs
+        const strokeOpacity = 0.1 + (enhancedFactor * 0.3);
+        
+        // Calculate gradient colors - dramatically more vibrant for recent jobs
+        const startColor = `rgba(129, 140, 248, ${0.5 + enhancedFactor * 0.5})`; // indigo
+        const endColor = `rgba(192, 132, 252, ${0.5 + enhancedFactor * 0.5})`; // purple
+        
+        // Add a base opacity factor to make all elements less distracting
+        const baseOpacity = 0.6;
+        
+        const beam = document.createElement('div');
+        beam.innerHTML = `
+          <svg class="absolute inset-0 w-full h-full" overflow="visible">
+            <path 
+              id="path-${i}" 
+              stroke="url(#gradient-${i})"
+              stroke-width="${strokeWidth}"
+              stroke-opacity="${(strokeOpacity * baseOpacity).toFixed(2)}"
+              fill="none"
+            ></path>
+            <circle 
+              id="point-${i}" 
+              r="${2 + enhancedFactor * 4}"
+              fill="url(#rainbow-${i})"
+              filter="url(#glow-${i})"
+              opacity="${baseOpacity}"
+            >
+              <animate 
+                attributeName="opacity" 
+                values="0;${baseOpacity};0" 
+                dur="${0.7 - enhancedFactor * 0.4}s"
+                begin="0s" 
+                repeatCount="indefinite"
+              />
+            </circle>
+            <defs>
+              <linearGradient id="gradient-${i}">
+                <stop offset="0%" stop-color="${startColor}"></stop>
+                <stop offset="100%" stop-color="${endColor}"></stop>
+              </linearGradient>
+              <radialGradient id="rainbow-${i}">
+                <stop offset="0%" stop-color="#ff9999">
+                  <animate attributeName="stop-color" 
+                    values="#ff9999; #ffcc99; #ffff99; #99ff99; #99ffff; #9999ff; #ff99ff; #ff9999" 
+                    dur="${6 - enhancedFactor * 3}s" 
+                    repeatCount="indefinite" />
+                </stop>
+                <stop offset="100%" stop-color="#ff0066">
+                  <animate attributeName="stop-color" 
+                    values="#ff0066; #ff6600; #ffcc00; #00cc00; #00ccff; #0066ff; #cc00ff; #ff0066" 
+                    dur="${6 - enhancedFactor * 3}s" 
+                    repeatCount="indefinite" />
+                </stop>
+              </radialGradient>
+              <filter id="glow-${i}" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="${0.5 + enhancedFactor * 4}" result="blur" />
+                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+              </filter>
+            </defs>
+          </svg>
+        `;
+        
+        beamsContainer.appendChild(beam);
+        
+        const drawBeam = () => {
+          const fromEl = document.getElementById(fromRef);
+          const toEl = document.getElementById(toRef);
+          
+          if (!fromEl || !toEl) return;
+          
+          const containerRect = container.getBoundingClientRect();
+          const fromRect = fromEl.getBoundingClientRect();
+          const toRect = toEl.getBoundingClientRect();
+          
+          const fromX = fromRect.left - containerRect.left + fromRect.width/2;
+          const fromY = fromRect.top - containerRect.top + fromRect.height/2;
+          const toX = toRect.left - containerRect.left + toRect.width/2;
+          const toY = toRect.top - containerRect.top + toRect.height/2;
+          
+          // Calculate control point for curve
+          const mx = fromX + (toX - fromX) / 2;
+          const my = fromY + (toY - fromY) / 2;
+          const cpx = mx;
+          const cpy = my - (Math.abs(toX - fromX) * 0.5);
+          
+          const path = `M ${fromX},${fromY} Q ${cpx},${cpy} ${toX},${toY}`;
+          const pathEl = document.getElementById(`path-${i}`);
+          if (pathEl) pathEl.setAttribute('d', path);
+          
+          // Add animation - with reverse=false to make it flow chronologically
+          const pointEl = document.getElementById(`point-${i}`);
+          if (pointEl) {
+            pointEl.innerHTML = '';
+            const animate = document.createElementNS('http://www.w3.org/2000/svg', 'animateMotion');
+            animate.setAttribute('dur', '3s');
+            animate.setAttribute('repeatCount', 'indefinite');
+            animate.setAttribute('path', path);
+            
+            // Reverse the animation - move from newer job to older job
+            animate.setAttribute('keyPoints', '1;0');
+            animate.setAttribute('keyTimes', '0;1');
+            animate.setAttribute('calcMode', 'linear');
+            
+            pointEl.appendChild(animate);
+          }
+        };
+        
+        drawBeam();
+        
+        // Update on resize and scroll
+        window.addEventListener('resize', drawBeam);
+        window.addEventListener('scroll', drawBeam);
+      }
+    }, 500);
+  });
+</script>
+
+<style>
+  .work-experience-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 200px;
+  }
+  
+  .work-experience-item {
+    position: relative;
+  }
+  
+  .beams-container {
+    pointer-events: none;
+  }
+  
+  @media (min-width: 768px) {
+    .left-item .job-content {
+      margin-left: 2rem;
+    }
+    
+    .right-item .job-content {
+      margin-right: 2rem;
+    }
+  }
+</style> 
