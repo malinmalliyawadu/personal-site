@@ -1,13 +1,218 @@
 <div class="fixed -z-10 inset-0 overflow-hidden">
-  <!-- Simple gradient background -->
+  <!-- Gradient background base -->
   <div class="absolute inset-0 bg-gradient-to-br from-gray-950 via-indigo-950/40 to-purple-950/30"></div>
+  
+  <!-- Animated gradient overlay -->
+  <div class="absolute inset-0 bg-gradient-radial opacity-30 animate-gradient"></div>
   
   <!-- Subtle grid pattern for texture -->
   <div class="absolute inset-0 bg-grid-white/[0.03] bg-[length:40px_40px]"></div>
+  
+  <!-- Glowing orbs -->
+  <div class="glow-orb absolute top-1/4 right-1/4 animate-float-slow"></div>
+  <div class="glow-orb absolute bottom-1/3 left-1/3 animate-float-medium"></div>
+  <div class="glow-orb absolute top-2/3 right-1/3 animate-float-fast"></div>
+  
 </div>
 
 <style>
   .bg-grid-white {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(255 255 255 / 0.05)'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
   }
-</style> 
+  
+  .bg-gradient-radial {
+    background: radial-gradient(circle at 50% 50%, 
+      rgba(129, 140, 248, 0.1), 
+      rgba(168, 85, 247, 0.1),
+      rgba(17, 24, 39, 0),
+      rgba(17, 24, 39, 0));
+    background-size: 200% 200%;
+  }
+  
+  .animate-gradient {
+    animation: moveGradient 15s ease infinite;
+  }
+  
+  @keyframes moveGradient {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+  }
+  
+  .glow-orb {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.15;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.8) 0%, rgba(79, 70, 229, 0.4) 50%, transparent 70%);
+  }
+  
+  .glow-orb:nth-child(3) {
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.8) 0%, rgba(79, 70, 229, 0.4) 50%, transparent 70%);
+  }
+  
+  .glow-orb:nth-child(4) {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.8) 0%, rgba(139, 92, 246, 0.4) 50%, transparent 70%);
+  }
+  
+  .animate-float-slow {
+    animation: float 25s ease-in-out infinite;
+  }
+  
+  .animate-float-medium {
+    animation: float 18s ease-in-out infinite reverse;
+  }
+  
+  .animate-float-fast {
+    animation: float 15s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0% { transform: translate(0px, 0px); }
+    25% { transform: translate(30px, 30px); }
+    50% { transform: translate(-20px, 20px); }
+    75% { transform: translate(-40px, -30px); }
+    100% { transform: translate(0px, 0px); }
+  }
+  
+  .particles-container {
+    background-image: 
+      radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+      radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px, 20px 20px;
+    animation: particlesMove 20s linear infinite;
+  }
+  
+  @keyframes particlesMove {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: 40px 40px, 20px 20px; }
+  }
+</style>
+
+<script>
+  // Simple static background with subtle animation
+  document.addEventListener('DOMContentLoaded', () => {
+    // Create fixed container covering the viewport
+    const starsContainer = document.createElement('div');
+    starsContainer.className = 'fixed inset-0 overflow-hidden pointer-events-none';
+    
+    // Calculate the viewport size with extra padding to allow stars to move outside
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    
+    // Add padding around the viewport to allow stars to move outside
+    const padding = 100; // 100px padding on each side
+    const totalWidth = viewportWidth + (padding * 2);
+    const totalHeight = viewportHeight + (padding * 2);
+    
+    // Star density calculation
+    const starDensity = 0.00008; // Stars per square pixel
+    const starCount = Math.floor(viewportWidth * viewportHeight * starDensity);
+    
+    // Create stars
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement('div');
+      
+      // Vary star sizes
+      const size = Math.random() * 2.5 + 0.8;
+      
+      // Random positions across the entire padded area
+      const left = Math.random() * totalWidth - padding;
+      const top = Math.random() * totalHeight - padding;
+      
+      star.className = 'absolute rounded-full bg-star';
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+      
+      // Add slight color variation
+      const hue = Math.random() > 0.7 ? 
+                `rgba(${210 + Math.random() * 40}, ${240 + Math.random() * 15}, 255, 0.9)` : 
+                'rgba(255, 255, 255, 0.8)';
+      star.style.backgroundColor = hue;
+      
+      star.style.left = `${left}px`;
+      star.style.top = `${top}px`;
+      
+      // Vary the opacity slightly
+      star.style.opacity = `${Math.random() * 0.3 + 0.5}`;
+      
+      // Add subtle glow effect
+      star.style.boxShadow = `0 0 ${Math.random() * 2 + 1}px rgba(255, 255, 255, 0.6)`;
+      
+      // Add simple twinkling and floating animations
+      const twinkleDuration = Math.random() * 5 + 3;
+      const floatDuration = Math.random() * 10 + 15; // 15-25 second float duration
+      const twinkleDelay = Math.random() * 5;
+      const floatDelay = Math.random() * 5;
+      
+      // Apply both animations
+      star.style.animation = `
+        twinkle ${twinkleDuration}s ease-in-out infinite alternate ${twinkleDelay}s,
+        starFloat ${floatDuration}s ease-in-out infinite ${floatDelay}s
+      `;
+      
+      starsContainer.appendChild(star);
+    }
+    
+    // Add the stars container to the background
+    const backgroundElement = document.querySelector('.fixed.-z-10');
+    if (backgroundElement) {
+      backgroundElement.appendChild(starsContainer);
+    }
+    
+    // Add CSS for the animations
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes twinkle {
+        0% { opacity: 0.3; transform: scale(0.8); }
+        100% { opacity: 0.8; transform: scale(1.1); }
+      }
+      
+      @keyframes starFloat {
+        0% { transform: translate(0, 0); }
+        25% { transform: translate(15px, 10px); }
+        50% { transform: translate(5px, 20px); }
+        75% { transform: translate(-10px, 10px); }
+        100% { transform: translate(0, 0); }
+      }
+      
+      .bg-star {
+        transition: opacity 3s ease;
+      }
+    `;
+    document.head.appendChild(style);
+    
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      const newWidth = window.innerWidth;
+      const newHeight = window.innerHeight;
+      
+      // Calculate new padded dimensions
+      const newTotalWidth = newWidth + (padding * 2);
+      const newTotalHeight = newHeight + (padding * 2);
+      
+      // Scale factor for repositioning stars
+      const scaleX = newTotalWidth / totalWidth;
+      const scaleY = newTotalHeight / totalHeight;
+      
+      // Only reposition if there's a significant change
+      if (Math.abs(scaleX - 1) > 0.1 || Math.abs(scaleY - 1) > 0.1) {
+        const stars = document.querySelectorAll('.bg-star');
+        stars.forEach(star => {
+          const htmlStar = star as HTMLElement;
+          const currentLeft = parseFloat(htmlStar.style.left);
+          const currentTop = parseFloat(htmlStar.style.top);
+          
+          // Apply scaling to keep stars distributed proportionally
+          htmlStar.style.left = `${currentLeft * scaleX}px`;
+          htmlStar.style.top = `${currentTop * scaleY}px`;
+        });
+      }
+    });
+  });
+</script> 
