@@ -276,7 +276,7 @@ const projects = [
   >
     <div class="skills-carousel-container">
       <!-- Category Navigation -->
-      <div class="flex justify-center mb-8">
+      <div class="flex justify-center mb-8 overflow-x-auto">
         <div class="flex space-x-2 p-1 bg-gray-800 bg-opacity-40 rounded-lg">
           {skillCategories.map((category, index) => (
             <button 
@@ -423,7 +423,6 @@ const projects = [
   
   .skills-carousel-container {
     max-width: 100%;
-    overflow: hidden;
     padding: 1rem 0;
   }
   
