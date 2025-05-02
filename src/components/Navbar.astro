@@ -1,0 +1,68 @@
+<header class="fixed w-full top-0 z-50 bg-gray-900/80 backdrop-blur-md border-b border-gray-800 shadow-lg">
+  <div class="container mx-auto px-4">
+    <nav class="flex items-center justify-between h-16">
+      <a href="#hero" class="text-xl font-bold text-white hover:text-indigo-400 transition-colors">
+        Malin<span class="text-indigo-400">.nz</span>
+      </a>
+      
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="#about" class="text-gray-300 hover:text-white transition-colors">About</a>
+        <a href="#skills" class="text-gray-300 hover:text-white transition-colors">Skills</a>
+        <a href="#projects" class="text-gray-300 hover:text-white transition-colors">Projects</a>
+        <a href="#contact" class="text-gray-300 hover:text-white transition-colors">Contact</a>
+        <a 
+          href="/pdfs/resume.pdf" 
+          target="_blank"
+          rel="noopener noreferrer" 
+          class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-800 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
+        >
+          Resume
+        </a>
+      </div>
+      
+      <button id="mobile-menu-button" class="md:hidden flex items-center p-2 rounded-md hover:bg-gray-700 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </nav>
+  </div>
+  
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-gray-700">
+    <div class="flex flex-col px-4 pt-2 pb-3 space-y-1">
+      <a href="#about" class="text-gray-300 hover:text-white px-3 py-2 rounded-md hover:bg-gray-700 transition-colors">About</a>
+      <a href="#skills" class="text-gray-300 hover:text-white px-3 py-2 rounded-md hover:bg-gray-700 transition-colors">Skills</a>
+      <a href="#projects" class="text-gray-300 hover:text-white px-3 py-2 rounded-md hover:bg-gray-700 transition-colors">Projects</a>
+      <a href="#contact" class="text-gray-300 hover:text-white px-3 py-2 rounded-md hover:bg-gray-700 transition-colors">Contact</a>
+      <a 
+        href="/pdfs/resume.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-800 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
+      >
+        Resume
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Toggle mobile menu
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  if (mobileMenuButton && mobileMenu) {
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // Close mobile menu when clicking on links
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+  }
+</script> 

@@ -1,20 +1,24 @@
 ---
 interface Props {
   title: string;
+  description?: string;
 }
 
-const { title } = Astro.props;
+const { title, description = "Full-stack developer specializing in .NET, TypeScript, React, and AWS. Based in Wellington, New Zealand." } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
+    <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=UA-165385706-1"></script>
@@ -28,15 +32,20 @@ const { title } = Astro.props;
       gtag("config", "UA-165385706-1");
     </script>
   </head>
-  <body>
+  <body class="bg-gradient-to-br from-gray-950 to-gray-900 text-white">
     <slot />
   </body>
 </html>
 <style is:global>
   html {
-    font-family: system-ui, sans-serif;
-    background: #13151a;
+    font-family: 'Inter', system-ui, sans-serif;
+    scroll-behavior: smooth;
   }
+  
+  body {
+    min-height: 100vh;
+  }
+  
   code {
     font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
       DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
