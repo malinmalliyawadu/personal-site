@@ -1,44 +1,200 @@
 ---
 interface Props {
   title: string;
+  description?: string;
 }
 
-const { title } = Astro.props;
+const { title, description = "Full-stack developer specializing in .NET, TypeScript, React, and AWS. Based in Wellington, New Zealand." } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
+    <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    </noscript>
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=UA-165385706-1"></script>
     <script>
+      interface Window {
+        dataLayer: any[];
+        gtag: (...args: any[]) => void;
+      }
+      
+      // @ts-ignore
       window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
+      function gtag(...args: any[]) {
+        // @ts-ignore
+        window.dataLayer.push(arguments);
       }
       gtag("js", new Date());
 
       gtag("config", "UA-165385706-1");
     </script>
   </head>
-  <body>
+  <body class="bg-gray-950 text-white">
     <slot />
   </body>
 </html>
 <style is:global>
-  html {
-    font-family: system-ui, sans-serif;
-    background: #13151a;
+  @font-face {
+    font-family: 'Outfit';
+    font-style: normal;
+    font-weight: 400 900;
+    font-display: swap;
+    src: url('/fonts/outfit.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
   }
+  
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    min-height: 100vh;
+  }
+  
   code {
     font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
       DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+  }
+  
+  .font-outfit {
+    font-family: 'Outfit', sans-serif;
+  }
+  
+  .gradient-text {
+    background: linear-gradient(90deg, #818cf8, #a855f7);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+    padding-bottom: 0.25em;
+  }
+  
+  .hover\:text-shadow-lg:hover {
+    text-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+  }
+  
+  /* Enhanced button styles - Magic UI inspired */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 font-medium text-white rounded-lg;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(
+      92.88deg, 
+      rgb(105, 112, 248) 9.16%, 
+      rgb(170, 54, 236) 43.89%, 
+      rgb(209, 103, 255) 83.78%
+    );
+    border: none;
+    box-shadow: 
+      0 2px 0 rgb(0 0 0 / 5%), 
+      0 0 0 1px rgb(0 0 0 / 10%), 
+      0 10px 15px -3px rgb(0 0 0 / 30%);
+    transition: all 0.2s ease-in-out;
+    transform: translateY(0);
+  }
+  
+  .btn-primary::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+      0 2px 0 rgb(0 0 0 / 5%), 
+      0 0 0 1px rgb(0 0 0 / 10%), 
+      0 10px 25px -3px rgb(0 0 0 / 40%);
+  }
+  
+  .btn-primary:hover::after {
+    opacity: 1;
+  }
+  
+  .btn-primary:active {
+    transform: translateY(1px);
+    box-shadow: 
+      0 1px 0 rgb(0 0 0 / 5%), 
+      0 0 0 1px rgb(0 0 0 / 10%), 
+      0 6px 10px -3px rgb(0 0 0 / 30%);
+  }
+  
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 font-medium rounded-lg;
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(24, 24, 27, 0.7);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    box-shadow: 
+      0 2px 0 rgb(0 0 0 / 5%), 
+      0 0 0 1px rgb(0 0 0 / 10%), 
+      0 8px 10px -3px rgb(0 0 0 / 20%);
+    transition: all 0.2s ease-in-out;
+    transform: translateY(0);
+  }
+  
+  .btn-secondary::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to bottom right,
+      rgba(99, 102, 241, 0.1),
+      rgba(99, 102, 241, 0) 40%
+    );
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+  }
+  
+  .btn-secondary:hover {
+    transform: translateY(-2px);
+    border-color: rgba(99, 102, 241, 0.4);
+    color: white;
+    box-shadow: 
+      0 2px 0 rgb(0 0 0 / 5%), 
+      0 0 0 1px rgb(99 102 241 / 20%), 
+      0 8px 20px -3px rgb(0 0 0 / 30%);
+  }
+  
+  .btn-secondary:hover::before {
+    opacity: 1;
+  }
+  
+  .btn-secondary:active {
+    transform: translateY(1px);
+    box-shadow: 
+      0 1px 0 rgb(0 0 0 / 5%), 
+      0 0 0 1px rgb(99 102 241 / 20%), 
+      0 4px 8px -3px rgb(0 0 0 / 20%);
   }
 </style>

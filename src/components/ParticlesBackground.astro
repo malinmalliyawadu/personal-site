@@ -1,0 +1,372 @@
+---
+// ParticlesBackground.astro
+// Inspired by Magic UI's particles background effect
+---
+
+<div class="particles-container">
+  <canvas id="particles-js" class="particles-canvas"></canvas>
+</div>
+
+<style>
+  .particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  
+  .particles-canvas {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    mix-blend-mode: screen;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Configuration for particles
+    const particlesConfig = {
+      particles: {
+        number: {
+          value: 40,
+          density: {
+            enable: true,
+            value_area: 1200
+          }
+        },
+        color: {
+          value: ["#6366f1", "#a855f7", "#8b5cf6", "#c4b5fd"]
+        },
+        shape: {
+          type: "circle",
+          stroke: {
+            width: 0,
+            color: "#000000"
+          }
+        },
+        opacity: {
+          value: 0.15,
+          random: true,
+          anim: {
+            enable: true,
+            speed: 0.05,
+            opacity_min: 0.05,
+            sync: false
+          }
+        },
+        size: {
+          value: 2,
+          random: true,
+          anim: {
+            enable: true,
+            speed: 0.5,
+            size_min: 0.1,
+            sync: false
+          }
+        },
+        line_linked: {
+          enable: true,
+          distance: 170,
+          color: "#8b5cf6",
+          opacity: 0.15,
+          width: 1
+        },
+        move: {
+          enable: true,
+          speed: 0.3,
+          direction: "none",
+          random: true,
+          straight: false,
+          out_mode: "out",
+          bounce: false,
+          attract: {
+            enable: true,
+            rotateX: 600,
+            rotateY: 1200
+          }
+        }
+      },
+      interactivity: {
+        detect_on: "window",
+        events: {
+          onhover: {
+            enable: true,
+            mode: "grab"
+          },
+          onclick: {
+            enable: false,
+            mode: "push"
+          },
+          resize: true
+        },
+        modes: {
+          grab: {
+            distance: 180,
+            line_linked: {
+              opacity: 0.3
+            }
+          },
+          push: {
+            particles_nb: 3
+          }
+        }
+      }
+    };
+
+    interface Particle {
+      x: number;
+      y: number;
+      size: number;
+      color: string;
+      speed: number;
+      vx: number;
+      vy: number;
+      opacity: number;
+      opacityDirection: number;
+    }
+
+    interface RGB {
+      r: number;
+      g: number;
+      b: number;
+    }
+
+    // Create particle effect (vanilla JS implementation)
+    class ParticleSystem {
+      canvas: HTMLCanvasElement;
+      ctx: CanvasRenderingContext2D;
+      particles: Particle[];
+      config: any;
+      interactivity: any;
+      mouse: { x: number | null; y: number | null };
+
+      constructor(config: any) {
+        const canvas = document.getElementById('particles-js') as HTMLCanvasElement | null;
+        if (!canvas) {
+          throw new Error("Canvas element not found");
+        }
+        
+        this.canvas = canvas;
+        const ctx = this.canvas.getContext('2d');
+        if (!ctx) {
+          throw new Error("Could not get canvas context");
+        }
+        
+        this.ctx = ctx;
+        this.particles = [];
+        this.config = config.particles;
+        this.interactivity = config.interactivity;
+        this.mouse = { x: null, y: null };
+        
+        this.init();
+      }
+      
+      init(): void {
+        // Set canvas size
+        this.resize();
+        
+        // Generate particles
+        this.createParticles();
+        
+        // Start animation
+        this.animate();
+        
+        // Event listeners
+        window.addEventListener('resize', () => this.resize());
+        
+        // Mouse tracking
+        window.addEventListener('mousemove', (e) => {
+          this.mouse.x = e.clientX;
+          this.mouse.y = e.clientY;
+        });
+        
+        window.addEventListener('mouseout', () => {
+          this.mouse.x = null;
+          this.mouse.y = null;
+        });
+        
+        // Click event for adding particles
+        if (this.interactivity.events.onclick.enable) {
+          window.addEventListener('click', (e) => {
+            const pushCount = this.interactivity.modes.push.particles_nb;
+            for (let i = 0; i < pushCount; i++) {
+              this.particles.push(this.createParticle(e.clientX, e.clientY));
+            }
+          });
+        }
+      }
+      
+      resize(): void {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+        
+        // Re-create particles when resizing
+        if (this.particles.length > 0) {
+          this.particles = [];
+          this.createParticles();
+        }
+      }
+      
+      createParticles(): void {
+        const particleCount = this.config.number.value;
+        for (let i = 0; i < particleCount; i++) {
+          this.particles.push(this.createParticle());
+        }
+      }
+      
+      createParticle(x?: number, y?: number): Particle {
+        const size = this.config.size.random 
+          ? Math.random() * this.config.size.value + 1 
+          : this.config.size.value;
+        
+        const position = {
+          x: x !== undefined ? x : Math.random() * this.canvas.width,
+          y: y !== undefined ? y : Math.random() * this.canvas.height
+        };
+        
+        const opacity = this.config.opacity.random 
+          ? Math.random() * this.config.opacity.value 
+          : this.config.opacity.value;
+          
+        // Handle array of colors
+        let colorValue: string;
+        if (Array.isArray(this.config.color.value)) {
+          const colorIndex = Math.floor(Math.random() * this.config.color.value.length);
+          colorValue = this.config.color.value[colorIndex];
+        } else {
+          colorValue = this.config.color.value;
+        }
+        
+        const color = this.hexToRgb(colorValue);
+        
+        return {
+          x: position.x,
+          y: position.y,
+          size: size,
+          color: `rgba(${color.r}, ${color.g}, ${color.b}, ${opacity})`,
+          speed: this.config.move.speed,
+          vx: (Math.random() - 0.5) * this.config.move.speed,
+          vy: (Math.random() - 0.5) * this.config.move.speed,
+          opacity: opacity,
+          opacityDirection: Math.random() > 0.5 ? 1 : -1
+        };
+      }
+      
+      hexToRgb(hex: string): RGB {
+        // Convert hex to RGB
+        const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+        hex = hex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);
+        
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16)
+        } : { r: 0, g: 0, b: 0 };
+      }
+      
+      animate(): void {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        // Update and draw particles
+        for (let i = 0; i < this.particles.length; i++) {
+          const p = this.particles[i];
+          
+          // Update position
+          p.x += p.vx;
+          p.y += p.vy;
+          
+          // Boundary conditions
+          if (p.x < 0 || p.x > this.canvas.width) p.vx = -p.vx;
+          if (p.y < 0 || p.y > this.canvas.height) p.vy = -p.vy;
+          
+          // Update opacity if animation enabled
+          if (this.config.opacity.anim.enable) {
+            p.opacity += 0.01 * p.opacityDirection * this.config.opacity.anim.speed;
+            
+            if (p.opacity <= this.config.opacity.anim.opacity_min) {
+              p.opacity = this.config.opacity.anim.opacity_min;
+              p.opacityDirection = 1;
+            } else if (p.opacity >= this.config.opacity.value) {
+              p.opacity = this.config.opacity.value;
+              p.opacityDirection = -1;
+            }
+            
+            // Extract the RGB part from the color string
+            const rgbMatch = p.color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+            if (rgbMatch) {
+              p.color = `rgba(${rgbMatch[1]}, ${rgbMatch[2]}, ${rgbMatch[3]}, ${p.opacity})`;
+            }
+          }
+          
+          // Draw particle
+          this.ctx.beginPath();
+          this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          this.ctx.fillStyle = p.color;
+          this.ctx.fill();
+          
+          // Draw connections
+          if (this.config.line_linked.enable && this.mouse.x && this.mouse.y) {
+            // Connections to mouse if hovering
+            if (this.interactivity.events.onhover.enable) {
+              const dx = this.mouse.x - p.x;
+              const dy = this.mouse.y - p.y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              
+              if (dist < this.interactivity.modes.grab.distance) {
+                const opacity = this.interactivity.modes.grab.line_linked.opacity - 
+                  (dist / this.interactivity.modes.grab.distance);
+                  
+                if (opacity > 0) {
+                  const lineColor = this.hexToRgb(this.config.line_linked.color);
+                  
+                  this.ctx.beginPath();
+                  this.ctx.moveTo(p.x, p.y);
+                  this.ctx.lineTo(this.mouse.x, this.mouse.y);
+                  this.ctx.strokeStyle = `rgba(${lineColor.r}, ${lineColor.g}, ${lineColor.b}, ${opacity})`;
+                  this.ctx.lineWidth = this.config.line_linked.width;
+                  this.ctx.stroke();
+                }
+              }
+            }
+            
+            // Connections between particles
+            for (let j = i + 1; j < this.particles.length; j++) {
+              const p2 = this.particles[j];
+              const dx = p.x - p2.x;
+              const dy = p.y - p2.y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              
+              if (dist < this.config.line_linked.distance) {
+                const opacity = 1 - (dist / this.config.line_linked.distance);
+                const lineColor = this.hexToRgb(this.config.line_linked.color);
+                
+                this.ctx.beginPath();
+                this.ctx.moveTo(p.x, p.y);
+                this.ctx.lineTo(p2.x, p2.y);
+                this.ctx.strokeStyle = `rgba(${lineColor.r}, ${lineColor.g}, ${lineColor.b}, ${opacity * this.config.line_linked.opacity})`;
+                this.ctx.lineWidth = this.config.line_linked.width;
+                this.ctx.stroke();
+              }
+            }
+          }
+        }
+        
+        requestAnimationFrame(() => this.animate());
+      }
+    }
+    
+    // Try to initialize particle system
+    try {
+      new ParticleSystem(particlesConfig);
+    } catch (e) {
+      console.error("Could not initialize particle system:", e);
+    }
+  });
+</script> 

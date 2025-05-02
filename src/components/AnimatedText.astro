@@ -1,0 +1,78 @@
+---
+interface Props {
+  text: string;
+  className?: string;
+  delay?: number;
+}
+
+const { text, className = "", delay = 0 } = Astro.props;
+---
+
+<span 
+  class={`animated-text ${className}`}
+  data-text={text}
+  style={`--animation-delay: ${delay}ms;`}
+>
+  {text}
+</span>
+
+<style>
+  .animated-text {
+    position: relative;
+    display: inline-block;
+    color: transparent;
+    overflow: hidden;
+    animation: reveal 0.8s ease forwards var(--animation-delay);
+  }
+  
+  .animated-text::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: white;
+    transform: translateY(100%);
+    animation: slideUp 0.8s ease forwards var(--animation-delay);
+  }
+  
+  .animated-text::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #6366f1, #a855f7);
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: 
+      fillLeft 0.8s ease forwards var(--animation-delay),
+      fadeOut 0.5s ease forwards calc(var(--animation-delay) + 800ms);
+  }
+  
+  @keyframes slideUp {
+    to {
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes reveal {
+    to {
+      color: white;
+    }
+  }
+  
+  @keyframes fillLeft {
+    to {
+      transform: scaleX(1);
+    }
+  }
+  
+  @keyframes fadeOut {
+    to {
+      opacity: 0;
+    }
+  }
+</style> 

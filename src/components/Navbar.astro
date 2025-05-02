@@ -1,0 +1,122 @@
+<header class="fixed top-0 z-50 left-1/2 transform -translate-x-1/2 mt-4 bg-gray-900/50 backdrop-blur-md border border-gray-900 shadow-lg rounded-xl max-w-7xl w-full">
+  <div class="container mx-auto px-6">
+    <nav class="flex items-center justify-between h-16">
+      <a href="#hero" class="text-xl font-bold text-white group hover-animated">
+        <span class="">Malin</span><span class="text-indigo-400">.nz</span>
+      </a>
+      
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="#about" class="text-gray-300 hover:text-white transition-colors nav-link">About</a>
+        <a href="#skills" class="text-gray-300 hover:text-white transition-colors nav-link">Skills</a>
+        <a href="#projects" class="text-gray-300 hover:text-white transition-colors nav-link">Projects</a>
+        <a href="#contact" class="text-gray-300 hover:text-white transition-colors nav-link">Contact</a>
+        <a 
+          href="/pdfs/resume.pdf" 
+          target="_blank"
+          rel="noopener noreferrer" 
+          class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md transition-all duration-300 bg-gradient-to-r from-indigo-500 to-purple-500 text-white hover:from-indigo-600 hover:to-purple-600 hover:shadow-lg hover:shadow-indigo-500/30 transform hover:-translate-y-0.5"
+        >
+          Resume
+        </a>
+      </div>
+      
+      <button id="mobile-menu-button" class="md:hidden flex items-center p-2 rounded-md bg-gray-800 bg-opacity-50 border border-gray-700 hover:bg-gray-700 hover:border-indigo-500 transition-all duration-300 hover:shadow-md hover:shadow-indigo-500/20">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </nav>
+  </div>
+  
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-gray-700 rounded-b-xl overflow-hidden">
+    <div class="flex flex-col px-4 pt-2 pb-3 space-y-1">
+      <a href="#about" class="text-gray-300 hover:text-white px-3 py-2 rounded-md hover:bg-gray-700 transition-colors nav-link">About</a>
+      <a href="#skills" class="text-gray-300 hover:text-white px-3 py-2 rounded-md hover:bg-gray-700 transition-colors nav-link">Skills</a>
+      <a href="#projects" class="text-gray-300 hover:text-white px-3 py-2 rounded-md hover:bg-gray-700 transition-colors nav-link">Projects</a>
+      <a href="#contact" class="text-gray-300 hover:text-white px-3 py-2 rounded-md hover:bg-gray-700 transition-colors nav-link">Contact</a>
+      <a 
+        href="/src/pdfs/resume.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md transition-all duration-300 bg-gradient-to-r from-indigo-500 to-purple-500 text-white hover:from-indigo-600 hover:to-purple-600 hover:shadow-lg hover:shadow-indigo-500/30 transform hover:-translate-y-0.5"
+      >
+        Resume
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Toggle mobile menu
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  if (mobileMenuButton && mobileMenu) {
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // Close mobile menu when clicking on links
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+  }
+</script>
+
+<style>
+  .hover-animated {
+    position: relative;
+    display: inline-block;
+    transition: all 0.3s ease;
+  }
+  
+  .hover-animated::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(90deg, rgba(129, 140, 248, 1), rgba(168, 85, 247, 1));
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+  }
+  
+  .hover-animated:hover {
+    transform: translateY(-2px);
+    text-shadow: 0 0 8px rgba(139, 92, 246, 0.5);
+  }
+  
+  .hover-animated:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+  
+  .nav-link {
+    position: relative;
+    padding-bottom: 2px;
+  }
+  
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(90deg, rgba(129, 140, 248, 1), rgba(168, 85, 247, 1));
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+  }
+  
+  .nav-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+</style>

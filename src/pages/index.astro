@@ -1,172 +1,702 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import MagicParticles from "../components/MagicParticles.astro";
+import Section from "../components/Section.astro";
+import SkillIcon from "../components/SkillIcon.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import Footer from "../components/Footer.astro";
+import AuroraText from "../components/AuroraText.astro";
+
 import profilePic from "../images/profile.jpg";
 import resume from "../pdfs/resume.pdf";
-import Blobs from "../components/Blobs.astro";
-import Link from "../components/Link.astro";
+
+// Skills organized by category
+const skillCategories = [
+  {
+    name: "Frontend",
+    skills: [
+      { name: "React", icon: "/icons/react.svg" },
+      { name: "TypeScript", icon: "/icons/typescript.svg" },
+      { name: "NextJS", icon: "/icons/nextjs.svg" },
+      { name: "Tailwind CSS", icon: "/icons/tailwindcss.svg" },
+      { name: "Shadcn", icon: "/icons/shadcn.svg" },
+      { name: "Tanstack Query", icon: "/icons/react-query.svg" },
+      { name: "single-spa", icon: "/icons/single-spa.svg" },
+      { name: "Astro", icon: "/icons/astro.svg" },
+      { name: "Sass", icon: "/icons/sass.svg" },
+      { name: "tRPC", icon: "/icons/trpc.svg" },
+      { name: "Zod", icon: "/icons/zod.svg" },
+      { name: "Zustand", icon: "/icons/zustand.svg" },
+      { name: "Storybook", icon: "/icons/storybook.svg" },
+      { name: "Styled Components", icon: "/icons/styled-components.svg" },
+      { name: "Radix UI", icon: "/icons/radix-ui.svg" },
+      { name: "Vite", icon: "/icons/vite.svg" },
+    ]
+  },
+  {
+    name: "Backend",
+    skills: [
+      { name: ".NET", icon: "/icons/dotnetcore.svg" },
+      { name: "Node.js", icon: "/icons/nodejs.svg" },
+      { name: "SQL Server", icon: "/icons/sqlserver.svg" },
+      { name: "MySQL", icon: "/icons/mysql.svg" },
+      { name: "PostgreSQL", icon: "/icons/postgresql.svg" },
+      { name: "Prisma", icon: "/icons/prisma.svg" },
+      { name: "Fastify", icon: "/icons/fastify.svg" },
+      { name: "RabbitMQ", icon: "/icons/rabbitmq.svg" },
+      { name: "Redis", icon: "/icons/redis.svg" },
+      { name: "OpenAPI", icon: "/icons/openapi.svg" },
+    ]
+  },
+  {
+    name: "DevOps & CI/CD",
+    skills: [
+      { name: "GitHub Actions", icon: "/icons/githubactions.svg" },
+      { name: "TeamCity", icon: "/icons/teamcity.svg" },
+      { name: "Octopus Deploy", icon: "/icons/octopusdeploy.svg" },
+      { name: "Docker", icon: "/icons/docker.svg" },
+      { name: "CI/CD", icon: "/icons/cicd.svg" },
+      { name: "ArgoCD", icon: "/icons/argocd.svg" },
+      { name: "Kubernetes", icon: "/icons/kubernetes.svg" },
+      { name: "Nx", icon: "/icons/nx.svg" },
+      { name: "Helm", icon: "/icons/helm.svg" },
+    ]
+  },
+  {
+    name: "Cloud & Infrastructure",
+    skills: [
+      { name: "AWS", icon: "/icons/aws.svg" },
+      { name: "Azure", icon: "/icons/azure.svg" },
+      { name: "Terraform", icon: "/icons/terraform.svg" },
+      { name: "GitHub", icon: "/icons/github.svg" },
+      { name: "NewRelic", icon: "/icons/new-relic.svg" },
+      { name: "LaunchDarkly", icon: "/icons/launchdarkly.svg" },
+    ]
+  },
+  {
+    name: "Testing",
+    skills: [
+      { name: "Playwright", icon: "/icons/playwright.svg" },
+      { name: "Cypress", icon: "/icons/cypress.svg" },
+      { name: "Jest", icon: "/icons/jest.svg" },
+      { name: "Vitest", icon: "/icons/vitest.svg" },
+      { name: "Percy", icon: "/icons/percy.svg" },
+      { name: "MSW", icon: "/icons/msw.svg" },
+    ]
+  },
+  {
+    name: "Mobile",
+    skills: [
+      { name: "Expo", icon: "/icons/expo.svg" },
+      { name: "React Native", icon: "/icons/react.svg" },
+    ]
+  }
+];
+
+// Projects from your GitHub
+const projects = [
+  {
+    title: "FlakeManager",
+    description: "Automated flaky test management for Cypress test suites. Helps identify and manage inconsistent tests.",
+    tags: ["TypeScript", "Cypress", "Testing", "Automation"],
+    github: "https://github.com/malinmalliyawadu/FlakeManager",
+    image: undefined,
+    demo: undefined
+  },
+  {
+    title: "CapDevReporter",
+    description: "Automated time tracking with Jira integration. Simplifies project time management.",
+    tags: ["TypeScript", "Jira API", "Time Tracking", "Reporting"],
+    github: "https://github.com/malinmalliyawadu/CapDevReporter",
+    image: undefined,
+    demo: undefined
+  },
+  {
+    title: "Sally",
+    description: "Mobile app for van life in Aotearoa, New Zealand. Helps travelers find camping spots and essentials.",
+    tags: ["TypeScript", "Mobile", "Maps", "Travel"],
+    github: "https://github.com/malinmalliyawadu/Sally",
+    image: '/screenshots/sally.png',
+    demo: undefined
+  },
+  {
+    title: "Import Map Devtools",
+    description: "Browser devtools for import maps. Makes working with modern JavaScript imports easier.",
+    tags: ["TypeScript", "Browser Extension", "Developer Tools"],
+    github: "https://github.com/malinmalliyawadu/import-map-devtools",
+    image: '/screenshots/import-map-devtools.png',
+    demo: undefined
+  }
+];
 ---
 
-<Layout title="Malin Malliya Wadu">
-  <Blobs />
+<Layout title="Malin Malliya Wadu | Full-stack Developer">
+  <div id="background-container">
+    <MagicParticles />
+  </div>
+  <Navbar />
 
-  <main>
-    <div
-      class="min-h-screen text-white max-w-screen-lg mx-auto flex flex-col md:justify-center p-6"
-    >
-      <div
-        class="flex md:gap-20 flex-col md:flex-row-reverse items-center mb-10 md:mb-20"
-      >
-        <img
-          src={profilePic}
-          class="rounded-full max w-52 h-52 md:w-80 md:h-80 border-4 shadow-2xl border-gray-100 border-opacity-10 drop-shadow-2xl mb-10 md:mb-0"
-          alt="Photo of me"
-        />
-
-        <div>
-          <h1 class="text-5xl md:text-6xl font-black mb-4 drop-shadow">
-            Hi, I'm Malin!&nbsp;<div class="animate-wave">👋</div>
+  <!-- Hero Section -->
+  <section id="hero" class="min-h-screen pt-32 md:pt-0 flex items-center relative">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-12">
+        <div class="md:w-1/2">
+          <div class="inline-block mb-2 px-3 py-1 bg-indigo-900/30 border border-indigo-800/50 rounded-full text-sm font-medium text-indigo-300">
+            Full-stack Developer
+          </div>
+          <h1 class="text-6xl md:text-7xl font-black mb-2">
+            Hi, I'm <AuroraText 
+              class="font-outfit font-extrabold" 
+              colors={["#818cf8", "#c084fc", "#6366f1", "#a855f7"]}
+              speed={0.8}
+            >Malin</AuroraText>
+            <span class="inline-block">👋</span>
           </h1>
-          <p class="text-2xl text-white text-opacity-90 drop-shadow-lg">
-            A full-stack developer based in Wellington, NZ with a passion for
-            building 🤩&nbsp;beautiful, ⚡️&nbsp;performant and
-            ❤️&nbsp;accessible web experiences that your customers will love.
+          <p class="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
+            A full-stack developer from Wellington, NZ specializing in building beautiful, performant, and accessible web experiences.
           </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a 
+              href="#projects" 
+              class="btn-primary"
+            >
+              View Projects
+            </a>
+            <a 
+              href={resume} 
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-secondary"
+            >
+              Resume
+            </a>
+          </div>
+        </div>
+        <div class="md:w-1/2 flex justify-end">
+          <div class="relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full blur-3xl opacity-20"></div>
+            <img
+              src={profilePic.src}
+              alt="Malin Malliya Wadu"
+              class="relative rounded-full w-64 h-64 md:w-96 md:h-96 object-cover border-4 border-gray-800 shadow-2xl"
+            />
+          </div>
         </div>
       </div>
-
-      <div
-        class="carousel overflow-y-hidden md:overflow-y-visible relative -mx-6"
-      >
-        <ul
-          class="flex gap-6 items-end overflow-x-auto md:overflow-visible px-6 py-4"
-        >
-          <li class="text-8xl hidden md:block drop-shadow">{"{"}</li>
-          <li>
-            <Link text="Github" href="https://github.com/malinmalliyawadu">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class=""
-                width="44"
-                height="44"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentcolor"
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="drop-shadow"
-                slot="icon"
-              >
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <path
-                  d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"
-                ></path>
-              </svg>
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="https://www.linkedin.com/in/malin-malliya-wadu-94956522/"
-              text="LinkedIn"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="44"
-                height="44"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentcolor"
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="drop-shadow"
-                slot="icon"
-              >
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <rect x="4" y="4" width="16" height="16" rx="2"></rect>
-                <line x1="8" y1="11" x2="8" y2="16"></line>
-                <line x1="8" y1="8" x2="8" y2="8.01"></line>
-                <line x1="12" y1="16" x2="12" y2="11"></line>
-                <path d="M16 16v-3a2 2 0 0 0 -4 0"></path>
-              </svg>
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="https://www.credly.com/users/malin-malliya-wadu"
-              text="Certs"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="44"
-                height="44"
-                preserveAspectRatio="xMidYMid meet"
-                viewBox="0 0 20 20"
-                class="drop-shadow"
-                slot="icon"
-              >
-                <path
-                  fill="currentColor"
-                  d="M4 3a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h7.5v-.671a4.514 4.514 0 0 1-.242-.329H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v2.468c.364.18.7.41 1 .678V5a2 2 0 0 0-2-2H4Zm14.5 8.5a3.5 3.5 0 1 1-7 0a3.5 3.5 0 0 1 7 0ZM15 16c.925 0 1.785-.28 2.5-.758V18a.5.5 0 0 1-.8.4l-1.4-1.05a.5.5 0 0 0-.6 0l-1.4 1.05a.5.5 0 0 1-.8-.4v-2.758A4.478 4.478 0 0 0 15 16ZM5 6.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5Zm.5 4.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4Z"
-                ></path>
-              </svg>
-            </Link>
-          </li>
-          <li>
-            <Link href={resume} text="Resume">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="44"
-                height="44"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentcolor"
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="drop-shadow"
-                slot="icon"
-              >
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                <path d="M5 8v-3a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2h-5"
-                ></path>
-                <circle cx="6" cy="14" r="3"></circle>
-                <path d="M4.5 17l-1.5 5l3 -1.5l3 1.5l-1.5 -5"></path>
-              </svg>
-            </Link>
-          </li>
-          <li class="flex justify-center">
-            <Link href="mailto:malin.malliya.wadu@gmail.com" text="Email">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="44"
-                height="44"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentcolor"
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="drop-shadow"
-                slot="icon"
-              >
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-                <polyline points="3 7 12 13 21 7"></polyline>
-              </svg>
-            </Link>
-          </li>
-          <li class="text-8xl hidden md:block drop-shadow">{"}"}</li>
-        </ul>
+      
+      <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 hidden md:block animate-bounce">
+        <a href="#about" class="text-gray-400 hover:text-white transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </a>
       </div>
     </div>
-  </main>
+  </section>
+  
+  <!-- About Section -->
+  <Section
+    id="about"
+    title="About Me"
+    subtitle="Learn more about my background and what drives me"
+  >
+    <div class="max-w-4xl mx-auto">
+      <div class="bg-gray-800/40 rounded-xl p-8 backdrop-blur-sm border border-gray-700/50 shadow-xl relative overflow-hidden">
+        <!-- Gradient accent -->
+        <div class="absolute -top-24 -right-24 w-48 h-48 bg-indigo-600/20 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-24 -left-24 w-48 h-48 bg-purple-600/20 rounded-full blur-3xl"></div>
+        
+        <!-- Content with subtle grid layout -->
+        <div class="relative z-10 grid md:grid-cols-2 gap-8">
+          <!-- Professional section -->
+          <div class="space-y-4">
+            <div class="flex items-center mb-4">
+              <div class="p-2 bg-indigo-900/30 rounded-lg mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-white">Professional Skills</h3>
+            </div>
+            <p class="text-lg leading-relaxed">
+              I'm a full-stack developer with expertise in .NET, TypeScript, React, and AWS.
+              I specialize in Continuous Delivery, DevOps, and Cloud-first development, focusing
+              on creating clean, efficient, and scalable solutions.
+            </p>
+            <p class="text-lg leading-relaxed">
+              With a passion for cutting-edge technologies, I'm currently exploring Expo, Remix, and
+              Prisma to expand my toolkit and stay ahead of industry trends.
+            </p>
+          </div>
+          
+          <!-- Personal section -->
+          <div class="space-y-4">
+            <div class="flex items-center mb-4">
+              <div class="p-2 bg-purple-900/30 rounded-lg mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-white">Beyond Coding</h3>
+            </div>
+            <p class="text-lg leading-relaxed mb-4">
+              Off the keyboard, you'll find me:
+            </p>
+            <ul class="space-y-3">
+              <li class="flex items-center">
+                <span class="text-xl mr-3">🚐</span>
+                <span>Chasing sunsets in my van</span>
+              </li>
+              <li class="flex items-center">
+                <span class="text-xl mr-3">🌏</span>
+                <span>Exploring hidden corners of the globe</span>
+              </li>
+              <li class="flex items-center">
+                <span class="text-xl mr-3">💪</span>
+                <span>Crushing PRs at the gym</span>
+              </li>
+              <li class="flex items-center">
+                <span class="text-xl mr-3">🧘‍♂️</span>
+                <span>Finding my zen through hot yoga</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </Section>
+  
+  <!-- Skills Section -->
+  <Section
+    id="skills"
+    title="Skills & Technologies"
+    subtitle="The tools and technologies I work with"
+  >
+    <div class="skills-carousel-container">
+      <!-- Category Navigation -->
+      <div class="flex justify-center mb-8">
+        <div class="flex space-x-2 p-1 bg-gray-800 bg-opacity-40 rounded-lg">
+          {skillCategories.map((category, index) => (
+            <button 
+              class="skills-nav-button px-4 py-2 rounded-md text-sm transition-all duration-300" 
+              data-index={index}
+              aria-label={`Show ${category.name} skills`}
+            >
+              {category.name}
+            </button>
+          ))}
+        </div>
+      </div>
+      
+      <!-- Carousel Container with overflow control -->
+      <div class="overflow-hidden">
+        <div class="skills-carousel relative">
+          <div class="skills-carousel-track flex transition-transform duration-500">
+            {skillCategories.map((category) => (
+              <div class="skills-carousel-slide w-full flex-shrink-0">
+                <div class="flex flex-wrap justify-center py-2 px-4">
+                  {category.skills.map((skill) => (
+                    <SkillIcon name={skill.name} icon={skill.icon} />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </Section>
+  
+  <!-- Projects Section -->
+  <Section
+    id="projects"
+    title="Projects"
+    subtitle="Check out some of my recent work"
+  >
+    <div class="grid md:grid-cols-2 gap-8">
+      {projects.map((project) => (
+        <ProjectCard
+          title={project.title}
+          description={project.description}
+          tags={project.tags}
+          image={project.image}
+          github={project.github}
+          demo={project.demo}
+        />
+      ))}
+    </div>
+  </Section>
+  
+  <!-- Contact Section -->
+  <Section
+    id="contact"
+    title="Get In Touch"
+    subtitle="Interested in working together? Let's connect!"
+  >
+    <div class="max-w-lg mx-auto">
+      <div class="bg-gray-800 bg-opacity-50 rounded-xl p-8 backdrop-blur-sm border border-gray-700 text-center">
+        <p class="text-lg mb-8">
+          I'm currently available for freelance and contract opportunities. Feel free to reach out if you're looking for a developer to help bring your ideas to life!
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="mailto:malin.malliya.wadu@gmail.com"
+            class="btn-primary"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+              <polyline points="3 7 12 13 21 7"></polyline>
+            </svg>
+            Email Me
+          </a>
+          <a
+            href="https://www.linkedin.com/in/malin-malliya-wadu-94956522/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-secondary"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path>
+            </svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </div>
+  </Section>
+  
+  <Footer />
+  
 </Layout>
 
 <style>
   .animate-wave {
-    transform-origin: 70% 70%; /* Pivot around the bottom-left palm */
     display: inline-block;
+    transform-origin: 70% 70%;
+    animation: wave 2.5s infinite;
+  }
+
+  @keyframes wave {
+    0% { transform: rotate(0deg); }
+    10% { transform: rotate(14deg); }
+    20% { transform: rotate(-8deg); }
+    30% { transform: rotate(14deg); }
+    40% { transform: rotate(-4deg); }
+    50% { transform: rotate(10deg); }
+    60% { transform: rotate(0deg); }
+    100% { transform: rotate(0deg); }
+  }
+  
+  /* Hover animation for name */
+  .hover-animated {
+    position: relative;
+    display: inline-block;
+    transition: all 0.3s ease;
+  }
+  
+  .hover-animated::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(90deg, rgba(129, 140, 248, 1), rgba(168, 85, 247, 1));
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+  }
+  
+  .hover-animated:hover {
+    transform: translateY(-2px);
+    text-shadow: 0 0 8px rgba(139, 92, 246, 0.5);
+  }
+  
+  .hover-animated:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+  
+  .skills-carousel-container {
+    max-width: 100%;
+    overflow: hidden;
+    padding: 1rem 0;
+  }
+  
+  .skills-carousel {
+    position: relative;
+    padding: 0.5rem;
+    overflow: visible;
+  }
+  
+  .skills-carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .skills-carousel-slide {
+    width: 100%;
+    flex-shrink: 0;
+    padding: 0.5rem;
+  }
+  
+  .skills-nav-button.active {
+    background-color: rgba(99, 102, 241, 0.8);
+    color: white;
+    font-weight: 500;
+  }
+  
+  .skills-nav-button:not(.active) {
+    color: #d1d5db;
+    background-color: transparent;
+  }
+  
+  .skills-nav-button:hover:not(.active) {
+    background-color: rgba(75, 85, 99, 0.5);
+  }
+  
+  /* Profile image styling */
+  .profile-image-container {
+    position: relative;
+    width: 16rem;
+    height: 16rem;
+    border-radius: 50%;
+    overflow: visible;
+    filter: drop-shadow(0 0 25px rgba(99, 102, 241, 0.3));
+    transition: transform 0.3s ease-out;
+  }
+
+  .profile-image-container:hover {
+    transform: scale(1.03);
+    filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.4));
+  }
+
+  @media (min-width: 768px) {
+    .profile-image-container {
+      width: 24rem;
+      height: 24rem;
+    }
+  }
+  
+  .profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid rgba(99, 102, 241, 0.3);
+    position: relative;
+    z-index: 1;
+    box-shadow: 
+      0 10px 25px -5px rgba(0, 0, 0, 0.3),
+      0 0 0 1px rgba(99, 102, 241, 0.2);
+    transition: all 0.3s ease;
+  }
+  
+  .profile-image-container:hover .profile-image {
+    border-color: rgba(139, 92, 246, 0.5);
+    box-shadow: 
+      0 15px 30px -5px rgba(0, 0, 0, 0.3),
+      0 0 0 2px rgba(139, 92, 246, 0.3);
+  }
+  
+  .profile-image-glow {
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    background: conic-gradient(
+      from 180deg at 50% 50%,
+      rgba(99, 102, 241, 0.8) 0deg,
+      rgba(168, 85, 247, 0.8) 72deg,
+      rgba(139, 92, 246, 0.8) 144deg,
+      rgba(124, 58, 237, 0.8) 216deg,
+      rgba(99, 102, 241, 0.8) 288deg,
+      rgba(99, 102, 241, 0.8) 360deg
+    );
+    filter: blur(20px);
+    z-index: 0;
+    opacity: 0.6;
+    animation: pulse 8s ease-in-out infinite alternate, rotate 12s linear infinite;
+    mix-blend-mode: overlay;
+  }
+  
+  .profile-image-accent {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: #6366f1;
+    border-radius: 50%;
+    bottom: 15%;
+    right: 0;
+    z-index: 2;
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.6);
+    opacity: 0.9;
+    transform: translateX(50%);
+    transition: all 0.3s ease;
+  }
+  
+  .profile-image-container:hover .profile-image-accent {
+    background-color: #8b5cf6;
+    transform: translateX(50%) scale(1.1);
+  }
+  
+  @keyframes pulse {
+    0% {
+      opacity: 0.4;
+      transform: scale(0.97);
+    }
+    100% {
+      opacity: 0.7;
+      transform: scale(1.03);
+    }
+  }
+  
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Don't delete this - may be used elsewhere */
+  .text-reveal:not(.aurora-text) {
+    position: relative;
+    display: inline-block;
+    color: #818cf8;
+    overflow: hidden;
+    background: linear-gradient(90deg, #818cf8, #a855f7);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .text-reveal:not(.aurora-text)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: #111827;
+    animation: showRight 1s ease forwards;
+    animation-delay: 0.5s;
+  }
+  
+  @keyframes showRight {
+    0% {
+      width: 100%;
+    }
+    100% {
+      width: 0;
+    }
   }
 </style>
+
+<script>
+  // Initialize carousel
+  document.addEventListener('DOMContentLoaded', () => {
+    const track = document.querySelector('.skills-carousel-track') as HTMLElement;
+    const slides = document.querySelectorAll('.skills-carousel-slide');
+    const navButtons = document.querySelectorAll('.skills-nav-button');
+    const skillsSection = document.querySelector('#skills');
+    const carouselContainer = document.querySelector('.skills-carousel-container');
+    
+    let currentIndex = 0;
+    let interval: ReturnType<typeof setInterval> | undefined;
+    let isAutoPlaying = true;
+    const slidesCount = slides.length;
+    
+    // Set up initial state
+    function updateCarousel() {
+      // Update track position
+      if (track) {
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+      }
+      
+      // Update active nav button
+      navButtons.forEach((button, index) => {
+        if (index === currentIndex) {
+          button.classList.add('active');
+        } else {
+          button.classList.remove('active');
+        }
+      });
+    }
+    
+    // Start auto-rotation
+    function startAutoPlay() {
+      if (interval) clearInterval(interval);
+      
+      interval = setInterval(() => {
+        if (isAutoPlaying) {
+          currentIndex = (currentIndex + 1) % slidesCount;
+          updateCarousel();
+        }
+      }, 5000); // Change slide every 5 seconds
+    }
+    
+    // Pause auto-scrolling
+    function pauseAutoPlay() {
+      isAutoPlaying = false;
+    }
+    
+    // Resume auto-scrolling
+    function resumeAutoPlay() {
+      if (!interval) {
+        startAutoPlay();
+      }
+      isAutoPlaying = true;
+    }
+    
+    // Permanently stop auto-scrolling
+    function stopAutoPlay() {
+      isAutoPlaying = false;
+      if (interval) {
+        clearInterval(interval);
+        interval = undefined;
+      }
+    }
+    
+    // Event handlers
+    function handleNavButtonClick(e: Event) {
+      e.preventDefault();
+      const clickedIndex = parseInt((e.currentTarget as HTMLElement).dataset.index || '0', 10);
+      if (!isNaN(clickedIndex)) {
+        currentIndex = clickedIndex;
+        updateCarousel();
+        stopAutoPlay();
+      }
+    }
+    
+    // Attach event listeners to nav buttons
+    navButtons.forEach(button => {
+      button.addEventListener('click', handleNavButtonClick);
+    });
+    
+    // Add click event to the entire skills section to stop auto-scrolling
+    if (skillsSection) {
+      skillsSection.addEventListener('click', stopAutoPlay);
+    }
+    
+    // Add hover events to pause/resume auto-scrolling
+    if (carouselContainer) {
+      carouselContainer.addEventListener('mouseenter', pauseAutoPlay);
+      carouselContainer.addEventListener('mouseleave', resumeAutoPlay);
+    }
+    
+    // Initialize
+    updateCarousel();
+    startAutoPlay();
+    
+    // Set first nav button as active initially
+    if (navButtons.length > 0) {
+      navButtons[0].classList.add('active');
+    }
+  });
+</script>
+
