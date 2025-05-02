@@ -1,8 +1,8 @@
 <header class="fixed w-full top-0 z-50 bg-gray-900/80 backdrop-blur-md border-b border-gray-800 shadow-lg">
   <div class="container mx-auto px-4">
     <nav class="flex items-center justify-between h-16">
-      <a href="#hero" class="text-xl font-bold text-white hover:text-indigo-400 transition-colors">
-        Malin<span class="text-indigo-400">.nz</span>
+      <a href="#hero" class="text-xl font-bold text-white group hover-animated">
+        <span class="">Malin</span><span class="text-indigo-400">.nz</span>
       </a>
       
       <div class="hidden md:flex items-center space-x-8">
@@ -65,4 +65,35 @@
       });
     });
   }
-</script> 
+</script>
+
+<style>
+  .hover-animated {
+    position: relative;
+    display: inline-block;
+    transition: all 0.3s ease;
+  }
+  
+  .hover-animated::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(90deg, rgba(129, 140, 248, 1), rgba(168, 85, 247, 1));
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+  }
+  
+  .hover-animated:hover {
+    transform: translateY(-2px);
+    text-shadow: 0 0 8px rgba(139, 92, 246, 0.5);
+  }
+  
+  .hover-animated:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+</style>

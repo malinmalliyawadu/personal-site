@@ -12,8 +12,10 @@ const { id, title, subtitle, class: className = "" } = Astro.props;
 <section id={id} class={`py-20 ${className}`}>
   <div class="container mx-auto px-4">
     <div class="text-center mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent inline-block">
-        {title}
+      <h2 class="text-3xl md:text-5xl font-extrabold inline-block tracking-tight font-outfit">
+        <div class="gradient-text">
+          {title}
+        </div>
       </h2>
       
       {subtitle && (

@@ -142,7 +142,7 @@ const projects = [
             Full-stack Developer
           </div>
           <h1 class="text-4xl md:text-6xl font-black mb-6">
-            Hi, I'm <span class="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">Malin</span>
+            Hi, I'm <span class="hover-animated gradient-text font-outfit">Malin</span>
             <div class="inline-block animate-wave">👋</div>
           </h1>
           <p class="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
@@ -205,8 +205,7 @@ const projects = [
           Prisma to expand my toolkit and stay ahead of industry trends.
         </p>
         <p class="text-lg leading-relaxed">
-          When I'm not coding, I enjoy cooking 👨‍🍳, traveling the world 🌏, going to the gym 💪,
-          and taking care of my plant collection 👨‍🌾.
+          Off the keyboard, you'll find me chasing sunsets in my van 🚐, exploring hidden corners of the globe 🌏, crushing PRs at the gym 💪, and finding my zen through hot yoga 🧘‍♂️. Life's too short for boring code—or boring adventures.
         </p>
       </div>
     </div>
@@ -333,6 +332,36 @@ const projects = [
     50% { transform: rotate(10deg); }
     60% { transform: rotate(0deg); }
     100% { transform: rotate(0deg); }
+  }
+  
+  /* Hover animation for name */
+  .hover-animated {
+    position: relative;
+    display: inline-block;
+    transition: all 0.3s ease;
+  }
+  
+  .hover-animated::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(90deg, rgba(129, 140, 248, 1), rgba(168, 85, 247, 1));
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+  }
+  
+  .hover-animated:hover {
+    transform: translateY(-2px);
+    text-shadow: 0 0 8px rgba(139, 92, 246, 0.5);
+  }
+  
+  .hover-animated:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
   }
   
   .skills-carousel-container {
