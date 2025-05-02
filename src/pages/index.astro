@@ -10,19 +10,66 @@ import Footer from "../components/Footer.astro";
 import profilePic from "../images/profile.jpg";
 import resume from "../pdfs/resume.pdf";
 
-// Skill icons are typically stored in public/icons/ folder - you'll need to add these
-const skills = [
-  { name: ".NET", icon: "/icons/dotnet.svg" },
-  { name: "TypeScript", icon: "/icons/typescript.svg" },
-  { name: "React", icon: "/icons/react.svg" },
-  { name: "AWS", icon: "/icons/aws.svg" },
-  { name: "Node.js", icon: "/icons/nodejs.svg" },
-  { name: "Astro", icon: "/icons/astro.svg" },
-  { name: "Azure", icon: "/icons/azure.svg" },
-  { name: "Tailwind CSS", icon: "/icons/tailwindcss.svg" },
-  { name: "GitHub", icon: "/icons/github.svg" },
-  { name: "Docker", icon: "/icons/docker.svg" },
-  { name: "CI/CD", icon: "/icons/cicd.svg" },
+// Skills organized by category
+const skillCategories = [
+  {
+    name: "Frontend",
+    skills: [
+      { name: "React", icon: "/icons/react.svg" },
+      { name: "TypeScript", icon: "/icons/typescript.svg" },
+      { name: "NextJS", icon: "/icons/nextjs.svg" },
+      { name: "Tailwind CSS", icon: "/icons/tailwindcss.svg" },
+      { name: "Shadcn", icon: "/icons/shadcn.svg" },
+      { name: "Tanstack Query", icon: "/icons/tanstack.svg" },
+      { name: "single-spa", icon: "/icons/singlespa.svg" },
+      { name: "Astro", icon: "/icons/astro.svg" },
+    ]
+  },
+  {
+    name: "Backend",
+    skills: [
+      { name: ".NET", icon: "/icons/dotnet.svg" },
+      { name: "Node.js", icon: "/icons/nodejs.svg" },
+      { name: "SQL Server", icon: "/icons/sqlserver.svg" },
+      { name: "MySQL", icon: "/icons/mysql.svg" },
+      { name: "PostgreSQL", icon: "/icons/postgresql.svg" },
+      { name: "Prisma", icon: "/icons/prisma.svg" },
+    ]
+  },
+  {
+    name: "DevOps & CI/CD",
+    skills: [
+      { name: "GitHub Actions", icon: "/icons/github-actions.svg" },
+      { name: "TeamCity", icon: "/icons/teamcity.svg" },
+      { name: "Octopus Deploy", icon: "/icons/octopus.svg" },
+      { name: "Docker", icon: "/icons/docker.svg" },
+      { name: "CI/CD", icon: "/icons/cicd.svg" },
+    ]
+  },
+  {
+    name: "Cloud & Infrastructure",
+    skills: [
+      { name: "AWS", icon: "/icons/aws.svg" },
+      { name: "Azure", icon: "/icons/azure.svg" },
+      { name: "Terraform", icon: "/icons/terraform.svg" },
+      { name: "GitHub", icon: "/icons/github.svg" },
+    ]
+  },
+  {
+    name: "Testing",
+    skills: [
+      { name: "Playwright", icon: "/icons/playwright.svg" },
+      { name: "Cypress", icon: "/icons/cypress.svg" },
+      { name: "Jest", icon: "/icons/jest.svg" },
+    ]
+  },
+  {
+    name: "Mobile",
+    skills: [
+      { name: "Expo", icon: "/icons/expo.svg" },
+      { name: "React Native", icon: "/icons/react-native.svg" },
+    ]
+  }
 ];
 
 // Projects from your GitHub
@@ -151,10 +198,38 @@ const projects = [
     title="Skills & Technologies"
     subtitle="The tools and technologies I work with"
   >
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-      {skills.map((skill) => (
-        <SkillIcon name={skill.name} icon={skill.icon} />
-      ))}
+    <div class="skills-carousel-container">
+      <!-- Category Navigation -->
+      <div class="flex justify-center mb-8">
+        <div class="flex space-x-2 p-1 bg-gray-800 bg-opacity-40 rounded-lg">
+          {skillCategories.map((category, index) => (
+            <button 
+              class="skills-nav-button px-4 py-2 rounded-md text-sm transition-all duration-300" 
+              data-index={index}
+              aria-label={`Show ${category.name} skills`}
+            >
+              {category.name}
+            </button>
+          ))}
+        </div>
+      </div>
+      
+      <!-- Carousel Container with overflow control -->
+      <div class="overflow-hidden">
+        <div class="skills-carousel relative">
+          <div class="skills-carousel-track flex transition-transform duration-500">
+            {skillCategories.map((category) => (
+              <div class="skills-carousel-slide w-full flex-shrink-0">
+                <div class="flex flex-wrap justify-center py-2 px-4">
+                  {category.skills.map((skill) => (
+                    <SkillIcon name={skill.name} icon={skill.icon} />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   </Section>
   
@@ -239,4 +314,126 @@ const projects = [
     60% { transform: rotate(0deg); }
     100% { transform: rotate(0deg); }
   }
+  
+  .skills-carousel-container {
+    max-width: 100%;
+    overflow: hidden;
+    padding: 1rem 0;
+  }
+  
+  .skills-carousel {
+    position: relative;
+    padding: 0.5rem;
+    overflow: visible;
+  }
+  
+  .skills-carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .skills-carousel-slide {
+    width: 100%;
+    flex-shrink: 0;
+    padding: 0.5rem;
+  }
+  
+  .skills-nav-button.active {
+    background-color: rgba(99, 102, 241, 0.8);
+    color: white;
+    font-weight: 500;
+  }
+  
+  .skills-nav-button:not(.active) {
+    color: #d1d5db;
+    background-color: transparent;
+  }
+  
+  .skills-nav-button:hover:not(.active) {
+    background-color: rgba(75, 85, 99, 0.5);
+  }
 </style>
+
+<script>
+  // Initialize carousel
+  document.addEventListener('DOMContentLoaded', () => {
+    const track = document.querySelector('.skills-carousel-track') as HTMLElement;
+    const slides = document.querySelectorAll('.skills-carousel-slide');
+    const navButtons = document.querySelectorAll('.skills-nav-button');
+    const skillsSection = document.querySelector('#skills');
+    
+    let currentIndex = 0;
+    let interval: ReturnType<typeof setInterval> | undefined;
+    let isAutoPlaying = true;
+    const slidesCount = slides.length;
+    
+    // Set up initial state
+    function updateCarousel() {
+      // Update track position
+      if (track) {
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+      }
+      
+      // Update active nav button
+      navButtons.forEach((button, index) => {
+        if (index === currentIndex) {
+          button.classList.add('active');
+        } else {
+          button.classList.remove('active');
+        }
+      });
+    }
+    
+    // Start auto-rotation
+    function startAutoPlay() {
+      if (interval) clearInterval(interval);
+      
+      interval = setInterval(() => {
+        if (isAutoPlaying) {
+          currentIndex = (currentIndex + 1) % slidesCount;
+          updateCarousel();
+        }
+      }, 5000); // Change slide every 5 seconds
+    }
+    
+    // Permanently stop auto-scrolling
+    function stopAutoPlay() {
+      isAutoPlaying = false;
+      if (interval) {
+        clearInterval(interval);
+        interval = undefined;
+      }
+    }
+    
+    // Event handlers
+    function handleNavButtonClick(e: Event) {
+      e.preventDefault();
+      const clickedIndex = parseInt((e.currentTarget as HTMLElement).dataset.index || '0', 10);
+      if (!isNaN(clickedIndex)) {
+        currentIndex = clickedIndex;
+        updateCarousel();
+        stopAutoPlay();
+      }
+    }
+    
+    // Attach event listeners to nav buttons
+    navButtons.forEach(button => {
+      button.addEventListener('click', handleNavButtonClick);
+    });
+    
+    // Add click event to the entire skills section to stop auto-scrolling
+    if (skillsSection) {
+      skillsSection.addEventListener('click', stopAutoPlay);
+    }
+    
+    // Initialize
+    updateCarousel();
+    startAutoPlay();
+    
+    // Set first nav button as active initially
+    if (navButtons.length > 0) {
+      navButtons[0].classList.add('active');
+    }
+  });
+</script>
+
