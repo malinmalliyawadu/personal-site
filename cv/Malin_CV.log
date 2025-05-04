@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.22.0 (TeX Live 2025)  (format=lualatex 2025.4.27)  4 MAY 2025 08:07
+This is LuaHBTeX, Version 1.22.0 (TeX Live 2025)  (format=lualatex 2025.4.27)  4 MAY 2025 08:56
  restricted system commands enabled.
 **Malin_CV.tex
 (./Malin_CV.tex
@@ -542,7 +542,7 @@ attribute, 53 glue_spec, 9 attribute_list, 1 write nodes
 _RB.otf></usr/local/texlive/2025/texmf-dist/fonts/opentype/public/libertine/LinL
 ibertine_RB.otf></usr/local/texlive/2025/texmf-dist/fonts/opentype/public/libert
 ine/LinLibertine_R.otf>
-Output written on Malin_CV.pdf (2 pages, 31833 bytes).
+Output written on Malin_CV.pdf (2 pages, 31812 bytes).
 
 PDF statistics: 32 PDF objects out of 1000 (max. 8388607)
  18 compressed objects within 1 object stream
