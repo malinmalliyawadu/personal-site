@@ -115,7 +115,7 @@ const { jobs } = Astro.props;
         
         const beam = document.createElement('div');
         beam.innerHTML = `
-          <svg class="absolute inset-0 w-full h-full" overflow="visible">
+          <svg class="absolute inset-0 w-full h-full beam-dot" overflow="visible">
             <path 
               id="path-${i}" 
               stroke="url(#gradient-${i})"
@@ -233,6 +233,13 @@ const { jobs } = Astro.props;
   
   .beams-container {
     pointer-events: none;
+  }
+  
+  @media (max-width: 767px) {
+    .beams-container,
+    .beam-dot {
+      display: none;
+    }
   }
   
   @media (min-width: 768px) {
