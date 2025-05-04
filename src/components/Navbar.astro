@@ -67,6 +67,38 @@
       });
     });
   }
+
+  // Track active section
+  document.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    function setActiveLink() {
+      let scrollY = window.pageYOffset;
+      
+      // Find the current section
+      sections.forEach(section => {
+        const sectionTop = (section as HTMLElement).offsetTop - 100;
+        const sectionHeight = (section as HTMLElement).offsetHeight;
+        const sectionId = section.getAttribute('id');
+        
+        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+          // Remove active class from all links
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+          });
+          
+          // Add active class to corresponding nav links
+          document.querySelectorAll(`.nav-link[href="#${sectionId}"]`).forEach(link => {
+            link.classList.add('active');
+          });
+        }
+      });
+    }
+    
+    window.addEventListener('scroll', setActiveLink);
+    setActiveLink(); // Set initial state
+  });
 </script>
 
 <style>
@@ -117,8 +149,14 @@
     transition: transform 0.3s ease-out;
   }
   
-  .nav-link:hover::after {
+  .nav-link:hover::after,
+  .nav-link.active::after {
     transform: scaleX(1);
     transform-origin: bottom left;
+  }
+  
+  .nav-link.active {
+    color: white;
+    text-shadow: 0 0 8px rgba(139, 92, 246, 0.3);
   }
 </style>
