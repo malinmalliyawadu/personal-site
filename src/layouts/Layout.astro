@@ -5,6 +5,8 @@ interface Props {
 }
 
 const { title, description = "Full-stack developer specializing in .NET, TypeScript, React, and AWS. Based in Wellington, New Zealand." } = Astro.props;
+
+import PostHog from "../components/posthog.astro";
 ---
 
 <!DOCTYPE html>
@@ -20,28 +22,7 @@ const { title, description = "Full-stack developer specializing in .NET, TypeScr
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript>
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    </noscript>
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-165385706-1"></script>
-    <script>
-      interface Window {
-        dataLayer: any[];
-        gtag: (...args: any[]) => void;
-      }
-      
-      // @ts-ignore
-      window.dataLayer = window.dataLayer || [];
-      function gtag(...args: any[]) {
-        // @ts-ignore
-        window.dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "UA-165385706-1");
-    </script>
+    <PostHog />
   </head>
   <body class="text-white">
     <slot />
