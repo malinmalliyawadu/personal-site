@@ -8,7 +8,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "deploy": "gh-pages -b gh-pages -d dist"
+    "deploy": "gh-pages -b gh-pages -d dist",
+    "generate-cv": "mkdir -p public/cv && cd cv && docker run --rm -v \"$(pwd):/data\" -w /data texlive/texlive lualatex Malin_CV.tex && cp Malin_CV.pdf ../public/cv/"
   },
   "dependencies": {
     "@astrojs/tailwind": "^6.0.2",
