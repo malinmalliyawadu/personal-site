@@ -1,5 +1,4 @@
 ---
-import Terminal from './Terminal.astro';
 import TypingAnimation from './TypingAnimation.astro';
 import AnimatedSpan from './AnimatedSpan.astro';
 
@@ -10,46 +9,6 @@ interface Props {
 
 const { startDate, className = "" } = Astro.props;
 ---
-
-<Terminal className={className}>
-  <div class="flex flex-col space-y-3">
-    <!-- First command with pre-rendered $ -->
-    <div class="flex items-center">
-      <span class="text-green-400">$</span>
-      <span class="ml-2">
-        <TypingAnimation delay={300} duration={30}>
-          cat ~/.career/profile.json | jq -r '.start_date'
-        </TypingAnimation>
-      </span>
-    </div>
-    
-    <!-- First command response -->
-    <div class="text-gray-400 ml-4">
-      <TypingAnimation delay={1500} duration={15} id="first-response">
-        <AnimatedSpan>{startDate}  # First developer job at Trade Me</AnimatedSpan>
-      </TypingAnimation>
-    </div>
-    
-    <!-- Second command with pre-rendered $ -->
-    <div class="flex items-center mt-2">
-      <span class="text-green-400">$</span>
-      <span class="ml-2">
-        <TypingAnimation delay={3000} duration={30}>
-          cat ~/.career/profile.json | jq -r '.start_date' | cut -d'#' -f1 | tr -d ' ' | node ~/.scripts/calculate-experience.js
-        </TypingAnimation>
-      </span>
-    </div>
-    
-    <!-- Second command response -->
-    <div class="text-green-300 ml-4">
-      <TypingAnimation delay={4500} duration={15}>
-        <div id="experience-years">
-          <!-- This will be filled by JavaScript -->
-        </div>
-      </TypingAnimation>
-    </div>
-  </div>
-</Terminal>
 
 <script define:vars={{ startDate }}>
   // Calculate experience based on start date

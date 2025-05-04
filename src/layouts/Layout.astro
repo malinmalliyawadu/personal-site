@@ -43,7 +43,7 @@ const { title, description = "Full-stack developer specializing in .NET, TypeScr
       gtag("config", "UA-165385706-1");
     </script>
   </head>
-  <body class="bg-gray-950 text-white">
+  <body class="galaxy-bg text-white">
     <slot />
   </body>
 </html>
@@ -64,6 +64,16 @@ const { title, description = "Full-stack developer specializing in .NET, TypeScr
   
   body {
     min-height: 100vh;
+  }
+  
+  /* Galaxy background */
+  .galaxy-bg {
+    background: radial-gradient(circle at center, #2a0f50 0%, #160a30 30%, #0a0518 60%, #020106 100%);
+    position: relative;
+  }
+  
+  .galaxy-bg::before, .galaxy-bg::after {
+    display: none;
   }
   
   code {

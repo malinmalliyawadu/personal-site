@@ -2,7 +2,6 @@
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar.astro";
 import MagicParticles from "../components/MagicParticles.astro";
-import CareerBeams from "../components/CareerBeams.astro";
 import Section from "../components/Section.astro";
 import SkillIcon from "../components/SkillIcon.astro";
 import ProjectCard from "../components/ProjectCard.astro";
@@ -181,7 +180,6 @@ const jobHistory = [
 <Layout title="Malin Malliya Wadu | Full-stack Developer">
   <div id="background-container">
     <MagicParticles />
-    <CareerBeams startDate="2011-10-01" />
   </div>
   <Navbar />
 
@@ -222,11 +220,13 @@ const jobHistory = [
           </div>
         </div>
         <div class="md:w-1/2 flex md:justify-end justify-center">
-          <div class="profile-image-container">
+          <div class="relative moon-profile">
+            <div class="absolute inset-0 bg-gradient-to-r from-slate-400 to-gray-300 rounded-full blur-3xl opacity-10 moon-glow"></div>
             <img
               src={profilePic.src}
               alt="Malin Malliya Wadu"
-              class="profile-image"
+              class="relative rounded-full w-64 h-64 md:w-96 md:h-96 object-cover shadow-2xl moon-image"
+              id="profile-image"
             />
           </div>
         </div>
@@ -266,13 +266,15 @@ const jobHistory = [
               <h3 class="text-xl font-bold text-white">Professional Skills</h3>
             </div>
             <p class="text-lg leading-relaxed">
-              I'm a full-stack developer with expertise in .NET, TypeScript, React, and AWS.
-              I specialize in Continuous Delivery, DevOps, and Cloud-first development, focusing
-              on creating clean, efficient, and scalable solutions.
+              With <span class="text-indigo-300 font-medium">14+ years of professional experience</span>, I'm a full-stack developer with expertise in 
+              <a href="#skills" class="text-indigo-400 font-medium hover:text-indigo-300 transition-colors">.NET</a>, 
+              <a href="#skills" class="text-indigo-400 font-medium hover:text-indigo-300 transition-colors">TypeScript</a>, 
+              <a href="#skills" class="text-indigo-400 font-medium hover:text-indigo-300 transition-colors">React</a>, and 
+              <a href="#skills" class="text-indigo-400 font-medium hover:text-indigo-300 transition-colors">AWS</a>.
+              I've developed a passion for bleeding-edge technologies and automation, consistently exploring ways to streamline development workflows and implement intelligent CI/CD pipelines.
             </p>
             <p class="text-lg leading-relaxed">
-              With a passion for cutting-edge technologies, I'm currently exploring Expo, Remix, and
-              Prisma to expand my toolkit and stay ahead of industry trends.
+              My approach combines <span class="text-purple-300 font-semibold">technical excellence</span> with a focus on <span class="text-purple-300 font-semibold">delivering business value</span> through robust, maintainable code and innovative and scalable architecture.
             </p>
           </div>
         </div>
@@ -311,6 +313,18 @@ const jobHistory = [
               <li class="flex items-center">
                 <span class="text-xl mr-3">🧘‍♂️</span>
                 <span>Finding my zen through hot yoga</span>
+              </li>
+              <li class="flex items-center">
+                <span class="text-xl mr-3">🌱</span>
+                <span>Looking after my plant babies</span>
+              </li>
+              <li class="flex items-center">
+                <span class="text-xl mr-3">👨‍🍳</span>
+                <span>Experimenting with new recipes</span>
+              </li>
+              <li class="flex items-center">
+                <span class="text-xl mr-3">📚</span>
+                <span>Always learning something new</span>
               </li>
             </ul>
           </div>
@@ -464,6 +478,8 @@ const jobHistory = [
     overflow: hidden;
   }
   
+  /* Removing all radial gradient light effects */
+  
   /* Hover animation for name */
   .hover-animated {
     position: relative;
@@ -531,7 +547,90 @@ const jobHistory = [
     background-color: rgba(75, 85, 99, 0.5);
   }
   
-  /* Profile image styling */
+  /* Moon profile styling */
+  .moon-profile {
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease-out;
+  }
+  
+  .moon-profile:hover {
+    transform: scale(1.03);
+  }
+  
+  .moon-image {
+    position: relative;
+    z-index: 2;
+    
+    box-shadow: 
+      inset 0 0 15px #e6e6ee,
+      inset 20px 0 30px #b8b8dd,
+      inset -20px 0 30px #c5c5d5,
+      inset 20px 0 120px rgba(184, 184, 221, 0.5),
+      inset -20px 0 120px rgba(197, 197, 213, 0.5),
+      0 0 15px rgba(230, 230, 238, 0.3),
+      0 0 20px rgba(170, 170, 170, 0.2);
+    transition: all 0.5s ease;
+  }
+  
+  .moon-glow {
+    z-index: 1;
+    opacity: 0.15;
+    background: radial-gradient(circle, 
+      rgba(210, 210, 235, 0.35) 0%, 
+      rgba(200, 200, 225, 0.3) 15%,
+      rgba(190, 190, 220, 0.25) 25%,
+      rgba(180, 180, 210, 0.2) 35%, 
+      rgba(160, 160, 200, 0.15) 50%,
+      rgba(140, 140, 190, 0.1) 65%, 
+      rgba(120, 120, 180, 0.07) 75%,
+      rgba(100, 100, 150, 0.03) 85%,
+      rgba(90, 90, 140, 0.01) 100%);
+    filter: blur(25px);
+    transform: scale(1.2);
+    animation: moon-pulse 10s ease-in-out infinite alternate;
+  }
+  
+  .moon-profile:hover .moon-image {
+    filter: grayscale(5%) brightness(1.03) contrast(1.08);
+    box-shadow: 
+      inset 0 0 20px #e6e6ee,
+      inset 20px 0 35px #b8b8dd,
+      inset -20px 0 35px #c5c5d5,
+      inset 20px 0 140px rgba(184, 184, 221, 0.6),
+      inset -20px 0 140px rgba(197, 197, 213, 0.6),
+      0 0 15px rgba(230, 230, 238, 0.4),
+      0 0 20px rgba(170, 170, 170, 0.3);
+  }
+  
+  .moon-profile:hover .moon-glow {
+    opacity: 0.2;
+    filter: blur(22px);
+    transform: scale(1.3);
+    background: radial-gradient(circle, 
+      rgba(220, 220, 240, 0.4) 0%, 
+      rgba(210, 210, 235, 0.35) 10%,
+      rgba(200, 200, 230, 0.3) 20%,
+      rgba(190, 190, 225, 0.25) 30%, 
+      rgba(170, 170, 215, 0.2) 40%,
+      rgba(150, 150, 205, 0.15) 55%, 
+      rgba(130, 130, 195, 0.1) 70%,
+      rgba(110, 110, 175, 0.05) 85%,
+      rgba(100, 100, 160, 0.02) 100%);
+  }
+  
+  @keyframes moon-pulse {
+    0% {
+      opacity: 0.12;
+      transform: scale(1.18);
+    }
+    100% {
+      opacity: 0.17;
+      transform: scale(1.22);
+    }
+  }
+  
+  /* Original profile image styling - keeping for reference but can be removed */
   .profile-image-container {
     position: relative;
     width: 16rem;
@@ -541,17 +640,10 @@ const jobHistory = [
     filter: drop-shadow(0 0 25px rgba(99, 102, 241, 0.3));
     transition: transform 0.3s ease-out;
   }
-
+  
   .profile-image-container:hover {
     transform: scale(1.03);
     filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.4));
-  }
-
-  @media (min-width: 768px) {
-    .profile-image-container {
-      width: 24rem;
-      height: 24rem;
-    }
   }
   
   .profile-image {
@@ -840,52 +932,29 @@ const jobHistory = [
     if (navButtons.length > 0) {
       navButtons[0].classList.add('active');
     }
-
-    // Initialize profile glow based on career experience
-    updateProfileGlow();
   });
 
-  // Add profile glow effect that grows with career experience
-  function updateProfileGlow() {
-    // Calculate years of experience (same calculation as in ExperienceCounter)
-    const startDate = "2011-10-01"; // Your career start date
-    const start = new Date(startDate);
-    const now = new Date();
-    
-    // Calculate years of experience
-    const diffTime = Math.abs(now.getTime() - start.getTime());
-    const diffDays = diffTime / (1000 * 60 * 60 * 24);
-    const years = diffDays / 365.25;
-    
-    // Create the glow element
-    const profileContainer = document.querySelector('.profile-image-container') as HTMLElement;
-    if (!profileContainer) return;
-    
-    // Set the experience years as a CSS variable on the container
-    // This allows us to use it in animations
-    profileContainer.style.setProperty('--experience-years', years.toString());
-    
-    const glowElement = document.createElement('div');
-    glowElement.className = 'profile-image-glow';
-    
-    // Add additional classes based on experience
-    if (years >= 10) {
-      glowElement.classList.add('expert');
-    } else if (years >= 5) {
-      glowElement.classList.add('experienced');
+  // Add click handler to profile image to add more stars
+  document.addEventListener('DOMContentLoaded', () => {
+    const profileImage = document.getElementById('profile-image');
+    if (profileImage) {
+      let clickCount = 0;
+      
+      profileImage.addEventListener('click', () => {
+        // Single click - add stars
+        if (typeof window.addMoreStars === 'function') {
+          // Add more stars with each click, increasing the count each time
+          clickCount++;
+          const starsToAdd = 100 + (clickCount * 50);
+          window.addMoreStars(starsToAdd);
+          
+          // Reset count if it gets too high
+          if (clickCount >= 10) {
+            clickCount = 0;
+          }
+        }
+      });
     }
-    
-    // Insert the glow element before the image
-    const img = profileContainer.querySelector('.profile-image');
-    if (img) {
-      profileContainer.insertBefore(glowElement, img);
-    }
-    
-    // Add a span showing the exact years of experience
-    const experienceIndicator = document.createElement('div');
-    experienceIndicator.className = 'experience-indicator';
-    experienceIndicator.textContent = `${Math.floor(years)}+ years`;
-    profileContainer.appendChild(experienceIndicator);
-  }
+  });
 </script>
 
