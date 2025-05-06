@@ -9,6 +9,7 @@ import Footer from "../components/Footer.astro";
 import AuroraText from "../components/AuroraText.astro";
 import WorkExperience from "../components/WorkExperience.astro";
 import ExperienceCounter from "../components/ExperienceCounter.astro";
+import CertificationCard from "../components/CertificationCard.astro";
 
 import profilePic from "../images/profile.jpg";
 
@@ -173,6 +174,42 @@ const jobHistory = [
     description: "Started my professional career at New Zealand's largest online marketplace. Contributed to multiple product teams including Marketplace, Property, and Jobs. Gained foundational experience in full-stack development while working on high-traffic systems serving millions of users.",
     technologies: [".NET", "SQL Server", "JavaScript", "Web Development", "Agile"],
     logo: "/logos/trademe.png"
+  }
+];
+
+// Certifications data
+const certifications = [
+  {
+    title: "AWS Certified Solutions Architect – Professional",
+    issuer: "Amazon Web Services",
+    issueDate: "2023-01-14",
+    expiryDate: "2026-01-14",
+    image: "/certifications/sap.png",
+    link: "https://www.credly.com/badges/7d90659b-4f2e-46f1-9616-40fbc0bce569",
+  },
+  {
+    title: "AWS Certified DevOps Engineer – Professional",
+    issuer: "Amazon Web Services",
+    issueDate: "2022-11-19",
+    expiryDate: "2025-11-19",
+    image: "/certifications/devops.png",
+    link: "https://www.credly.com/badges/36109172-3c10-469c-9894-50153247b5c7",
+  },
+  {
+    title: "AWS Certified Solutions Architect – Associate",
+    issuer: "Amazon Web Services",
+    issueDate: "2022-10-11",
+    expiryDate: "2026-01-14",
+    image: "/certifications/saa.png",
+    link: "https://www.credly.com/badges/9700f122-9d55-4122-902d-58dec6b50f52",
+  },
+  {
+    title: "AWS Certified Developer – Associate",
+    issuer: "Amazon Web Services",
+    issueDate: "2022-09-05",
+    expiryDate: "2026-11-19",
+    image: "/certifications/da.png",
+    link: "https://www.credly.com/badges/18c062c0-ced2-40ff-b39f-c714e807ec22",
   }
 ];
 ---
@@ -385,6 +422,40 @@ const jobHistory = [
           </div>
         </div>
       </div>
+    </div>
+  </Section>
+  
+  <!-- Certifications Section -->
+  <Section
+    id="certifications"
+    title="Certifications"
+    subtitle="Professional certifications and achievements"
+  >
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {certifications.map((cert) => (
+        <CertificationCard
+          title={cert.title}
+          issuer={cert.issuer}
+          issueDate={cert.issueDate}
+          expiryDate={cert.expiryDate}
+          image={cert.image}
+          link={cert.link}
+          skills={cert.skills}
+        />
+      ))}
+    </div>
+    <div class="mt-8 text-center">
+      <a 
+        href="https://www.credly.com/users/malin-malliya-wadu" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="inline-flex items-center text-indigo-400 hover:text-indigo-300 transition-colors"
+      >
+        <span>View all my certifications on Credly</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+        </svg>
+      </a>
     </div>
   </Section>
   
