@@ -225,10 +225,13 @@ const certifications = [
     <div class="container mx-auto px-4">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-12">
         <div class="md:w-1/2">
-          <div class="inline-block mb-2 px-3 py-1 bg-indigo-900/30 border border-indigo-800/50 rounded-full text-sm font-medium text-indigo-300">
-            Full-stack Developer
+          <div class="inline-block mb-4 px-4 py-1.5 bg-indigo-900/40 border border-indigo-800/50 rounded-full text-sm font-medium text-indigo-300 backdrop-blur-sm transform hover:scale-105 transition-all shadow-glow">
+            <span class="inline-flex items-center">
+              <span class="inline-block w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+              Full-stack Developer
+            </span>
           </div>
-          <h1 class="text-6xl md:text-7xl font-black mb-2">
+          <h1 class="text-5xl sm:text-6xl md:text-7xl font-black mb-4 leading-tight hero-title">
             Hi, I'm <AuroraText 
               class="font-outfit font-extrabold" 
               colors={["#818cf8", "#c084fc", "#6366f1", "#a855f7"]}
@@ -236,35 +239,50 @@ const certifications = [
             >Malin</AuroraText>
             <span class="inline-block animate-wave">👋</span>
           </h1>
-          <p class="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
-            A full-stack developer from Wellington, NZ specializing in building beautiful, performant, and accessible web experiences.
+          <p class="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed max-w-xl hero-tagline">
+            A <span class="text-indigo-300 font-medium">full-stack developer</span> from Wellington, NZ specializing in building <span class="text-indigo-300 font-medium">beautiful</span>, <span class="text-purple-300 font-medium">performant</span>, and <span class="text-blue-300 font-medium">accessible</span> web experiences.
           </p>
-          <div class="flex flex-col sm:flex-row gap-4">
+          <div class="flex flex-col sm:flex-row gap-4 md:gap-6 hero-cta">
             <a 
               href="#projects" 
-              class="btn-primary"
+              class="btn-primary group relative overflow-hidden"
             >
-              View Projects
+              <span class="relative z-10">View Projects</span>
+              <span class="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity"></span>
             </a>
             <a 
               href="/cv/Malin_CV.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              class="btn-secondary"
+              class="btn-secondary group relative"
             >
-              Resume
+              <span class="relative z-10 flex items-center">
+                Resume
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </span>
             </a>
           </div>
+          
         </div>
         <div class="md:w-1/2 flex md:justify-end justify-center">
-          <div class="relative moon-profile">
-            <div class="absolute inset-0 bg-gradient-to-r from-slate-400 to-gray-300 rounded-full blur-3xl opacity-10 moon-glow"></div>
+          <div class="relative moon-profile group">
+            <!-- Orbital ring animation -->
+            <div class="absolute -inset-10 rounded-full border border-indigo-500/20 orbital-ring orbital-ring-1"></div>
+            <div class="absolute -inset-16 rounded-full border border-purple-500/10 orbital-ring orbital-ring-2"></div>
+            
+            <!-- Enhanced glow effect -->
+            <div class="absolute inset-0 bg-gradient-to-r from-indigo-400/20 to-purple-400/20 rounded-full blur-3xl opacity-20 moon-glow group-hover:opacity-30 transition-all duration-700"></div>
+            
+            <!-- Profile image with interactive effect -->
             <img
               src={profilePic.src}
               alt="Malin Malliya Wadu"
               class="relative rounded-full w-64 h-64 md:w-96 md:h-96 object-cover shadow-2xl moon-image"
               id="profile-image"
             />
+            
           </div>
         </div>
       </div>
@@ -440,7 +458,6 @@ const certifications = [
           expiryDate={cert.expiryDate}
           image={cert.image}
           link={cert.link}
-          skills={cert.skills}
         />
       ))}
     </div>
@@ -622,17 +639,24 @@ const certifications = [
   .moon-profile {
     position: relative;
     z-index: 1;
-    transition: transform 0.3s ease-out;
+    transition: transform 0.5s ease-out;
+    animation: appearScale 1s ease-out 0.5s forwards;
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  
+  @keyframes appearScale {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
   }
   
   .moon-profile:hover {
-    transform: scale(1.03);
+    transform: scale(1.05);
   }
   
   .moon-image {
     position: relative;
     z-index: 2;
-    
     box-shadow: 
       inset 0 0 15px #e6e6ee,
       inset 20px 0 30px #b8b8dd,
@@ -641,7 +665,19 @@ const certifications = [
       inset -20px 0 120px rgba(197, 197, 213, 0.5),
       0 0 15px rgba(230, 230, 238, 0.3),
       0 0 20px rgba(170, 170, 170, 0.2);
-    transition: all 0.5s ease;
+    transition: all 0.5s ease, filter 0.3s ease;
+  }
+  
+  .moon-profile:hover .moon-image {
+    filter: saturate(1.1) brightness(1.05) contrast(1.08);
+    box-shadow: 
+      inset 0 0 20px #e6e6ee,
+      inset 20px 0 35px #b8b8dd,
+      inset -20px 0 35px #c5c5d5,
+      inset 20px 0 140px rgba(184, 184, 221, 0.7),
+      inset -20px 0 140px rgba(197, 197, 213, 0.7),
+      0 0 20px rgba(230, 230, 238, 0.5),
+      0 0 25px rgba(170, 170, 170, 0.3);
   }
   
   .moon-glow {
@@ -660,18 +696,6 @@ const certifications = [
     filter: blur(25px);
     transform: scale(1.2);
     animation: moon-pulse 10s ease-in-out infinite alternate;
-  }
-  
-  .moon-profile:hover .moon-image {
-    filter: grayscale(5%) brightness(1.03) contrast(1.08);
-    box-shadow: 
-      inset 0 0 20px #e6e6ee,
-      inset 20px 0 35px #b8b8dd,
-      inset -20px 0 35px #c5c5d5,
-      inset 20px 0 140px rgba(184, 184, 221, 0.6),
-      inset -20px 0 140px rgba(197, 197, 213, 0.6),
-      0 0 15px rgba(230, 230, 238, 0.4),
-      0 0 20px rgba(170, 170, 170, 0.3);
   }
   
   .moon-profile:hover .moon-glow {
@@ -900,6 +924,131 @@ const certifications = [
     to {
       box-shadow: 0 0 20px rgba(139, 92, 246, 0.8);
     }
+  }
+
+  .hero-bg-gradient {
+    background: radial-gradient(circle at 50% 50%, 
+      rgba(99, 102, 241, 0.15) 0%, 
+      rgba(139, 92, 246, 0.1) 25%, 
+      rgba(30, 27, 75, 0.05) 50%, 
+      transparent 70%
+    );
+    animation: pulse-slow 8s ease-in-out infinite alternate;
+  }
+  
+  .floating-element {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(30px);
+    opacity: 0.06;
+  }
+  
+  .floating-1 {
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 1) 0%, rgba(79, 82, 221, 0.3) 70%);
+    top: 20%;
+    left: 5%;
+    animation: float 20s ease-in-out infinite;
+  }
+  
+  .floating-2 {
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(168, 85, 247, 1) 0%, rgba(148, 65, 227, 0.3) 70%);
+    bottom: 5%;
+    right: 10%;
+    animation: float 25s ease-in-out infinite reverse;
+  }
+  
+  .floating-3 {
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(79, 70, 229, 1) 0%, rgba(59, 50, 209, 0.3) 70%);
+    top: 60%;
+    left: 15%;
+    animation: float 18s ease-in-out infinite 2s;
+  }
+  
+  .floating-4 {
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(192, 132, 252, 1) 0%, rgba(172, 112, 232, 0.3) 70%);
+    top: 25%;
+    right: 20%;
+    animation: float 15s ease-in-out infinite 1s;
+  }
+  
+  @keyframes float {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(-10px, 15px) rotate(2deg); }
+    50% { transform: translate(10px, 25px) rotate(-1deg); }
+    75% { transform: translate(15px, 5px) rotate(1deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+  }
+  
+  @keyframes pulse-slow {
+    0% { opacity: 0.5; transform: scale(0.98); }
+    100% { opacity: 0.8; transform: scale(1.02); }
+  }
+  
+  .orbital-ring {
+    animation: orbit 15s linear infinite;
+  }
+  
+  .orbital-ring-1 {
+    animation-direction: normal;
+  }
+  
+  .orbital-ring-2 {
+    animation-duration: 25s;
+    animation-direction: reverse;
+  }
+  
+  @keyframes orbit {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .shadow-glow {
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+  }
+  
+  .scroll-indicator {
+    animation: fadeInUp 2s ease 1s forwards;
+    opacity: 0;
+  }
+  
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translate(-50%, 20px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+  }
+  
+  .hero-title, .hero-tagline, .hero-cta, .hero-skills {
+    animation: slideUp 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  
+  .hero-title {
+    animation-delay: 0.2s;
+  }
+  
+  .hero-tagline {
+    animation-delay: 0.4s;
+  }
+  
+  .hero-cta {
+    animation-delay: 0.6s;
+  }
+  
+  .hero-skills {
+    animation-delay: 0.8s;
+  }
+  
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 </style>
 
