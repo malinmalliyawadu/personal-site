@@ -1,5 +1,6 @@
 ---
 import AnimatedBeam from "./magicui/AnimatedBeam.astro";
+import { Image } from 'astro:assets';
 
 interface Job {
   company: string;
@@ -26,9 +27,11 @@ const { jobs } = Astro.props;
           <div id={`job-${index}-marker`} class="relative flex-shrink-0 w-16 h-16 md:w-24 md:h-24 z-10">
             <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-full blur-md"></div>
             {job.logo ? (
-              <img 
+              <Image 
                 src={job.logo}
                 alt={`${job.company} logo`}
+                width={96}
+                height={96}
                 class={`relative w-full h-full object-cover p-0 rounded-full bg-gray-800/70 ${job.border ? 'border border-white' : ''}`}
               />
             ) : (

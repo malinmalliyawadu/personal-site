@@ -4,6 +4,7 @@ interface Props {
   icon: string;
 }
 
+import { Image } from 'astro:assets';
 const { name, icon } = Astro.props;
 ---
 
@@ -11,9 +12,11 @@ const { name, icon } = Astro.props;
   <div class="skill-card-inner">
     <div class="glow-effect"></div>
     <div class="skill-icon-container">
-      <img 
+      <Image 
         src={icon} 
         alt={name} 
+        width={48}
+        height={48}
         class="skill-icon"
         loading="lazy"
       />

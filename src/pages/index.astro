@@ -10,6 +10,7 @@ import AuroraText from "../components/AuroraText.astro";
 import WorkExperience from "../components/WorkExperience.astro";
 import ExperienceCounter from "../components/ExperienceCounter.astro";
 import CertificationCard from "../components/CertificationCard.astro";
+import { Image } from 'astro:assets';
 
 import profilePic from "../images/profile.jpg";
 
@@ -139,15 +140,15 @@ const jobHistory = [
     role: "Technical Lead",
     period: "October 2022 - Present",
     description: "Spearheading supplier-side development for the largest automotive parts marketplace in the US. Architecting modern frontend solutions while mentoring cross-functional teams. Driving technical excellence through innovative architecture decisions and establishing best practices that balance scalability and performance.",
-    technologies: ["TypeScript", "React", "Module Federation", "AWS", "Azure", "Docker", "Continuous Delivery", "Microfrontends"],
+    technologies: ["TypeScript", "React", "MySQL", "AWS", "Azure", "Docker", "Continuous Delivery", "Microfrontends"],
     logo: "/logos/partstrader.svg"
   },
   {
     company: "Open Polytechnic",
-    role: "Integration Developer/Consultant",
+    role: "Integration Consultant",
     period: "September 2021 - March 2022",
-    description: "Revolutionized development processes as lead consultant by implementing their first CI/CD pipeline. Modernized legacy systems through microservice architecture adoption. Established automated code quality standards and security scanning, reducing technical debt while improving deployment confidence.",
-    technologies: ["CI/CD", "Microservices", "Security", "Integration", "Development Workflow"],
+    description: "Improved development processes as a consultant in implementing their first CI/CD pipeline. Modernized legacy systems through microservice architecture adoption. Established automated code quality standards and security scanning, reducing technical debt while improving deployment confidence.",
+    technologies: ["CI/CD", "Microservices", "Azure", "Angular", ".NET", "SQL Server"],
     logo: "/logos/open-polytechnic.jpeg",
     border: true
   },
@@ -155,23 +156,23 @@ const jobHistory = [
     company: "Kiwi Wealth",
     role: "Senior Developer",
     period: "March 2019 - August 2020",
-    description: "Led development of a greenfield customer portal that transformed client engagement. Created a component library that accelerated UI development by 40%. Implemented advanced analytics and A/B testing that significantly improved user conversion rates while ensuring a seamless customer experience.",
-    technologies: ["React", "API Architecture", "Analytics", "A/B Testing", "Customer Portal"],
+    description: "Led development of a greenfield customer portal that transformed client engagement. Created a component library that accelerated UI development. Implemented analytics and A/B testing that significantly improved user conversion rates. Led adoption of MuleSoft API Architecture.",
+    technologies: ["React", "API Architecture", "Analytics", ".NET", "SQL Server"],
     logo: "/logos/kiwiwealth.svg",
   },
   {
     company: "Trade Me",
     role: "Lead Developer",
     period: "March 2016 - March 2019",
-    description: "Directed technology strategy for Trade Me Insurance and LifeDirect platforms. Successfully orchestrated migration to AWS cloud infrastructure, improving reliability and reducing operational costs. Cultivated a high-performing delivery team through mentorship and technical leadership while advocating for engineering excellence.",
-    technologies: ["AWS", "Leadership", "Continuous Improvement", "Insurance", "LifeDirect"],
+    description: "Directed technology for Trade Me Insurance and LifeDirect platforms. Successfully led migration to AWS from on-premises infrastructure, improving reliability and reducing operational costs. Cultivated a high-performing delivery team through mentorship and technical leadership.",
+    technologies: ["AWS", ".NET", "SQL Server", "JavaScript"],
     logo: "/logos/trademe.png"
   },
   {
     company: "Trade Me",
     role: "Developer",
     period: "October 2011 - March 2016",
-    description: "Started my professional career at New Zealand's largest online marketplace. Contributed to multiple product teams including Marketplace, Property, and Jobs. Gained foundational experience in full-stack development while working on high-traffic systems serving millions of users.",
+    description: "Started professional career at New Zealand's largest online marketplace. Contributed to multiple product teams including Travel, Marketplace, Property, and Jobs. Gained foundational experience in full-stack development while working on high-traffic systems serving millions of users.",
     technologies: [".NET", "SQL Server", "JavaScript", "Web Development", "Agile"],
     logo: "/logos/trademe.png"
   }
@@ -276,9 +277,11 @@ const certifications = [
             <div class="absolute inset-0 bg-gradient-to-r from-indigo-400/20 to-purple-400/20 rounded-full blur-3xl opacity-20 moon-glow group-hover:opacity-30 transition-all duration-700"></div>
             
             <!-- Profile image with interactive effect -->
-            <img
-              src={profilePic.src}
+            <Image
+              src={profilePic}
               alt="Malin Malliya Wadu"
+              width={384}
+              height={384}
               class="relative rounded-full w-64 h-64 md:w-96 md:h-96 object-cover shadow-2xl moon-image hover:cursor-pointer"
               id="profile-image"
             />

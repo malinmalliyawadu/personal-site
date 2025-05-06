@@ -8,6 +8,7 @@ interface Props {
   demo?: string;
 }
 
+import { Image } from 'astro:assets';
 const { title, description, tags, image, github, demo } = Astro.props;
 ---
 
@@ -15,9 +16,11 @@ const { title, description, tags, image, github, demo } = Astro.props;
   <div class="p-6 flex flex-col h-full z-10 relative">
     {image && (
       <div class="mb-6 rounded-lg overflow-hidden h-48 shadow-lg">
-        <img
+        <Image
           src={image}
           alt={title}
+          width={800}
+          height={450}
           class="w-full h-full object-cover object-top transform group-hover:scale-105 transition-transform duration-500 ease-out"
         />
       </div>
