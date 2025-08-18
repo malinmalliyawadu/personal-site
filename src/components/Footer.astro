@@ -2,14 +2,14 @@
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="bg-gray-900 text-gray-400 py-12 border-t border-gray-800">
+<footer class="footer-main bg-gray-900 text-gray-400 py-12 border-t border-gray-800">
   <div class="container mx-auto px-4">
     <div class="flex flex-col md:flex-row justify-between items-center">
       <div class="mb-6 md:mb-0">
-        <a href="#hero" class="text-2xl font-bold text-white hover:text-indigo-400 transition-colors">
+        <a href="#hero" class="footer-logo text-2xl font-bold text-white hover:text-indigo-400 transition-colors">
           Malin<span class="text-indigo-400">.nz</span>
         </a>
-        <p class="mt-2 max-w-md">
+        <p class="footer-description mt-2 max-w-md">
           Full-stack developer specializing in building beautiful, performant,
           and accessible web experiences.
         </p>
@@ -20,7 +20,7 @@ const currentYear = new Date().getFullYear();
           href="https://github.com/malinmalliyawadu" 
           target="_blank"
           rel="noopener noreferrer"
-          class="text-gray-400 hover:text-white transition-colors"
+          class="footer-link text-gray-400 hover:text-white transition-colors"
           aria-label="GitHub"
         >
           <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -31,7 +31,7 @@ const currentYear = new Date().getFullYear();
           href="https://www.linkedin.com/in/malin-malliya-wadu-94956522/"
           target="_blank"
           rel="noopener noreferrer"
-          class="text-gray-400 hover:text-white transition-colors"
+          class="footer-link text-gray-400 hover:text-white transition-colors"
           aria-label="LinkedIn"
         >
           <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -40,7 +40,7 @@ const currentYear = new Date().getFullYear();
         </a>
         <a 
           href="mailto:malin.malliya.wadu@gmail.com"
-          class="text-gray-400 hover:text-white transition-colors"
+          class="footer-link text-gray-400 hover:text-white transition-colors"
           aria-label="Email"
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -50,8 +50,53 @@ const currentYear = new Date().getFullYear();
       </div>
     </div>
     
-    <div class="mt-8 pt-8 border-t border-gray-800 text-center text-sm">
-      <p>© {currentYear} Malin Malliya Wadu. All rights reserved.</p>
+    <div class="footer-bottom mt-8 pt-8 border-t border-gray-800 text-center text-sm">
+      <p class="footer-copyright">© {currentYear} Malin Malliya Wadu. All rights reserved.</p>
     </div>
   </div>
-</footer> 
+</footer>
+
+<style>
+  /* Light mode styles - Glassy white appearance */
+  :global(html.light) .footer-main {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6));
+    border-top-color: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 
+      0 -4px 20px rgba(31, 38, 135, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  }
+  
+  :global(html.light) .footer-logo {
+    color: #1f2937;
+  }
+  
+  :global(html.light) .footer-logo:hover {
+    color: #4f46e5;
+  }
+  
+  :global(html.light) .footer-logo span {
+    color: #4f46e5;
+  }
+  
+  :global(html.light) .footer-description {
+    color: #6b7280;
+  }
+  
+  :global(html.light) .footer-link {
+    color: #6b7280;
+  }
+  
+  :global(html.light) .footer-link:hover {
+    color: #4f46e5;
+  }
+  
+  :global(html.light) .footer-bottom {
+    border-top-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  :global(html.light) .footer-copyright {
+    color: #9ca3af;
+  }
+</style> 

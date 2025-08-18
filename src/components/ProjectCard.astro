@@ -158,6 +158,56 @@ const { title, description, tags, image, github, demo } = Astro.props;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
   }
+  
+  /* Light mode styles - Glassy white appearance */
+  :global(html.light) .project-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5));
+    border-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 
+      0 8px 32px rgba(31, 38, 135, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.3);
+  }
+  
+  :global(html.light) .project-card:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6));
+    border-color: rgba(99, 102, 241, 0.3);
+    box-shadow: 
+      0 12px 40px rgba(31, 38, 135, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.4);
+  }
+  
+  :global(html.light) .project-card h3 {
+    color: #1f2937;
+  }
+  
+  :global(html.light) .project-card p {
+    color: #4b5563;
+  }
+  
+  :global(html.light) .tag-pill {
+    color: #4f46e5;
+    background: rgba(99, 102, 241, 0.1);
+    border-color: rgba(99, 102, 241, 0.3);
+  }
+  
+  :global(html.light) .card-button-github {
+    background: rgba(255, 255, 255, 0.8);
+    color: #1f2937;
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  :global(html.light) .card-button-github:hover {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  :global(html.light) .card-button-demo {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.9), rgba(79, 70, 229, 0.9));
+  }
 </style>
 
 <script>

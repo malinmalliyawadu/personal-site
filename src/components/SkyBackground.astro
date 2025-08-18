@@ -1,0 +1,328 @@
+---
+// Sky and clouds background for light mode
+---
+
+<div class="fixed inset-0 -z-10 overflow-hidden sky-background">
+  <!-- Sky gradient layer -->
+  <div class="absolute inset-0 sky-gradient"></div>
+  
+  <!-- Animated clouds -->
+  <div class="clouds-container">
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
+    <div class="cloud cloud-4"></div>
+    <div class="cloud cloud-5"></div>
+    <div class="cloud cloud-6"></div>
+  </div>
+  
+  <!-- Sun glow effect -->
+  <div class="sun-glow"></div>
+  
+  <!-- Light particles for atmosphere -->
+  <div class="atmosphere-particles" id="atmosphere-particles"></div>
+</div>
+
+<style>
+  .sky-background {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+  }
+  
+  /* Beautiful sky gradient */
+  .sky-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      #87CEEB 0%,       /* Sky blue */
+      #98D8E8 20%,      /* Lighter sky blue */
+      #B6E5F8 40%,      /* Very light blue */
+      #E0F6FF 60%,      /* Almost white blue */
+      #FFF4E6 80%,      /* Warm horizon */
+      #FFE5CC 100%      /* Warm horizon bottom */
+    );
+  }
+  
+  /* Sun glow in top right */
+  .sun-glow {
+    position: absolute;
+    top: 10%;
+    right: 15%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(
+      circle,
+      rgba(255, 251, 150, 0.8) 0%,
+      rgba(255, 237, 117, 0.5) 20%,
+      rgba(255, 223, 84, 0.3) 40%,
+      transparent 70%
+    );
+    filter: blur(40px);
+    animation: sunPulse 4s ease-in-out infinite;
+  }
+  
+  @keyframes sunPulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    50% {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+  }
+  
+  /* Clouds container */
+  .clouds-container {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+  
+  /* Cloud base styles */
+  .cloud {
+    position: absolute;
+    background: white;
+    border-radius: 100px;
+    opacity: 0.8;
+  }
+  
+  .cloud::before,
+  .cloud::after {
+    content: '';
+    position: absolute;
+    background: white;
+    border-radius: 100px;
+  }
+  
+  /* Cloud 1 - Large fluffy cloud */
+  .cloud-1 {
+    width: 120px;
+    height: 40px;
+    top: 20%;
+    left: -120px;
+    animation: floatCloud 60s linear infinite;
+  }
+  
+  .cloud-1::before {
+    width: 50px;
+    height: 50px;
+    top: -25px;
+    left: 10px;
+  }
+  
+  .cloud-1::after {
+    width: 60px;
+    height: 40px;
+    top: -15px;
+    right: 10px;
+  }
+  
+  /* Cloud 2 - Medium cloud */
+  .cloud-2 {
+    width: 80px;
+    height: 35px;
+    top: 35%;
+    left: -80px;
+    animation: floatCloud 70s linear infinite 10s;
+    opacity: 0.7;
+  }
+  
+  .cloud-2::before {
+    width: 40px;
+    height: 40px;
+    top: -20px;
+    left: 15px;
+  }
+  
+  .cloud-2::after {
+    width: 45px;
+    height: 35px;
+    top: -10px;
+    right: 15px;
+  }
+  
+  /* Cloud 3 - Small distant cloud */
+  .cloud-3 {
+    width: 60px;
+    height: 25px;
+    top: 15%;
+    left: -60px;
+    animation: floatCloud 80s linear infinite 20s;
+    opacity: 0.6;
+  }
+  
+  .cloud-3::before {
+    width: 30px;
+    height: 30px;
+    top: -15px;
+    left: 10px;
+  }
+  
+  .cloud-3::after {
+    width: 35px;
+    height: 25px;
+    top: -8px;
+    right: 10px;
+  }
+  
+  /* Cloud 4 - Large slow cloud */
+  .cloud-4 {
+    width: 140px;
+    height: 45px;
+    top: 45%;
+    left: -140px;
+    animation: floatCloud 90s linear infinite 30s;
+    opacity: 0.75;
+  }
+  
+  .cloud-4::before {
+    width: 60px;
+    height: 60px;
+    top: -30px;
+    left: 20px;
+  }
+  
+  .cloud-4::after {
+    width: 70px;
+    height: 45px;
+    top: -20px;
+    right: 20px;
+  }
+  
+  /* Cloud 5 - High altitude wispy cloud */
+  .cloud-5 {
+    width: 100px;
+    height: 20px;
+    top: 10%;
+    left: -100px;
+    animation: floatCloud 65s linear infinite 40s;
+    opacity: 0.5;
+  }
+  
+  .cloud-5::before {
+    width: 35px;
+    height: 25px;
+    top: -10px;
+    left: 20px;
+  }
+  
+  .cloud-5::after {
+    width: 40px;
+    height: 20px;
+    top: -5px;
+    right: 20px;
+  }
+  
+  /* Cloud 6 - Low fluffy cloud */
+  .cloud-6 {
+    width: 110px;
+    height: 38px;
+    top: 55%;
+    left: -110px;
+    animation: floatCloud 75s linear infinite 50s;
+    opacity: 0.65;
+  }
+  
+  .cloud-6::before {
+    width: 45px;
+    height: 45px;
+    top: -23px;
+    left: 18px;
+  }
+  
+  .cloud-6::after {
+    width: 55px;
+    height: 38px;
+    top: -15px;
+    right: 18px;
+  }
+  
+  /* Cloud floating animation */
+  @keyframes floatCloud {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(100vw + 200px));
+    }
+  }
+  
+  /* Atmosphere particles */
+  .atmosphere-particles {
+    position: absolute;
+    inset: 0;
+  }
+  
+  .light-particle {
+    position: absolute;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: floatParticle var(--float-duration) ease-in-out infinite;
+  }
+  
+  @keyframes floatParticle {
+    0%, 100% {
+      transform: translateY(0) translateX(0);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.4;
+    }
+    50% {
+      transform: translateY(-30px) translateX(10px);
+      opacity: 0.6;
+    }
+    90% {
+      opacity: 0.4;
+    }
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .cloud-1, .cloud-2, .cloud-3, .cloud-4, .cloud-5, .cloud-6 {
+      transform: scale(0.7);
+    }
+    
+    .sun-glow {
+      width: 150px;
+      height: 150px;
+      top: 5%;
+      right: 10%;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const particlesContainer = document.getElementById('atmosphere-particles');
+    if (!particlesContainer) return;
+    
+    // Create floating light particles for atmosphere
+    const particleCount = 30;
+    
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'light-particle';
+      
+      // Random properties
+      const size = Math.random() * 4 + 2;
+      const x = Math.random() * 100;
+      const y = Math.random() * 100;
+      const duration = Math.random() * 10 + 15;
+      const delay = Math.random() * 10;
+      
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      particle.style.left = `${x}%`;
+      particle.style.top = `${y}%`;
+      particle.style.setProperty('--float-duration', `${duration}s`);
+      particle.style.animationDelay = `${delay}s`;
+      
+      particlesContainer.appendChild(particle);
+    }
+  });
+</script>
