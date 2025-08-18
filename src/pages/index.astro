@@ -1264,23 +1264,38 @@ const certifications = [
     }
   });
 
-  // Add click handler to profile image to add more stars
+  // Add click handler to profile image to add more stars or clouds
   document.addEventListener('DOMContentLoaded', () => {
     const profileImage = document.getElementById('profile-image');
     if (profileImage) {
       let clickCount = 0;
       
       profileImage.addEventListener('click', () => {
-        // Single click - add stars
-        if (typeof window.addMoreStars === 'function') {
-          // Add more stars with each click, increasing the count each time
-          clickCount++;
-          const starsToAdd = 100 + (clickCount * 50);
-          window.addMoreStars(starsToAdd);
-          
-          // Reset count if it gets too high
-          if (clickCount >= 10) {
-            clickCount = 0;
+        const isLightMode = document.documentElement.classList.contains('light');
+        
+        if (isLightMode) {
+          // Light mode - add clouds
+          if (typeof window.addMoreClouds === 'function') {
+            clickCount++;
+            const cloudsToAdd = 3 + Math.floor(clickCount * 1.5); // Start with 3, gradually increase
+            window.addMoreClouds(cloudsToAdd);
+            
+            // Reset count if it gets too high
+            if (clickCount >= 8) {
+              clickCount = 0;
+            }
+          }
+        } else {
+          // Dark mode - add stars
+          if (typeof window.addMoreStars === 'function') {
+            clickCount++;
+            const starsToAdd = 100 + (clickCount * 50);
+            window.addMoreStars(starsToAdd);
+            
+            // Reset count if it gets too high
+            if (clickCount >= 10) {
+              clickCount = 0;
+            }
           }
         }
       });
