@@ -1,0 +1,148 @@
+---
+// Theme toggle component for switching between dark and light modes
+---
+
+<button
+  id="theme-toggle"
+  aria-label="Toggle theme"
+  class="theme-toggle-btn"
+  type="button"
+>
+  <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle>
+    <line x1="12" y1="1" x2="12" y2="3"></line>
+    <line x1="12" y1="21" x2="12" y2="23"></line>
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+    <line x1="1" y1="12" x2="3" y2="12"></line>
+    <line x1="21" y1="12" x2="23" y2="12"></line>
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+  </svg>
+  <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+  </svg>
+</button>
+
+<style>
+  .theme-toggle-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .theme-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+  }
+  
+  .theme-toggle-btn:active {
+    transform: scale(0.95);
+  }
+  
+  .sun-icon,
+  .moon-icon {
+    position: absolute;
+    transition: all 0.3s ease;
+  }
+  
+  .sun-icon {
+    color: #fbbf24;
+    opacity: 0;
+    transform: scale(0) rotate(-180deg);
+  }
+  
+  .moon-icon {
+    color: #a78bfa;
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  
+  /* Light mode styles */
+  :global(html.light) .theme-toggle-btn {
+    border-color: rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.8);
+  }
+  
+  :global(html.light) .theme-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(0, 0, 0, 0.3);
+  }
+  
+  :global(html.light) .sun-icon {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  
+  :global(html.light) .moon-icon {
+    opacity: 0;
+    transform: scale(0) rotate(180deg);
+  }
+  
+  /* Add subtle shadow in light mode */
+  :global(html.light) .theme-toggle-btn {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  :global(html.light) .theme-toggle-btn:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+</style>
+
+<script>
+  // Theme toggle functionality
+  const themeToggle = document.getElementById('theme-toggle');
+  const html = document.documentElement;
+  
+  // Check for saved theme preference or default to dark
+  const currentTheme = localStorage.getItem('theme') || 'dark';
+  html.classList.add(currentTheme);
+  
+  // Update backgrounds based on theme
+  function updateBackground(theme: string) {
+    const darkBg = document.getElementById('dark-background');
+    const lightBg = document.getElementById('light-background');
+    
+    if (darkBg && lightBg) {
+      if (theme === 'light') {
+        darkBg.style.display = 'none';
+        lightBg.style.display = 'block';
+      } else {
+        darkBg.style.display = 'block';
+        lightBg.style.display = 'none';
+      }
+    }
+  }
+  
+  // Initial background setup
+  updateBackground(currentTheme);
+  
+  // Toggle theme
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = html.classList.contains('light') ? 'light' : 'dark';
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      
+      // Remove old theme and add new theme
+      html.classList.remove(currentTheme);
+      html.classList.add(newTheme);
+      
+      // Update backgrounds
+      updateBackground(newTheme);
+      
+      // Save preference
+      localStorage.setItem('theme', newTheme);
+    });
+  }
+</script>

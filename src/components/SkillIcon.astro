@@ -138,4 +138,43 @@ const { name, icon } = Astro.props;
     color: white;
     text-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
   }
+  
+  /* Light mode styles - Glassy white appearance */
+  :global(html.light) .skill-card-inner {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5));
+    border-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 
+      0 4px 16px rgba(31, 38, 135, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.3);
+  }
+  
+  :global(html.light) .skill-card:hover .skill-card-inner {
+    border-color: rgba(99, 102, 241, 0.4);
+    box-shadow: 
+      0 12px 30px rgba(31, 38, 135, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.4),
+      0 0 0 1px rgba(99, 102, 241, 0.3) inset;
+  }
+  
+  :global(html.light) .skill-name {
+    color: #4b5563;
+    font-weight: 600;
+  }
+  
+  :global(html.light) .skill-card:hover .skill-name {
+    color: #4f46e5;
+    text-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+  }
+  
+  :global(html.light) .glow-effect {
+    background: radial-gradient(
+      circle at 50% 40%,
+      rgba(99, 102, 241, 0.15),
+      transparent 30%
+    );
+  }
 </style> 

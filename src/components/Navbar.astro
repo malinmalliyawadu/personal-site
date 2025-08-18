@@ -1,7 +1,11 @@
-<header class="fixed top-0 z-50 left-1/2 transform -translate-x-1/2 mt-4 bg-gray-900/50 backdrop-blur-md border border-gray-900 shadow-lg rounded-xl max-w-7xl w-[90%]">
+---
+import ThemeToggle from "./ThemeToggle.astro";
+---
+
+<header class="fixed top-0 z-50 left-1/2 transform -translate-x-1/2 mt-4 bg-gray-900/50 backdrop-blur-md border border-gray-900 shadow-lg rounded-xl max-w-7xl w-[90%] navbar-header">
   <div class="container mx-auto px-6">
     <nav class="flex items-center justify-between h-16">
-      <a href="#hero" class="text-xl font-bold text-white group hover-animated">
+      <a href="#hero" class="text-xl font-bold text-white group hover-animated navbar-logo">
         <span class="">Malin</span><span class="text-indigo-400">.nz</span>
       </a>
       
@@ -16,17 +20,21 @@
           href="/cv/Malin_CV.pdf" 
           target="_blank"
           rel="noopener noreferrer" 
-          class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md transition-all duration-300 bg-gradient-to-r from-indigo-500 to-purple-500 text-white hover:from-indigo-600 hover:to-purple-600 hover:shadow-lg hover:shadow-indigo-500/30 transform hover:-translate-y-0.5"
+          class="nav-resume-btn inline-flex items-center px-4 py-2 text-sm font-medium rounded-md transition-all duration-300 bg-gradient-to-r from-indigo-500 to-purple-500 text-white hover:from-indigo-600 hover:to-purple-600 hover:shadow-lg hover:shadow-indigo-500/30 transform hover:-translate-y-0.5"
         >
           Resume
         </a>
+        <ThemeToggle />
       </div>
       
-      <button id="mobile-menu-button" class="md:hidden flex items-center p-2 rounded-md bg-gray-800 bg-opacity-50 border border-gray-700 hover:bg-gray-700 hover:border-indigo-500 transition-all duration-300 hover:shadow-md hover:shadow-indigo-500/20">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
+      <div class="md:hidden flex items-center space-x-2">
+        <ThemeToggle />
+        <button id="mobile-menu-button" class="flex items-center p-2 rounded-md bg-gray-800 bg-opacity-50 border border-gray-700 hover:bg-gray-700 hover:border-indigo-500 transition-all duration-300 hover:shadow-md hover:shadow-indigo-500/20">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
     </nav>
   </div>
   
@@ -40,10 +48,10 @@
       <a href="#projects" class="text-gray-300 hover:text-white px-3 py-2 rounded-md hover:bg-gray-700 transition-colors nav-link">Projects</a>
       <a href="#contact" class="text-gray-300 hover:text-white px-3 py-2 rounded-md hover:bg-gray-700 transition-colors nav-link">Contact</a>
       <a 
-        href="/src/pdfs/resume.pdf"
+        href="/cv/Malin_CV.pdf"
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md transition-all duration-300 bg-gradient-to-r from-indigo-500 to-purple-500 text-white hover:from-indigo-600 hover:to-purple-600 hover:shadow-lg hover:shadow-indigo-500/30 transform hover:-translate-y-0.5"
+        class="nav-resume-btn inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md transition-all duration-300 bg-gradient-to-r from-indigo-500 to-purple-500 text-white hover:from-indigo-600 hover:to-purple-600 hover:shadow-lg hover:shadow-indigo-500/30 transform hover:-translate-y-0.5"
       >
         Resume
       </a>
@@ -160,5 +168,73 @@
   .nav-link.active {
     color: white;
     text-shadow: 0 0 8px rgba(139, 92, 246, 0.3);
+  }
+  /* Light mode styles for navbar */
+  :global(html.light) .navbar-header {
+    background: rgba(255, 255, 255, 0.7);
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  :global(html.light) .navbar-logo {
+    color: #1f2937;
+  }
+  
+  :global(html.light) .navbar-logo span:last-child {
+    color: #4f46e5;
+  }
+  
+  :global(html.light) .nav-link {
+    color: #4b5563;
+  }
+  
+  :global(html.light) .nav-link:hover {
+    color: #1f2937;
+  }
+  
+  :global(html.light) .nav-link.active {
+    color: #1f2937;
+    text-shadow: 0 0 8px rgba(79, 70, 229, 0.3);
+  }
+  
+  :global(html.light) #mobile-menu-button {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  :global(html.light) #mobile-menu-button:hover {
+    background: rgba(255, 255, 255, 1);
+    border-color: #6366f1;
+  }
+  
+  :global(html.light) #mobile-menu-button svg {
+    color: #6366f1;
+  }
+  
+  :global(html.light) #mobile-menu {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  :global(html.light) #mobile-menu a {
+    color: #4b5563;
+  }
+  
+  :global(html.light) #mobile-menu a:hover {
+    color: #1f2937;
+    background: rgba(99, 102, 241, 0.1);
+  }
+  
+  /* Light mode Resume button fix */
+  :global(html.light) .nav-resume-btn {
+    background: linear-gradient(to right, #6366f1, #8b5cf6);
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+  }
+  
+  :global(html.light) .nav-resume-btn:hover {
+    background: linear-gradient(to right, #4f46e5, #7c3aed);
+    color: white !important;
+    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.3);
   }
 </style>
