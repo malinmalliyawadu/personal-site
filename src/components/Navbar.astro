@@ -2,11 +2,11 @@
 import ThemeToggle from "./ThemeToggle.astro";
 ---
 
-<header class="fixed top-0 z-50 left-1/2 transform -translate-x-1/2 mt-4 bg-gray-900/50 backdrop-blur-md border border-gray-900 shadow-lg rounded-xl max-w-7xl w-[90%] navbar-header">
-  <div class="container mx-auto px-6">
-    <nav class="flex items-center justify-between h-16">
-      <a href="#hero" class="text-xl font-bold text-white group hover-animated navbar-logo">
-        <span class="">Malin</span><span class="text-indigo-400">.nz</span>
+<header class="fixed top-0 z-50 left-1/2 transform -translate-x-1/2 mt-6 bg-black/20 backdrop-blur-2xl border border-white/10 shadow-2xl rounded-2xl max-w-7xl w-[95%] navbar-header transition-all duration-300">
+  <div class="container mx-auto px-8">
+    <nav class="flex items-center justify-between h-20">
+      <a href="#hero" class="text-2xl font-black text-white group hover-animated navbar-logo">
+        <span class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Malin</span><span class="text-purple-400">.nz</span>
       </a>
       
       <div class="hidden md:flex items-center space-x-8">
@@ -20,7 +20,7 @@ import ThemeToggle from "./ThemeToggle.astro";
           href="/cv/Malin_CV.pdf" 
           target="_blank"
           rel="noopener noreferrer" 
-          class="nav-resume-btn inline-flex items-center px-4 py-2 text-sm font-medium rounded-md transition-all duration-300 bg-gradient-to-r from-indigo-500 to-purple-500 text-white hover:from-indigo-600 hover:to-purple-600 hover:shadow-lg hover:shadow-indigo-500/30 transform hover:-translate-y-0.5"
+          class="nav-resume-btn inline-flex items-center px-6 py-3 text-sm font-semibold rounded-xl transition-all duration-300 bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-600 hover:to-pink-600 hover:shadow-xl hover:shadow-purple-500/40 transform hover:-translate-y-1 hover:scale-105"
         >
           Resume
         </a>
@@ -29,8 +29,8 @@ import ThemeToggle from "./ThemeToggle.astro";
       
       <div class="md:hidden flex items-center space-x-2">
         <ThemeToggle />
-        <button id="mobile-menu-button" class="flex items-center p-2 rounded-md bg-gray-800 bg-opacity-50 border border-gray-700 hover:bg-gray-700 hover:border-indigo-500 transition-all duration-300 hover:shadow-md hover:shadow-indigo-500/20">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <button id="mobile-menu-button" class="flex items-center p-3 rounded-xl bg-white/10 border border-white/20 hover:bg-white/20 hover:border-purple-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20 backdrop-blur-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
