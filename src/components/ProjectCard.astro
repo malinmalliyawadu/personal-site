@@ -2,45 +2,38 @@
 interface Props {
   title: string;
   description: string;
-  tags: string[];
   image?: string;
   github: string;
   demo?: string;
 }
 
 import { Image } from 'astro:assets';
-const { title, description, tags, image, github, demo } = Astro.props;
+const { title, description, image, github, demo } = Astro.props;
 ---
 
-<div class="project-card relative group overflow-hidden rounded-xl border border-gray-800 bg-gradient-to-br from-gray-900 to-gray-950">
-  <div class="p-6 flex flex-col h-full z-10 relative">
+<div class="project-card relative group overflow-hidden rounded-2xl border border-gray-700/50 bg-gradient-to-br from-gray-900/80 to-gray-950/90 backdrop-blur-xl">
+  <div class="p-8 flex flex-col h-full z-10 relative">
     {image && (
-      <div class="mb-6 rounded-lg overflow-hidden h-48 shadow-lg">
+      <div class="mb-8 rounded-xl overflow-hidden h-52 shadow-2xl ring-1 ring-white/10">
         <Image
           src={image}
           alt={title}
           width={800}
           height={450}
-          class="w-full h-full object-cover object-top transform group-hover:scale-105 transition-transform duration-500 ease-out"
+          class="w-full h-full object-cover object-top transform group-hover:scale-110 transition-transform duration-700 ease-out"
         />
       </div>
     )}
     
-    <h3 class="text-xl font-bold mb-2 text-white group-hover:text-indigo-300 transition-colors">{title}</h3>
-    <p class="text-gray-300 mb-4 flex-grow text-sm leading-relaxed">{description}</p>
-    
-    <div class="flex flex-wrap gap-2 mb-4">
-      {tags.map((tag) => (
-        <span class="tag-pill">{tag}</span>
-      ))}
-    </div>
-    
-    <div class="flex gap-3 mt-auto">
+    <h3 class="text-2xl font-bold mb-4 text-white group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-pink-400 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">{title}</h3>
+    <p class="text-gray-300 mb-6 flex-grow text-base leading-relaxed">{description}</p>
+
+    <div class="flex gap-4 mt-auto">
       <a
         href={github}
         target="_blank"
         rel="noopener noreferrer"
-        class="card-button card-button-github"
+        class="card-button card-button-github flex-1"
         aria-label="View GitHub repository"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -54,8 +47,8 @@ const { title, description, tags, image, github, demo } = Astro.props;
           href={demo}
           target="_blank"
           rel="noopener noreferrer"
-          class="card-button card-button-demo"
-          aria-label="View live demo"
+          class="card-button card-button-demo flex-1"
+          aria-label="Visit live site"
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -63,7 +56,7 @@ const { title, description, tags, image, github, demo } = Astro.props;
             <path d="M11 13l9 -9"></path>
             <path d="M15 4h5v5"></path>
           </svg>
-          Live Demo
+          Visit Site
         </a>
       )}
     </div>
@@ -73,15 +66,23 @@ const { title, description, tags, image, github, demo } = Astro.props;
 <style>
   .project-card {
     position: relative;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(10px);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.2), 
+      0 8px 16px rgba(0, 0, 0, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
   }
   
   .project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 10px 10px rgba(0, 0, 0, 0.2);
-    border-color: rgba(99, 102, 241, 0.4);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 
+      0 30px 60px rgba(0, 0, 0, 0.4), 
+      0 16px 24px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      0 0 0 1px rgba(147, 51, 234, 0.3);
+    border-color: rgba(147, 51, 234, 0.6);
   }
   
   .project-card::after {
@@ -111,52 +112,64 @@ const { title, description, tags, image, github, demo } = Astro.props;
   .tag-pill {
     display: inline-flex;
     align-items: center;
-    padding: 0.25rem 0.6rem;
-    font-size: 0.7rem;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.8);
-    background: rgba(99, 102, 241, 0.15);
-    border: 1px solid rgba(99, 102, 241, 0.25);
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    background: linear-gradient(135deg, rgba(147, 51, 234, 0.2), rgba(79, 70, 229, 0.2));
+    border: 1px solid rgba(147, 51, 234, 0.3);
     border-radius: 9999px;
     transition: all 0.3s ease;
-    margin-bottom: 0.25rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
   
   .card-button {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    font-weight: 500;
-    border-radius: 0.5rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1.5rem;
+    font-weight: 600;
+    border-radius: 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+      0 4px 12px rgba(0, 0, 0, 0.15), 
+      0 2px 4px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    text-align: center;
   }
   
   .card-button-github {
     color: white;
-    background-color: rgba(31, 41, 55, 0.8);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(75, 85, 99, 0.3);
+    background: linear-gradient(135deg, rgba(31, 41, 55, 0.9), rgba(17, 24, 39, 0.9));
+    border: 1px solid rgba(75, 85, 99, 0.4);
   }
   
   .card-button-github:hover {
-    background-color: rgba(55, 65, 81, 0.9);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, rgba(55, 65, 81, 1), rgba(31, 41, 55, 1));
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 
+      0 8px 20px rgba(0, 0, 0, 0.3),
+      0 4px 8px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
   }
   
   .card-button-demo {
     color: white;
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.8), rgba(79, 70, 229, 0.8));
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(99, 102, 241, 0.4);
+    background: linear-gradient(135deg, rgba(147, 51, 234, 0.9), rgba(79, 70, 229, 0.9));
+    border: 1px solid rgba(147, 51, 234, 0.5);
   }
   
   .card-button-demo:hover {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.9), rgba(79, 70, 229, 0.9));
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
+    background: linear-gradient(135deg, rgba(147, 51, 234, 1), rgba(79, 70, 229, 1));
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 
+      0 8px 20px rgba(147, 51, 234, 0.5),
+      0 4px 8px rgba(79, 70, 229, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
   }
   
   /* Light mode styles - Glassy white appearance */
