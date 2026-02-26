@@ -22,7 +22,7 @@ const { jobs } = Astro.props;
 <div class="work-experience-wrapper">
   <div id="work-experience-container" class="relative w-full">
     {jobs.map((job, index) => (
-      <div class={`work-experience-item mb-12 md:mb-24 ${index % 2 === 0 ? 'left-item' : 'right-item'}`}>
+      <div class={`work-experience-item mb-10 md:mb-20 ${index % 2 === 0 ? 'left-item' : 'right-item'}`}>
         <div class={`relative flex flex-col md:flex-row gap-8 ${index % 2 === 0 ? '' : 'md:flex-row-reverse'}`}>
           <div id={`job-${index}-marker`} class="job-marker absolute top-4 right-4 w-12 h-12 md:relative md:top-auto md:right-auto md:w-24 md:h-24 flex-shrink-0 z-20">
             <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-full blur-md"></div>

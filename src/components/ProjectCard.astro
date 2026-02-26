@@ -19,7 +19,7 @@ const hasMultipleImages = images && images.length > 1;
 <div class="project-card relative group overflow-hidden rounded-2xl border border-gray-700/50 bg-gradient-to-br from-gray-900/80 to-gray-950/90 backdrop-blur-xl">
   <div class:list={["flex flex-col md:flex-row z-10 relative", { "md:flex-row-reverse": isReversed }]}>
     {hasMultipleImages ? (
-      <div class="shrink-0 flex items-center justify-center gap-4 p-6 md:p-8">
+      <div class="shrink-0 flex items-center justify-center gap-4 p-4 md:p-6">
         {images.map((img, i) => (
           <div class="phone-frame">
             <img
