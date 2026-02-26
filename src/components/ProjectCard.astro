@@ -3,62 +3,96 @@ interface Props {
   title: string;
   description: string;
   image?: string;
+  images?: string[];
   github: string;
   demo?: string;
+  appStore?: string;
+  index?: number;
 }
 
 import { Image } from 'astro:assets';
-const { title, description, image, github, demo } = Astro.props;
+const { title, description, image, images, github, demo, appStore, index = 0 } = Astro.props;
+const isReversed = index % 2 !== 0;
+const hasMultipleImages = images && images.length > 1;
 ---
 
 <div class="project-card relative group overflow-hidden rounded-2xl border border-gray-700/50 bg-gradient-to-br from-gray-900/80 to-gray-950/90 backdrop-blur-xl">
-  <div class="p-8 flex flex-col h-full z-10 relative">
-    {image && (
-      <div class="mb-8 rounded-xl overflow-hidden h-52 shadow-2xl ring-1 ring-white/10">
-        <Image
+  <div class:list={["flex flex-col md:flex-row z-10 relative", { "md:flex-row-reverse": isReversed }]}>
+    {hasMultipleImages ? (
+      <div class="shrink-0 flex items-center justify-center gap-4 p-6 md:p-8">
+        {images.map((img, i) => (
+          <div class="phone-frame">
+            <img
+              src={img}
+              alt={`${title} screenshot ${i + 1}`}
+              class="w-full h-full object-cover object-top"
+              loading="lazy"
+            />
+          </div>
+        ))}
+      </div>
+    ) : image ? (
+      <div class="md:w-[60%] shrink-0 overflow-hidden">
+        <img
           src={image}
           alt={title}
-          width={800}
-          height={450}
-          class="w-full h-full object-cover object-top transform group-hover:scale-110 transition-transform duration-700 ease-out"
+          class="w-full h-64 md:h-80 object-cover object-top transform group-hover:scale-105 transition-transform duration-700 ease-out"
+          loading="lazy"
         />
       </div>
-    )}
-    
-    <h3 class="text-2xl font-bold mb-4 text-white group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-pink-400 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">{title}</h3>
-    <p class="text-gray-300 mb-6 flex-grow text-base leading-relaxed">{description}</p>
+    ) : null}
 
-    <div class="flex gap-4 mt-auto">
-      <a
-        href={github}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="card-button card-button-github flex-1"
-        aria-label="View GitHub repository"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"></path>
-        </svg>
-        GitHub
-      </a>
-      {demo && (
+    <div class:list={["flex flex-col justify-center p-8 flex-1 min-w-0", !hasMultipleImages && "md:w-[40%]"]}>
+
+      <h3 class="text-2xl font-bold mb-4 text-white group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-pink-400 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">{title}</h3>
+      <p class="text-gray-300 mb-6 text-base leading-relaxed">{description}</p>
+
+      <div class="flex gap-4 mt-auto">
         <a
-          href={demo}
+          href={github}
           target="_blank"
           rel="noopener noreferrer"
-          class="card-button card-button-demo flex-1"
-          aria-label="Visit live site"
+          class="card-button card-button-github flex-1"
+          aria-label="View GitHub repository"
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-            <path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"></path>
-            <path d="M11 13l9 -9"></path>
-            <path d="M15 4h5v5"></path>
+            <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"></path>
           </svg>
-          Visit Site
+          GitHub
         </a>
-      )}
+        {demo && (
+          <a
+            href={demo}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card-button card-button-demo flex-1"
+            aria-label="Visit live site"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"></path>
+              <path d="M11 13l9 -9"></path>
+              <path d="M15 4h5v5"></path>
+            </svg>
+            Visit Site
+          </a>
+        )}
+        {appStore && (
+          <a
+            href={appStore}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card-button card-button-appstore flex-1"
+            aria-label="Download on the App Store"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 384 512" fill="currentColor">
+              <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"></path>
+            </svg>
+            App Store
+          </a>
+        )}
+      </div>
     </div>
   </div>
 </div>
@@ -67,24 +101,24 @@ const { title, description, image, github, demo } = Astro.props;
   .project-card {
     position: relative;
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 
-      0 20px 40px rgba(0, 0, 0, 0.2), 
+    box-shadow:
+      0 20px 40px rgba(0, 0, 0, 0.2),
       0 8px 16px rgba(0, 0, 0, 0.25),
       inset 0 1px 0 rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
   }
-  
+
   .project-card:hover {
     transform: translateY(-8px) scale(1.02);
-    box-shadow: 
-      0 30px 60px rgba(0, 0, 0, 0.4), 
+    box-shadow:
+      0 30px 60px rgba(0, 0, 0, 0.4),
       0 16px 24px rgba(0, 0, 0, 0.3),
       inset 0 1px 0 rgba(255, 255, 255, 0.2),
       0 0 0 1px rgba(147, 51, 234, 0.3);
     border-color: rgba(147, 51, 234, 0.6);
   }
-  
+
   .project-card::after {
     content: "";
     position: absolute;
@@ -92,11 +126,11 @@ const { title, description, image, github, demo } = Astro.props;
     border-radius: 0.75rem;
     padding: 1px;
     background: linear-gradient(
-      to bottom right, 
-      rgba(99, 102, 241, 0.3), 
+      to bottom right,
+      rgba(99, 102, 241, 0.3),
       transparent 50%
     );
-    mask: linear-gradient(#fff 0 0) content-box, 
+    mask: linear-gradient(#fff 0 0) content-box,
           linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -104,11 +138,34 @@ const { title, description, image, github, demo } = Astro.props;
     opacity: 0;
     transition: opacity 0.4s ease;
   }
-  
+
   .project-card:hover::after {
     opacity: 1;
   }
-  
+
+  .phone-frame {
+    flex: 1;
+    min-width: 0;
+    max-width: 150px;
+    aspect-ratio: 9 / 19.5;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    box-shadow:
+      0 8px 24px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .project-card:hover .phone-frame {
+    transform: translateY(-4px);
+  }
+
+  :global(html.light) .phone-frame {
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+
   .tag-pill {
     display: inline-flex;
     align-items: center;
@@ -123,7 +180,7 @@ const { title, description, image, github, demo } = Astro.props;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
   }
-  
+
   .card-button {
     display: inline-flex;
     align-items: center;
@@ -133,91 +190,106 @@ const { title, description, image, github, demo } = Astro.props;
     font-weight: 600;
     border-radius: 1rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 
-      0 4px 12px rgba(0, 0, 0, 0.15), 
+    box-shadow:
+      0 4px 12px rgba(0, 0, 0, 0.15),
       0 2px 4px rgba(0, 0, 0, 0.1),
       inset 0 1px 0 rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     text-align: center;
   }
-  
+
   .card-button-github {
     color: white;
     background: linear-gradient(135deg, rgba(31, 41, 55, 0.9), rgba(17, 24, 39, 0.9));
     border: 1px solid rgba(75, 85, 99, 0.4);
   }
-  
+
   .card-button-github:hover {
     background: linear-gradient(135deg, rgba(55, 65, 81, 1), rgba(31, 41, 55, 1));
     transform: translateY(-3px) scale(1.05);
-    box-shadow: 
+    box-shadow:
       0 8px 20px rgba(0, 0, 0, 0.3),
       0 4px 8px rgba(0, 0, 0, 0.2),
       inset 0 1px 0 rgba(255, 255, 255, 0.2);
   }
-  
+
   .card-button-demo {
     color: white;
     background: linear-gradient(135deg, rgba(147, 51, 234, 0.9), rgba(79, 70, 229, 0.9));
     border: 1px solid rgba(147, 51, 234, 0.5);
   }
-  
+
   .card-button-demo:hover {
     background: linear-gradient(135deg, rgba(147, 51, 234, 1), rgba(79, 70, 229, 1));
     transform: translateY(-3px) scale(1.05);
-    box-shadow: 
+    box-shadow:
       0 8px 20px rgba(147, 51, 234, 0.5),
       0 4px 8px rgba(79, 70, 229, 0.3),
       inset 0 1px 0 rgba(255, 255, 255, 0.2);
   }
-  
+
+  .card-button-appstore {
+    color: white;
+    background: linear-gradient(135deg, rgba(0, 122, 255, 0.9), rgba(0, 64, 221, 0.9));
+    border: 1px solid rgba(0, 122, 255, 0.5);
+  }
+
+  .card-button-appstore:hover {
+    background: linear-gradient(135deg, rgba(0, 122, 255, 1), rgba(0, 64, 221, 1));
+    transform: translateY(-3px) scale(1.05);
+    box-shadow:
+      0 8px 20px rgba(0, 122, 255, 0.5),
+      0 4px 8px rgba(0, 64, 221, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+
   /* Light mode styles - Glassy white appearance */
   :global(html.light) .project-card {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5));
     border-color: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    box-shadow: 
+    box-shadow:
       0 8px 32px rgba(31, 38, 135, 0.15),
       inset 0 1px 0 rgba(255, 255, 255, 0.8),
       inset 0 -1px 0 rgba(255, 255, 255, 0.3);
   }
-  
+
   :global(html.light) .project-card:hover {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6));
     border-color: rgba(99, 102, 241, 0.3);
-    box-shadow: 
+    box-shadow:
       0 12px 40px rgba(31, 38, 135, 0.2),
       inset 0 1px 0 rgba(255, 255, 255, 0.9),
       inset 0 -1px 0 rgba(255, 255, 255, 0.4);
   }
-  
+
   :global(html.light) .project-card h3 {
     color: #1f2937;
   }
-  
+
   :global(html.light) .project-card p {
     color: #4b5563;
   }
-  
+
   :global(html.light) .tag-pill {
     color: #4f46e5;
     background: rgba(99, 102, 241, 0.1);
     border-color: rgba(99, 102, 241, 0.3);
   }
-  
+
   :global(html.light) .card-button-github {
     background: rgba(255, 255, 255, 0.8);
     color: #1f2937;
     border-color: rgba(0, 0, 0, 0.1);
   }
-  
+
   :global(html.light) .card-button-github:hover {
     background: rgba(255, 255, 255, 0.95);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   }
-  
+
   :global(html.light) .card-button-demo {
     background: linear-gradient(135deg, rgba(99, 102, 241, 0.9), rgba(79, 70, 229, 0.9));
   }
@@ -227,17 +299,17 @@ const { title, description, image, github, demo } = Astro.props;
   // Mouse move effect for cards
   document.addEventListener('DOMContentLoaded', () => {
     const cards = document.querySelectorAll('.project-card');
-    
+
     cards.forEach(card => {
       card.addEventListener('mousemove', (e: Event) => {
         const mouseEvent = e as MouseEvent;
         const rect = (card as HTMLElement).getBoundingClientRect();
         const x = mouseEvent.clientX - rect.left;
         const y = mouseEvent.clientY - rect.top;
-        
+
         (card as HTMLElement).style.setProperty('--mouse-x', `${x}px`);
         (card as HTMLElement).style.setProperty('--mouse-y', `${y}px`);
       });
     });
   });
-</script> 
+</script>
