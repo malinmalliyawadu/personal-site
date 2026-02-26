@@ -22,17 +22,17 @@ const { jobs } = Astro.props;
 <div class="work-experience-wrapper">
   <div id="work-experience-container" class="relative w-full">
     {jobs.map((job, index) => (
-      <div class={`work-experience-item mb-24 ${index % 2 === 0 ? 'left-item' : 'right-item'}`}>
-        <div class={`flex flex-col md:flex-row gap-8 ${index % 2 === 0 ? '' : 'md:flex-row-reverse'}`}>
-          <div id={`job-${index}-marker`} class="relative flex-shrink-0 w-16 h-16 md:w-24 md:h-24 z-10">
+      <div class={`work-experience-item mb-12 md:mb-24 ${index % 2 === 0 ? 'left-item' : 'right-item'}`}>
+        <div class={`relative flex flex-col md:flex-row gap-8 ${index % 2 === 0 ? '' : 'md:flex-row-reverse'}`}>
+          <div id={`job-${index}-marker`} class="job-marker absolute top-4 right-4 w-12 h-12 md:relative md:top-auto md:right-auto md:w-24 md:h-24 flex-shrink-0 z-20">
             <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-full blur-md"></div>
             {job.logo ? (
-              <Image 
+              <Image
                 src={job.logo}
                 alt={`${job.company} logo`}
                 width={96}
                 height={96}
-                class={`relative w-full h-full object-cover p-0 rounded-full bg-gray-800/70 ${job.border ? 'border border-white' : ''}`}
+                class={`relative w-full h-full object-cover p-0 rounded-full bg-gray-800/70 shadow-lg ${job.border ? 'border border-white' : ''}`}
               />
             ) : (
               <div class="relative w-full h-full flex items-center justify-center rounded-full bg-gray-800/70 border border-gray-700 shadow-[0_0_10px_rgba(99,102,241,0.3)]">
@@ -40,7 +40,7 @@ const { jobs } = Astro.props;
               </div>
             )}
           </div>
-          
+
           <div id={`job-${index}-content`} class="job-content flex-1 bg-gray-800/40 rounded-lg backdrop-blur-sm border border-gray-700/50 p-6 shadow-lg z-10">
             <div class="mb-4 inline-block px-3 py-1 bg-indigo-900/30 border border-indigo-800/50 rounded-full text-sm text-indigo-300">
               {job.period}
@@ -240,8 +240,10 @@ const { jobs } = Astro.props;
   
   @media (max-width: 767px) {
     .beams-container,
+    .beams-container *,
     .beam-dot {
-      display: none;
+      display: none !important;
+      visibility: hidden !important;
     }
   }
   
