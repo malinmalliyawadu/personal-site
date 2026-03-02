@@ -166,21 +166,23 @@ import ThemeToggle from "./ThemeToggle.astro";
     transform: translateY(-7px) rotate(-45deg);
   }
 
-  /* Mobile menu slide */
-  .mobile-menu {
-    display: grid;
-    grid-template-rows: 0fr;
-    transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    border-top: 1px solid transparent;
-  }
+  /* Mobile menu slide - only apply grid on mobile to avoid overriding md:hidden */
+  @media (max-width: 767px) {
+    .mobile-menu {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      border-top: 1px solid transparent;
+    }
 
-  .mobile-menu > div {
-    overflow: hidden;
-  }
+    .mobile-menu > div {
+      overflow: hidden;
+    }
 
-  .mobile-menu.is-open {
-    grid-template-rows: 1fr;
-    border-color: rgba(255, 255, 255, 0.1);
+    .mobile-menu.is-open {
+      grid-template-rows: 1fr;
+      border-color: rgba(255, 255, 255, 0.1);
+    }
   }
 
   .mobile-nav-link {
