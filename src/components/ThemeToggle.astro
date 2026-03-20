@@ -3,7 +3,6 @@
 ---
 
 <button
-  id="theme-toggle"
   aria-label="Toggle theme"
   class="theme-toggle-btn"
   type="button"
@@ -102,18 +101,18 @@
 
 <script>
   // Theme toggle functionality
-  const themeToggle = document.getElementById('theme-toggle');
+  const themeToggles = document.querySelectorAll('.theme-toggle-btn');
   const html = document.documentElement;
-  
+
   // Check for saved theme preference or default to dark
   const currentTheme = localStorage.getItem('theme') || 'dark';
   html.classList.add(currentTheme);
-  
+
   // Update backgrounds based on theme
   function updateBackground(theme: string) {
     const darkBg = document.getElementById('dark-background');
     const lightBg = document.getElementById('light-background');
-    
+
     if (darkBg && lightBg) {
       if (theme === 'light') {
         darkBg.style.display = 'none';
@@ -124,25 +123,21 @@
       }
     }
   }
-  
+
   // Initial background setup
   updateBackground(currentTheme);
-  
-  // Toggle theme
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
+
+  // Toggle theme — attach to all toggle buttons
+  themeToggles.forEach(toggle => {
+    toggle.addEventListener('click', () => {
       const currentTheme = html.classList.contains('light') ? 'light' : 'dark';
       const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      
-      // Remove old theme and add new theme
+
       html.classList.remove(currentTheme);
       html.classList.add(newTheme);
-      
-      // Update backgrounds
+
       updateBackground(newTheme);
-      
-      // Save preference
       localStorage.setItem('theme', newTheme);
     });
-  }
+  });
 </script>
