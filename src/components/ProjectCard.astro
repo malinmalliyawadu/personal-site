@@ -143,14 +143,21 @@ const hasMultipleImages = images && images.length > 1;
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
                 box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
                 border-color 0.4s ease;
-    box-shadow: none;
+    box-shadow:
+      0 4px 24px rgba(0, 0, 0, 0.2),
+      0 1px 4px rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
   }
 
   .project-card:hover {
     transform: translateY(-4px);
-    box-shadow: none;
+    box-shadow:
+      0 20px 48px rgba(0, 0, 0, 0.35),
+      0 8px 20px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 0 0 1px rgba(139, 92, 246, 0.2);
     border-color: rgba(139, 92, 246, 0.4);
   }
 
@@ -188,7 +195,9 @@ const hasMultipleImages = images && images.length > 1;
     border-radius: 1.25rem;
     overflow: hidden;
     border: 2px solid rgba(255, 255, 255, 0.12);
-    box-shadow: none;
+    box-shadow:
+      0 8px 24px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
@@ -198,7 +207,7 @@ const hasMultipleImages = images && images.length > 1;
 
   :global(html.light) .phone-frame {
     border-color: rgba(0, 0, 0, 0.1);
-    box-shadow: none;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   }
 
   /* Stats */
