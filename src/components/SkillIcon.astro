@@ -28,9 +28,8 @@ const { name, icon } = Astro.props;
 <style>
   .skill-card {
     position: relative;
-    width: 8.5rem;
-    height: 8.5rem;
-    margin: 0.5rem;
+    width: 6.5rem;
+    height: 6.5rem;
     perspective: 1000px;
   }
   
@@ -42,21 +41,21 @@ const { name, icon } = Astro.props;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 1.25rem;
+    padding: 0.75rem;
     background: rgba(15, 23, 42, 0.4);
     border: 1px solid rgba(99, 102, 241, 0.1);
-    border-radius: 1rem;
+    border-radius: 0.875rem;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     overflow: hidden;
     backdrop-filter: blur(10px);
   }
   
   .skill-card:hover .skill-card-inner {
-    transform: translateY(-8px);
+    transform: translateY(-4px);
     border-color: rgba(99, 102, 241, 0.3);
-    box-shadow: 
-      0 15px 30px rgba(0, 0, 0, 0.3), 
-      0 10px 10px rgba(0, 0, 0, 0.2),
+    box-shadow:
+      0 10px 20px rgba(0, 0, 0, 0.25),
+      0 6px 6px rgba(0, 0, 0, 0.15),
       0 0 0 1px rgba(99, 102, 241, 0.2) inset;
   }
   
@@ -79,12 +78,12 @@ const { name, icon } = Astro.props;
   
   .skill-icon-container {
     position: relative;
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
   }
   
   .skill-icon-container::after {
@@ -110,8 +109,8 @@ const { name, icon } = Astro.props;
   }
   
   .skill-icon {
-    width: 3rem;
-    height: 3rem;
+    width: 2rem;
+    height: 2rem;
     object-fit: contain;
     z-index: 1;
     position: relative;
@@ -125,7 +124,7 @@ const { name, icon } = Astro.props;
   }
   
   .skill-name {
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     font-weight: 500;
     color: rgba(255, 255, 255, 0.8);
     text-align: center;

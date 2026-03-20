@@ -104,18 +104,26 @@ const skillCategories = [
 const projects = [
   {
     title: "Welly App",
-    description: "Your pocket guide to Wellington, New Zealand. Discover local events, weather, transit, and everything happening in the capital.",
+    description: "A city companion app for Wellington, New Zealand that aggregates the largest collection of local events in the capital — pulling from 6 sources that no single platform covers alone. Combines events with real-time weather, public transit, and an AI-powered assistant to help locals and visitors get the most out of the city.",
     github: "https://github.com/malinmalliyawadu/wellington-app",
     images: ['/screenshots/welly-app-map.png', '/screenshots/welly-app-ai.png', '/screenshots/welly-app-feed.png'],
     demo: 'https://wellyapp.nz',
-    appStore: 'https://apps.apple.com/nz/app/welly-app/id6758979767'
+    appStore: 'https://apps.apple.com/nz/app/welly-app/id6758979767',
+    stats: [
+      { label: 'Event Sources', value: '6' },
+      { label: 'Platform', value: 'iOS' },
+    ],
   },
   {
     title: "Everybody Eats Volunteer Portal",
-    description: "Streamlines coordination with shift scheduling, achievements, and gamification for the Everybody Eats charity.",
+    description: "Built for Everybody Eats, a charity rescuing surplus food to serve free restaurant-quality meals to communities across New Zealand. The portal coordinates volunteer shifts across multiple kitchen locations, tracks individual and team achievements, and uses a gamification system with badges and leaderboards to drive ongoing engagement and retention.",
     github: "https://github.com/everybody-eats-nz/volunteer-portal",
     image: '/screenshots/volunteer-portal.png',
-    demo: 'https://volunteers.everybodyeats.nz'
+    demo: 'https://volunteers.everybodyeats.nz',
+    stats: [
+      { label: 'Volunteers', value: '9,000+' },
+      { label: 'Weekly Active', value: '1.2K' },
+    ],
   },
 ];
 
@@ -223,64 +231,58 @@ const certifications = [
     <div class="container mx-auto px-4 relative z-10">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-12">
         <div class="md:w-1/2">
-          <div class="role-pill inline-block mb-6 px-6 py-3 bg-gradient-to-r from-purple-900/30 to-indigo-900/30 border border-purple-500/30 rounded-full text-sm font-semibold text-purple-200 backdrop-blur-md transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-purple-500/25">
-            <span class="inline-flex items-center gap-3">
-              <span class="status-dot inline-block w-3 h-3 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full shadow-lg shadow-green-400/50 animate-pulse"></span>
-              <span class="tracking-wide">Available for Work</span>
-            </span>
+          <div class="role-pill inline-flex items-center gap-2.5 mb-8 px-4 py-2 bg-white/[0.04] border border-white/[0.08] rounded-full text-sm text-gray-400 backdrop-blur-md transition-all duration-300 hover:border-emerald-500/30 hover:bg-emerald-500/[0.04] hero-title">
+            <span class="status-dot inline-block w-2 h-2 bg-emerald-400 rounded-full shadow-[0_0_8px_rgba(52,211,153,0.6)] animate-pulse"></span>
+            <span class="tracking-wide font-medium">Available for Work</span>
           </div>
-          <h1 class="text-5xl sm:text-6xl md:text-8xl font-black mb-6 leading-tight hero-title">
-            <span class="block text-white/90 mb-2">Hi, I'm</span>
-            <AuroraText 
-              class="font-outfit font-extrabold block" 
+          <h1 class="text-5xl sm:text-6xl md:text-8xl font-black mb-4 leading-[0.95] hero-title">
+            <span class="block text-white/60 text-2xl sm:text-3xl md:text-4xl font-medium mb-3 font-outfit tracking-tight">Hi, I'm</span>
+            <AuroraText
+              class="font-outfit font-extrabold block"
               colors={["#667eea", "#764ba2", "#f093fb", "#ff9a9e"]}
               speed={0.8}
             >Malin</AuroraText>
-            <span class="inline-block animate-wave text-6xl ml-4">👋</span>
           </h1>
-          <p class="text-xl md:text-2xl text-gray-300 mb-10 leading-relaxed max-w-2xl hero-tagline">
-            A passionate <span class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent font-semibold">full-stack developer</span> from Wellington, NZ specializing in crafting <span class="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent font-semibold">beautiful</span>, <span class="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent font-semibold">performant</span>, and <span class="bg-gradient-to-r from-pink-400 to-red-400 bg-clip-text text-transparent font-semibold">accessible</span> digital experiences.
+          <p class="text-lg md:text-xl text-gray-400 mb-10 leading-relaxed max-w-xl hero-tagline">
+            <span class="text-white font-medium">Full-stack developer</span> from Wellington, NZ with 15+ years of experience building <span class="text-white font-medium">beautiful</span>, <span class="text-white font-medium">performant</span>, and <span class="text-white font-medium">accessible</span> digital experiences.
           </p>
-          <div class="flex flex-col sm:flex-row gap-4 md:gap-6 hero-cta">
-            <a 
-              href="#projects" 
+          <div class="flex flex-col sm:flex-row gap-3 md:gap-4 hero-cta">
+            <a
+              href="#projects"
               class="btn-primary group relative overflow-hidden transform transition-all duration-300"
             >
               <span class="relative z-10 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                </svg>
                 View My Work
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 group-hover:translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
               </span>
             </a>
-            <a 
+            <a
               href="/cv/Malin_CV.pdf"
               target="_blank"
               rel="noopener noreferrer"
               class="btn-secondary group relative transform transition-all duration-300"
             >
               <span class="relative z-10 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
                 Download CV
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
               </span>
             </a>
           </div>
-          
+
         </div>
         <div class="md:w-1/2 flex md:justify-end justify-center pb-16 md:pb-0">
           <div class="relative moon-profile group">
             <!-- Orbital ring animation -->
             <div class="absolute -inset-10 rounded-full border border-indigo-500/20 orbital-ring orbital-ring-1 hidden md:block"></div>
             <div class="absolute -inset-16 rounded-full border border-purple-500/10 orbital-ring orbital-ring-2 hidden md:block"></div>
-            
+
             <!-- Enhanced glow effect -->
             <div class="absolute inset-0 bg-gradient-to-r from-indigo-400/20 to-purple-400/20 rounded-full blur-3xl opacity-20 moon-glow group-hover:opacity-30 transition-all duration-700"></div>
-            
+
             <!-- Profile image with interactive effect -->
             <Image
               src={profilePic}
@@ -294,7 +296,7 @@ const certifications = [
           </div>
         </div>
       </div>
-      
+
     </div>
     <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 hidden md:block animate-bounce">
       <a href="#about" class="text-gray-400 hover:text-white transition-colors">
@@ -312,92 +314,34 @@ const certifications = [
     title="About Me"
     subtitle="Passionate about creating impactful digital experiences"
   >
-    <div class="max-w-5xl mx-auto">
-      <div class="grid md:grid-cols-2 gap-12 mb-12">
-        <!-- Professional card -->
-        <div class="about-card bg-gradient-to-br from-gray-800/60 to-gray-900/60 rounded-2xl p-6 md:p-8 backdrop-blur-xl border border-gray-600/30 shadow-2xl relative overflow-hidden animate-on-scroll">
-          <!-- Enhanced gradient accent -->
-          <div class="absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-br from-purple-600/20 to-pink-600/20 rounded-full blur-3xl"></div>
-          <div class="absolute -bottom-16 -left-16 w-32 h-32 bg-gradient-to-tr from-blue-600/15 to-purple-600/15 rounded-full blur-2xl"></div>
-          
-          <!-- Professional section -->
-          <div class="relative z-10 space-y-4">
-            <div class="flex items-center mb-4">
-              <div class="about-icon-box p-2 bg-indigo-900/30 rounded-lg mr-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="about-icon h-6 w-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                </svg>
-              </div>
-              <h3 class="about-heading text-xl font-bold text-white">Professional Skills</h3>
-            </div>
-            <p class="about-text text-lg leading-relaxed">
-              With <span class="text-indigo-300 font-medium">14+ years of professional experience</span>, I'm a full-stack developer with expertise in 
-              <a href="#skills" class="text-indigo-400 font-medium hover:text-indigo-300 transition-colors">.NET</a>, 
-              <a href="#skills" class="text-indigo-400 font-medium hover:text-indigo-300 transition-colors">TypeScript</a>, 
-              <a href="#skills" class="text-indigo-400 font-medium hover:text-indigo-300 transition-colors">React</a>, and 
-              <a href="#skills" class="text-indigo-400 font-medium hover:text-indigo-300 transition-colors">AWS</a>.
-              I've developed a passion for bleeding-edge technologies and automation, consistently exploring ways to streamline development workflows and implement intelligent CI/CD pipelines.
-            </p>
-            <p class="about-text text-lg leading-relaxed">
-              My approach combines <span class="text-purple-300 font-semibold">technical excellence</span> with a focus on <span class="text-purple-300 font-semibold">delivering business value</span> through robust, maintainable code and innovative and scalable architecture.
-            </p>
-          </div>
-        </div>
-        
-        <!-- Personal card -->
-        <div class="about-card bg-gradient-to-br from-gray-800/60 to-gray-900/60 rounded-2xl p-6 md:p-8 backdrop-blur-xl border border-gray-600/30 shadow-2xl relative overflow-hidden animate-on-scroll" style="animation-delay: 0.3s">
-          <!-- Enhanced gradient accent -->
-          <div class="absolute -bottom-32 -left-32 w-64 h-64 bg-gradient-to-tr from-pink-600/20 to-red-600/20 rounded-full blur-3xl"></div>
-          <div class="absolute -top-16 -right-16 w-32 h-32 bg-gradient-to-bl from-green-600/15 to-blue-600/15 rounded-full blur-2xl"></div>
-          
-          <!-- Personal section -->
-          <div class="relative z-10 space-y-4">
-            <div class="flex items-center mb-4">
-              <div class="about-icon-box p-2 bg-purple-900/30 rounded-lg mr-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="about-icon h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 class="about-heading text-xl font-bold text-white">Beyond Coding</h3>
-            </div>
-            <p class="about-text text-lg leading-relaxed mb-4">
-              Off the keyboard, you'll find me:
-            </p>
-            <ul class="space-y-3">
-              <li class="flex items-center">
-                <span class="text-xl mr-3">🚐</span>
-                <span>Chasing sunsets in my van</span>
-              </li>
-              <li class="flex items-center">
-                <span class="text-xl mr-3">🌏</span>
-                <span>Exploring hidden corners of the globe</span>
-              </li>
-              <li class="flex items-center">
-                <span class="text-xl mr-3">💪</span>
-                <span>Crushing PRs at the gym</span>
-              </li>
-              <li class="flex items-center">
-                <span class="text-xl mr-3">🧘‍♂️</span>
-                <span>Finding my zen through hot yoga</span>
-              </li>
-              <li class="flex items-center">
-                <span class="text-xl mr-3">🌱</span>
-                <span>Looking after my plant babies</span>
-              </li>
-              <li class="flex items-center">
-                <span class="text-xl mr-3">👨‍🍳</span>
-                <span>Experimenting with new recipes</span>
-              </li>
-              <li class="flex items-center">
-                <span class="text-xl mr-3">📚</span>
-                <span>Always learning something new</span>
-              </li>
-            </ul>
-          </div>
+    <div class="max-w-3xl mx-auto animate-on-scroll">
+      <!-- Professional -->
+      <div class="about-prose mb-16">
+        <p class="about-text text-lg md:text-xl leading-relaxed mb-5">
+          With <span class="about-highlight">15+ years of professional experience</span>, I'm a full-stack developer with expertise in
+          <a href="#skills" class="about-link">.NET</a>,
+          <a href="#skills" class="about-link">TypeScript</a>,
+          <a href="#skills" class="about-link">React</a>, and
+          <a href="#skills" class="about-link">AWS</a>.
+        </p>
+        <p class="about-text text-lg md:text-xl leading-relaxed">
+          I have a passion for bleeding-edge technologies and automation — consistently exploring ways to streamline development workflows and implement intelligent CI/CD pipelines. My approach combines <span class="about-highlight">technical excellence</span> with a focus on <span class="about-highlight">delivering business value</span> through robust, maintainable code and scalable architecture.
+        </p>
+      </div>
+
+      <!-- Beyond coding -->
+      <div class="text-center">
+        <p class="about-beyond-label text-xs font-medium tracking-widest uppercase mb-4">Beyond the keyboard</p>
+        <div class="about-emoji-row flex justify-center gap-3 md:gap-4">
+          <span class="about-emoji" data-tooltip="Chasing sunsets in my van">🚐</span>
+          <span class="about-emoji" data-tooltip="Exploring hidden corners of the globe">🌏</span>
+          <span class="about-emoji" data-tooltip="Crushing PRs at the gym">💪</span>
+          <span class="about-emoji" data-tooltip="Finding my zen through hot yoga">🧘‍♂️</span>
+          <span class="about-emoji" data-tooltip="Looking after my plant babies">🌱</span>
+          <span class="about-emoji" data-tooltip="Experimenting with new recipes">👨‍🍳</span>
+          <span class="about-emoji" data-tooltip="Always learning something new">📚</span>
         </div>
       </div>
-      
-      <!-- Experience Counter moved to Work Experience section -->
     </div>
   </Section>
   
@@ -416,40 +360,21 @@ const certifications = [
     title="Skills & Technologies"
     subtitle="The tools and technologies I work with"
   >
-    <div class="skills-carousel-container">
-      <!-- Category Navigation -->
-      <div class="flex justify-center mb-8 px-4">
-        <div class="skills-nav-container overflow-x-auto scrollbar-hide p-1 bg-gray-800 bg-opacity-40 rounded-lg">
-          <div class="flex space-x-2 whitespace-nowrap">
-            {skillCategories.map((category, index) => (
-              <button
-                class="skills-nav-button px-3 md:px-4 py-2 rounded-md text-sm transition-all duration-300 flex-shrink-0"
-                data-index={index}
-                aria-label={`Show ${category.name} skills`}
-              >
-                {category.name}
-              </button>
+    <div class="skills-all-container animate-on-scroll">
+      {skillCategories.map((category, catIndex) => (
+        <div class="skill-group" data-category={catIndex}>
+          <div class="skill-group-label">
+            <span class="skill-group-line"></span>
+            <span class="skill-group-name">{category.name}</span>
+            <span class="skill-group-line"></span>
+          </div>
+          <div class="skill-group-items">
+            {category.skills.map((skill) => (
+              <SkillIcon name={skill.name} icon={skill.icon} />
             ))}
           </div>
         </div>
-      </div>
-      
-      <!-- Carousel Container with overflow control -->
-      <div class="overflow-hidden">
-        <div class="skills-carousel relative">
-          <div class="skills-carousel-track flex transition-transform duration-500">
-            {skillCategories.map((category) => (
-              <div class="skills-carousel-slide w-full flex-shrink-0">
-                <div class="flex flex-wrap justify-center py-2 px-4">
-                  {category.skills.map((skill) => (
-                    <SkillIcon name={skill.name} icon={skill.icon} />
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+      ))}
     </div>
   </Section>
   
@@ -459,7 +384,7 @@ const certifications = [
     title="Certifications"
     subtitle="Professional certifications and achievements"
   >
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
       {certifications.map((cert) => (
         <CertificationCard
           title={cert.title}
@@ -503,6 +428,7 @@ const certifications = [
             github={project.github}
             demo={project.demo}
             appStore={project.appStore}
+            stats={project.stats}
             index={index}
           />
         </div>
@@ -525,49 +451,67 @@ const certifications = [
   </Section>
 
   <!-- Contact Section -->
-  <Section
-    id="contact"
-    title="Let's Create Something Amazing"
-    subtitle="Ready to bring your vision to life? Let's start the conversation"
-  >
-    <div class="max-w-2xl mx-auto">
-      <div class="contact-card bg-gradient-to-br from-gray-900/50 to-gray-950/50 rounded-3xl p-8 md:p-10 backdrop-blur-xl border border-gray-700/50 text-center relative overflow-hidden">
-        <!-- Enhanced background effect -->
-        <div class="absolute inset-0 bg-gradient-to-br from-purple-900/10 via-transparent to-pink-900/10 pointer-events-none"></div>
-        
-        <div class="relative z-10">
-          <p class="contact-text text-xl mb-10 leading-relaxed">
-            I'm currently available for <span class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent font-semibold">freelance projects</span> and <span class="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent font-semibold">exciting opportunities</span>. Let's build something incredible together!
-          </p>
-          
-          <div class="flex flex-col sm:flex-row gap-6 justify-center">
-            <a
-              href="mailto:malin.malliya.wadu@gmail.com"
-              class="btn-primary group"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-                <polyline points="3 7 12 13 21 7"></polyline>
-              </svg>
-              Get In Touch
-            </a>
-            <a
-              href="https://www.linkedin.com/in/malin-malliya-wadu-94956522/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn-secondary group"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path>
-              </svg>
-              Connect on LinkedIn
-            </a>
-          </div>
+  <section id="contact" class="relative py-24 md:py-32 overflow-hidden">
+    <!-- Ambient glow -->
+    <div class="contact-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"></div>
+
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="max-w-2xl mx-auto text-center animate-on-scroll">
+        <p class="contact-overline text-sm font-medium tracking-widest uppercase mb-4">Get in touch</p>
+        <h2 class="contact-heading text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+          Let's build something<br/>
+          <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">together.</span>
+        </h2>
+        <p class="contact-subtext text-lg text-gray-400 mb-12 max-w-lg mx-auto leading-relaxed">
+          Currently available for freelance projects and exciting opportunities. Drop me a line and let's talk.
+        </p>
+
+        <!-- Email as the hero action -->
+        <a
+          href="mailto:malin.malliya.wadu@gmail.com"
+          class="contact-email-link group inline-flex items-center gap-3 text-lg md:text-xl font-medium transition-all duration-300 mb-12"
+        >
+          <span class="contact-email-icon flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+              <polyline points="3 7 12 13 21 7"></polyline>
+            </svg>
+          </span>
+          <span class="contact-email-text">malin.malliya.wadu@gmail.com</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+
+        <!-- Social links row -->
+        <div class="flex items-center justify-center gap-3">
+          <a
+            href="https://www.linkedin.com/in/malin-malliya-wadu-94956522/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-social group flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path>
+            </svg>
+            LinkedIn
+          </a>
+          <a
+            href="https://github.com/malinmalliyawadu"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-social group flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300"
+          >
+            <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+              <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+            </svg>
+            GitHub
+          </a>
         </div>
       </div>
     </div>
-  </Section>
+  </section>
   
   <Footer />
   
@@ -631,51 +575,151 @@ const certifications = [
     transform-origin: bottom left;
   }
   
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
+  .skills-all-container {
+    max-width: 56rem;
+    margin: 0 auto;
   }
 
-  .skills-carousel-container {
-    max-width: 100%;
-    padding: 1rem 0;
+  .skill-group {
+    margin-bottom: 2rem;
   }
-  
-  .skills-carousel {
-    position: relative;
-    padding: 0.5rem;
-    overflow: visible;
+
+  .skill-group:last-child {
+    margin-bottom: 0;
   }
-  
-  .skills-carousel-track {
+
+  .skill-group-label {
     display: flex;
-    transition: transform 0.5s ease-in-out;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
   }
-  
-  .skills-carousel-slide {
-    width: 100%;
+
+  .skill-group-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  }
+
+  .skill-group-name {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.7);
+    white-space: nowrap;
     flex-shrink: 0;
-    padding: 0.5rem;
+  }
+
+  .skill-group-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  /* Light mode */
+  html.light .skill-group-line {
+    background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.25), transparent);
+  }
+
+  html.light .skill-group-name {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  html.light .skill-group-line {
+    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.2), transparent);
   }
   
-  .skills-nav-button.active {
-    background-color: rgba(99, 102, 241, 0.8);
+  /* Contact section */
+  .contact-glow {
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.06) 0%, transparent 70%);
+  }
+
+  .contact-overline {
+    color: rgba(99, 102, 241, 0.6);
+  }
+
+  .contact-email-link {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .contact-email-link:hover {
     color: white;
-    font-weight: 500;
   }
-  
-  .skills-nav-button:not(.active) {
-    color: #d1d5db;
-    background-color: transparent;
+
+  .contact-email-icon {
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.15);
+    color: #818cf8;
   }
-  
-  .skills-nav-button:hover:not(.active) {
-    background-color: rgba(75, 85, 99, 0.5);
+
+  .contact-email-link:hover .contact-email-icon {
+    background: rgba(99, 102, 241, 0.2);
+    border-color: rgba(99, 102, 241, 0.3);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.15);
   }
-  
+
+  .contact-social {
+    color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .contact-social:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  /* Light mode contact */
+  html.light .contact-glow {
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.04) 0%, transparent 70%);
+  }
+
+  html.light .contact-overline {
+    color: rgba(79, 70, 229, 0.6);
+  }
+
+  html.light .contact-heading {
+    color: #1f2937;
+  }
+
+  html.light .contact-subtext {
+    color: #6b7280;
+  }
+
+  html.light .contact-email-link {
+    color: #1f2937;
+  }
+
+  html.light .contact-email-link:hover {
+    color: #4f46e5;
+  }
+
+  html.light .contact-email-icon {
+    background: rgba(79, 70, 229, 0.08);
+    border-color: rgba(79, 70, 229, 0.15);
+    color: #4f46e5;
+  }
+
+  html.light .contact-email-link:hover .contact-email-icon {
+    background: rgba(79, 70, 229, 0.12);
+    border-color: rgba(79, 70, 229, 0.25);
+  }
+
+  html.light .contact-social {
+    color: #6b7280;
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.08);
+  }
+
+  html.light .contact-social:hover {
+    color: #4f46e5;
+    background: rgba(79, 70, 229, 0.06);
+    border-color: rgba(79, 70, 229, 0.2);
+  }
+
   /* Light mode styles for GitHub link button */
   html.light .github-link {
     background: rgba(255, 255, 255, 0.8);
@@ -690,118 +734,112 @@ const certifications = [
     box-shadow: 0 8px 20px rgba(99, 102, 241, 0.15);
   }
 
-  /* Light mode styles for contact card */
-  html.light .contact-card {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5));
-    border-color: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: 
-      0 8px 32px rgba(31, 38, 135, 0.12),
-      inset 0 1px 0 rgba(255, 255, 255, 0.8),
-      inset 0 -1px 0 rgba(255, 255, 255, 0.3);
-  }
   
-  html.light .contact-text {
-    color: #4b5563;
-  }
   
-  /* Light mode styles for skills navigation */
-  html.light .skills-nav-container {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5));
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: 
-      0 4px 16px rgba(31, 38, 135, 0.08),
-      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  /* About section */
+  .about-text {
+    color: rgba(255, 255, 255, 0.65);
   }
-  
-  html.light .skills-nav-button.active {
-    background-color: #4f46e5;
+
+  .about-highlight {
     color: white;
-    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+    font-weight: 500;
   }
-  
-  html.light .skills-nav-button:not(.active) {
-    color: #6b7280;
-    background-color: transparent;
+
+  .about-link {
+    color: #818cf8;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s ease;
   }
-  
-  html.light .skills-nav-button:hover:not(.active) {
-    background-color: rgba(99, 102, 241, 0.1);
-    color: #4f46e5;
+
+  .about-link:hover {
+    color: #a5b4fc;
   }
-  
-  /* Light mode styles for about section card */
-  html.light .about-card {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5));
-    border-color: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: 
-      0 8px 32px rgba(31, 38, 135, 0.12),
-      inset 0 1px 0 rgba(255, 255, 255, 0.8),
-      inset 0 -1px 0 rgba(255, 255, 255, 0.3);
+
+  .about-beyond-label {
+    color: rgba(255, 255, 255, 0.5);
   }
-  
+
+  .about-emoji {
+    position: relative;
+    font-size: 1.75rem;
+    cursor: default;
+    transition: transform 0.2s ease;
+  }
+
+  .about-emoji:hover {
+    transform: scale(1.3);
+  }
+
+  .about-emoji::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    padding: 0.4rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(15, 23, 42, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.5rem;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    backdrop-filter: blur(12px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 10;
+  }
+
+  .about-emoji:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* Light mode about */
   html.light .about-text {
     color: #4b5563;
   }
-  
-  /* Light mode styles for about card icons and headings */
-  html.light .about-icon-box {
-    background: rgba(99, 102, 241, 0.15);
-    border: 1px solid rgba(99, 102, 241, 0.3);
-  }
-  
-  html.light .about-icon {
-    color: #4f46e5;
-    stroke-width: 2.5;
-  }
-  
-  html.light .about-heading {
+
+  html.light .about-highlight {
     color: #1f2937;
+    font-weight: 600;
   }
-  
-  html.light .about-text span.text-indigo-300 {
+
+  html.light .about-link {
     color: #4f46e5;
     font-weight: 600;
   }
-  
-  html.light .about-text span.text-purple-300 {
-    color: #7c3aed;
-    font-weight: 600;
-  }
-  
-  html.light .about-text a {
-    color: #4f46e5;
-    font-weight: 600;
-  }
-  
-  html.light .about-text a:hover {
+
+  html.light .about-link:hover {
     color: #6366f1;
+  }
+
+  html.light .about-beyond-label {
+    color: rgba(0, 0, 0, 0.45);
+  }
+
+  html.light .about-emoji::after {
+    color: #1f2937;
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   }
   
   /* Light mode styles for role pill */
   html.light .role-pill {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5));
-    border-color: rgba(99, 102, 241, 0.4);
-    color: #4f46e5;
-    font-weight: 600;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: 
-      0 4px 12px rgba(99, 102, 241, 0.15),
-      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.08);
+    color: #6b7280;
   }
-  
+
   html.light .role-pill:hover {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6));
-    box-shadow: 
-      0 6px 16px rgba(99, 102, 241, 0.2),
-      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    background: rgba(16, 185, 129, 0.04);
+    border-color: rgba(16, 185, 129, 0.2);
   }
-  
+
   html.light .status-dot {
     background-color: #10b981;
     box-shadow: 0 0 6px rgba(16, 185, 129, 0.4);
@@ -1273,10 +1311,6 @@ const certifications = [
       margin-bottom: 2rem;
     }
     
-    .about-card {
-      padding: 1.5rem;
-    }
-    
     .btn-primary, .btn-secondary {
       width: 100%;
       justify-content: center;
@@ -1293,107 +1327,6 @@ const certifications = [
 </style>
 
 <script>
-  // Initialize carousel
-  document.addEventListener('DOMContentLoaded', () => {
-    const track = document.querySelector('.skills-carousel-track') as HTMLElement;
-    const slides = document.querySelectorAll('.skills-carousel-slide');
-    const navButtons = document.querySelectorAll('.skills-nav-button');
-    const skillsSection = document.querySelector('#skills');
-    const carouselContainer = document.querySelector('.skills-carousel-container');
-    
-    let currentIndex = 0;
-    let interval: ReturnType<typeof setInterval> | undefined;
-    let isAutoPlaying = true;
-    const slidesCount = slides.length;
-    
-    // Set up initial state
-    function updateCarousel() {
-      // Update track position
-      if (track) {
-        track.style.transform = `translateX(-${currentIndex * 100}%)`;
-      }
-      
-      // Update active nav button
-      navButtons.forEach((button, index) => {
-        if (index === currentIndex) {
-          button.classList.add('active');
-        } else {
-          button.classList.remove('active');
-        }
-      });
-    }
-    
-    // Start auto-rotation
-    function startAutoPlay() {
-      if (interval) clearInterval(interval);
-      
-      interval = setInterval(() => {
-        if (isAutoPlaying) {
-          currentIndex = (currentIndex + 1) % slidesCount;
-          updateCarousel();
-        }
-      }, 5000); // Change slide every 5 seconds
-    }
-    
-    // Pause auto-scrolling
-    function pauseAutoPlay() {
-      isAutoPlaying = false;
-    }
-    
-    // Resume auto-scrolling
-    function resumeAutoPlay() {
-      if (!interval) {
-        startAutoPlay();
-      }
-      isAutoPlaying = true;
-    }
-    
-    // Permanently stop auto-scrolling
-    function stopAutoPlay() {
-      isAutoPlaying = false;
-      if (interval) {
-        clearInterval(interval);
-        interval = undefined;
-      }
-    }
-    
-    // Event handlers
-    function handleNavButtonClick(e: Event) {
-      e.preventDefault();
-      const clickedIndex = parseInt((e.currentTarget as HTMLElement).dataset.index || '0', 10);
-      if (!isNaN(clickedIndex)) {
-        currentIndex = clickedIndex;
-        updateCarousel();
-        stopAutoPlay();
-      }
-    }
-    
-    // Attach event listeners to nav buttons
-    navButtons.forEach(button => {
-      button.addEventListener('click', handleNavButtonClick);
-    });
-    
-    // Add click event to the entire skills section to stop auto-scrolling
-    if (skillsSection) {
-      skillsSection.addEventListener('click', stopAutoPlay);
-    }
-    
-    // Add hover events to pause/resume auto-scrolling
-    if (carouselContainer) {
-      carouselContainer.addEventListener('mouseenter', pauseAutoPlay);
-      carouselContainer.addEventListener('mouseleave', resumeAutoPlay);
-    }
-    
-    // Initialize
-    updateCarousel();
-    startAutoPlay();
-    
-    // Set first nav button as active initially
-    if (navButtons.length > 0) {
-      navButtons[0].classList.add('active');
-    }
-  });
-
   // Add click handler to profile image to add more stars or clouds
   document.addEventListener('DOMContentLoaded', () => {
     const profileImage = document.getElementById('profile-image');

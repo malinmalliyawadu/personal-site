@@ -10,70 +10,80 @@ interface Props {
 }
 
 import { Image } from 'astro:assets';
-const { title, issuer, issueDate, expiryDate, image, link, skills } = Astro.props;
+const { title, issuer, issueDate, expiryDate, image, link } = Astro.props;
 
-// Format date to show month and year
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);
   return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 };
+
 ---
 
-<a href={link} target="_blank" rel="noopener noreferrer" class="block h-full">
-  <div class="cert-card bg-gray-800/40 rounded-lg overflow-hidden h-full transition-all duration-300 hover:scale-[1.02] hover:bg-gray-800/60 backdrop-blur-sm border border-gray-700/50 shadow-xl flex flex-col">
-    <div class="cert-image-container p-4 flex items-center justify-center bg-gray-900/30">
-      <Image src={image} alt={title} width={128} height={128} class="h-32 object-contain" />
+<a href={link} target="_blank" rel="noopener noreferrer" class="cert-link block h-full group">
+  <div class="cert-card h-full flex items-center gap-5 p-5 rounded-xl transition-all duration-300">
+    <div class="cert-badge flex-shrink-0">
+      <Image src={image} alt={title} width={80} height={80} class="w-16 h-16 md:w-20 md:h-20 object-contain transition-transform duration-300 group-hover:scale-110" />
     </div>
-    <div class="p-4 flex-1 flex flex-col">
-      <h3 class="cert-title text-xl font-bold text-white mb-1">{title}</h3>
-      <div class="cert-issuer text-gray-300 mb-2">
-        <span class="font-medium">{issuer}</span>
-      </div>
-      <div class="cert-dates text-sm text-gray-400 flex flex-col">
-        <span>Issued: {formatDate(issueDate)}</span>
-        {expiryDate && (
-          <span class="">Expires: {formatDate(expiryDate)}</span>
-        )}
-      </div>
-      
+    <div class="flex-1 min-w-0">
+      <h3 class="cert-title text-base font-semibold text-white leading-tight mb-1.5 line-clamp-2">{title}</h3>
+      <p class="cert-issuer text-sm text-gray-400 mb-2">{issuer}</p>
+      <span class="cert-dates text-xs text-gray-500">
+        {formatDate(issueDate)}{expiryDate && ` — ${formatDate(expiryDate)}`}
+      </span>
     </div>
+    <svg xmlns="http://www.w3.org/2000/svg" class="cert-arrow w-4 h-4 flex-shrink-0 text-gray-600 transition-all duration-300 group-hover:text-indigo-400 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+    </svg>
   </div>
 </a>
 
 <style>
-  /* Light mode styles - Glassy white appearance */
-  :global(html.light) .cert-card {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5));
-    border-color: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: 
-      0 8px 32px rgba(31, 38, 135, 0.12),
-      inset 0 1px 0 rgba(255, 255, 255, 0.8),
-      inset 0 -1px 0 rgba(255, 255, 255, 0.3);
+  .cert-card {
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
   }
-  
+
+  .cert-card:hover {
+    background: rgba(15, 23, 42, 0.6);
+    border-color: rgba(99, 102, 241, 0.2);
+    box-shadow: 0 8px 32px rgba(99, 102, 241, 0.08);
+  }
+
+  /* Light mode */
+  :global(html.light) .cert-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.4));
+    border-color: rgba(255, 255, 255, 0.7);
+    box-shadow:
+      0 2px 12px rgba(31, 38, 135, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  }
+
   :global(html.light) .cert-card:hover {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6));
-    box-shadow: 
-      0 12px 40px rgba(31, 38, 135, 0.18),
-      inset 0 1px 0 rgba(255, 255, 255, 0.9),
-      inset 0 -1px 0 rgba(255, 255, 255, 0.4);
+    border-color: rgba(99, 102, 241, 0.3);
+    box-shadow:
+      0 8px 32px rgba(31, 38, 135, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
   }
-  
-  :global(html.light) .cert-image-container {
-    background: rgba(255, 255, 255, 0.5);
-  }
-  
+
   :global(html.light) .cert-title {
     color: #1f2937;
   }
-  
+
   :global(html.light) .cert-issuer {
-    color: #4b5563;
-  }
-  
-  :global(html.light) .cert-dates {
     color: #6b7280;
   }
-</style> 
+
+  :global(html.light) .cert-dates {
+    color: #9ca3af;
+  }
+
+  :global(html.light) .cert-arrow {
+    color: #d1d5db;
+  }
+
+  :global(html.light) .group:hover .cert-arrow {
+    color: #4f46e5;
+  }
+</style>
