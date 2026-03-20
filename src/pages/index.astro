@@ -122,7 +122,7 @@ const projects = [
     demo: 'https://volunteers.everybodyeats.nz',
     stats: [
       { label: 'Volunteers', value: '9,000+' },
-      { label: 'Weekly Active', value: '1.2K' },
+      { label: 'Weekly Active Users', value: '1.2K' },
     ],
   },
 ];
@@ -329,6 +329,7 @@ const certifications = [
       <div class="text-center">
         <p class="about-beyond-label text-xs font-medium tracking-widest uppercase mb-4">Beyond the keyboard</p>
         <div class="about-emoji-row flex justify-center gap-3 md:gap-4">
+          <span class="about-emoji-tooltip" id="emoji-tooltip"></span>
           <span class="about-emoji" data-tooltip="Chasing sunsets in my van">🚐</span>
           <span class="about-emoji" data-tooltip="Exploring hidden corners of the globe">🌏</span>
           <span class="about-emoji" data-tooltip="Crushing PRs at the gym">💪</span>
@@ -772,31 +773,27 @@ const certifications = [
     position: relative;
   }
 
-  .about-emoji::after {
-    content: attr(data-tooltip);
+  .about-emoji-tooltip {
     position: absolute;
-    bottom: calc(100% + 10px);
     left: 50%;
     transform: translateX(-50%) translateY(4px);
+    bottom: calc(100% + 12px);
     padding: 0.4rem 0.75rem;
     font-size: 0.75rem;
     font-weight: 400;
-    line-height: 1.4;
     color: rgba(255, 255, 255, 0.9);
     background: rgba(15, 23, 42, 0.92);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 0.5rem;
-    width: max-content;
-    max-width: 200px;
-    text-align: center;
+    white-space: nowrap;
     pointer-events: none;
     opacity: 0;
     backdrop-filter: blur(12px);
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    transition: opacity 0.15s ease, transform 0.15s ease;
     z-index: 10;
   }
 
-  .about-emoji:hover::after {
+  .about-emoji-tooltip.visible {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
   }
@@ -824,7 +821,7 @@ const certifications = [
     color: rgba(0, 0, 0, 0.45);
   }
 
-  html.light .about-emoji::after {
+  html.light .about-emoji-tooltip {
     color: #1f2937;
     background: rgba(255, 255, 255, 0.95);
     border-color: rgba(0, 0, 0, 0.08);
@@ -1314,6 +1311,20 @@ const certifications = [
 </style>
 
 <script>
+  // Emoji tooltip
+  const tooltip = document.getElementById('emoji-tooltip');
+  document.querySelectorAll('.about-emoji').forEach(emoji => {
+    emoji.addEventListener('mouseenter', () => {
+      if (tooltip) {
+        tooltip.textContent = (emoji as HTMLElement).dataset.tooltip || '';
+        tooltip.classList.add('visible');
+      }
+    });
+    emoji.addEventListener('mouseleave', () => {
+      if (tooltip) tooltip.classList.remove('visible');
+    });
+  });
+
   // Add click handler to profile image to add more stars or clouds
   document.addEventListener('DOMContentLoaded', () => {
     const profileImage = document.getElementById('profile-image');
