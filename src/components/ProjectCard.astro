@@ -39,6 +39,7 @@ const hasMultipleImages = images && images.length > 1;
               alt={`${title} screenshot ${i + 1}`}
               class="w-full h-full object-cover object-top"
               loading="lazy"
+              decoding="async"
             />
           </div>
         ))}
@@ -50,6 +51,7 @@ const hasMultipleImages = images && images.length > 1;
           alt={title}
           class="w-full h-64 md:h-full object-cover object-top transform group-hover:scale-105 transition-transform duration-700 ease-out"
           loading="lazy"
+          decoding="async"
         />
         <!-- Image overlay gradient for smooth transition -->
         <div class:list={[
