@@ -10,6 +10,7 @@ interface Job {
   technologies: string[];
   logo?: string;
   border?: boolean;
+  logoBg?: boolean;
 }
 
 interface Props {
@@ -32,7 +33,7 @@ const { jobs } = Astro.props;
                 alt={`${job.company} logo`}
                 width={96}
                 height={96}
-                class={`relative w-full h-full object-cover p-0 rounded-full bg-gray-800/70 shadow-lg ${job.border ? 'border border-white' : ''}`}
+                class={`relative w-full h-full rounded-full shadow-lg ${job.logoBg ? 'object-contain p-2 bg-white/90' : 'object-cover p-0 bg-gray-800/70'} ${job.border ? 'border border-white' : ''}`}
               />
             ) : (
               <div class="relative w-full h-full flex items-center justify-center rounded-full bg-gray-800/70 border border-gray-700 shadow-[0_0_10px_rgba(99,102,241,0.3)]">
