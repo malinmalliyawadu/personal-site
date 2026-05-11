@@ -12,7 +12,7 @@
     "generate-cv": "mkdir -p public/cv && cd cv && docker run --rm -v \"$(pwd):/data\" -w /data texlive/texlive lualatex Malin_CV.tex && cp Malin_CV.pdf ../public/cv/"
   },
   "dependencies": {
-    "astro": "^6.0.7",
+    "astro": "^6.1.6",
     "tailwindcss": "^3.3.3"
   },
   "devDependencies": {
