@@ -12,11 +12,11 @@ Personal website and portfolio built with [Astro](https://astro.build/) and [Tai
 
 ## 🧞 Commands
 
-| Command               | Action                                      |
-| :-------------------- | :------------------------------------------ |
-| `npm install`         | Install dependencies                        |
-| `npm run dev`         | Starts local dev server at `localhost:4321` |
-| `npm run build`       | Build production site to `./dist/`          |
-| `npm run preview`     | Preview build locally, before deploying     |
-| `npm run deploy`      | Deploy to GitHub Pages                      |
-| `npm run generate-cv` | Generate PDF CV using LaTeX                 |
+| Command                | Action                                      |
+| :--------------------- | :------------------------------------------ |
+| `pnpm install`         | Install dependencies                        |
+| `pnpm run dev`         | Starts local dev server at `localhost:4321` |
+| `pnpm run build`       | Build production site to `./dist/`          |
+| `pnpm run preview`     | Preview build locally, before deploying     |
+| `pnpm run deploy`      | Deploy to GitHub Pages                      |
+| `pnpm run generate-cv` | Generate PDF CV using LaTeX                 |

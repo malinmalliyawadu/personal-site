@@ -8,10 +8,10 @@ This directory contains a LaTeX implementation of the McDowell CV template.
 
 ## How to Generate the CV
 
-You can generate the CV using the npm script:
+You can generate the CV using the pnpm script:
 
 ```bash
-npm run generate-cv
+pnpm run generate-cv
 ```
 
 This script will:
