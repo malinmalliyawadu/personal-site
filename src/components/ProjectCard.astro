@@ -9,6 +9,8 @@ interface Props {
   description: string;
   image?: string;
   images?: string[];
+  phoneImage?: string;
+  phoneImageAlt?: string;
   github?: string;
   demo?: string;
   appStore?: string;
@@ -18,7 +20,7 @@ interface Props {
 }
 
 import { Image } from 'astro:assets';
-const { title, description, image, images, github, demo, appStore, stats, index = 0, wip = false } = Astro.props;
+const { title, description, image, images, phoneImage, phoneImageAlt, github, demo, appStore, stats, index = 0, wip = false } = Astro.props;
 const isReversed = index % 2 !== 0;
 const hasMultipleImages = images && images.length > 1;
 ---
@@ -54,6 +56,18 @@ const hasMultipleImages = images && images.length > 1;
           loading="lazy"
           decoding="async"
         />
+        {phoneImage && (
+          <div class="phone-overlay" aria-hidden="false">
+            <div class="phone-overlay-frame">
+              <img
+                src={phoneImage}
+                alt={phoneImageAlt ?? ""}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+        )}
       </div>
     ) : null}
 
@@ -200,6 +214,73 @@ const hasMultipleImages = images && images.length > 1;
   :global(html.light) .phone-frame {
     border-color: rgba(0, 0, 0, 0.1);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  /* iPhone silhouette overlay — bottom-right of the desktop screenshot */
+  .phone-overlay {
+    position: absolute;
+    right: 5.5%;
+    bottom: 5%;
+    width: 22%;
+    aspect-ratio: 1206 / 2622;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* Volume rocker on the left of the chassis */
+  .phone-overlay::before {
+    content: "";
+    position: absolute;
+    left: -1.6%;
+    top: 22%;
+    width: 1.8%;
+    height: 14%;
+    background: #0a0e0d;
+    border-radius: 1.5px 0 0 1.5px;
+  }
+
+  /* Power button on the right of the chassis */
+  .phone-overlay::after {
+    content: "";
+    position: absolute;
+    right: -1.6%;
+    top: 26%;
+    width: 1.8%;
+    height: 9%;
+    background: #0a0e0d;
+    border-radius: 0 1.5px 1.5px 0;
+  }
+
+  .phone-overlay-frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #0e1413;
+    border-radius: 14% / 6.5%;
+    padding: 2.5%;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.08) inset,
+      0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+      0 18px 38px -10px rgba(14, 20, 19, 0.45),
+      0 4px 10px -2px rgba(14, 20, 19, 0.25);
+    overflow: hidden;
+  }
+
+  .phone-overlay-frame img {
+    width: 100%;
+    height: 100%;
+    border-radius: 11% / 5%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    .phone-overlay {
+      width: 24%;
+      right: 8%;
+      bottom: 6%;
+    }
   }
 
   /* Stats */
