@@ -106,7 +106,9 @@ const projects = [
     title: "Everybody Eats Volunteer Portal",
     description: "Built for Everybody Eats, a charity rescuing surplus food to serve free restaurant-quality meals to communities across New Zealand. The portal coordinates volunteer shifts across multiple kitchen locations, tracks individual and team achievements, and uses a gamification system with badges and leaderboards to drive ongoing engagement and retention. Available on web and as native iOS and Android apps.",
     github: "https://github.com/everybody-eats-nz/volunteer-portal",
-    image: '/screenshots/volunteer-portal.png',
+    image: '/screenshots/everybody-eats-hero.png',
+    phoneImage: '/screenshots/everybody-eats-app.png',
+    phoneImageAlt: "Everybody Eats volunteer app — open shifts and 'What's happening' feed",
     demo: 'https://volunteers.everybodyeats.nz',
     appStore: 'https://apps.apple.com/nz/app/everybody-eats-nz/id6760931588',
     playStore: 'https://play.google.com/store/apps/details?id=com.everybodyeats.app',
@@ -447,6 +449,8 @@ const certifications = [
             description={project.description}
             image={project.image}
             images={project.images}
+            phoneImage={project.phoneImage}
+            phoneImageAlt={project.phoneImageAlt}
             github={project.github}
             demo={project.demo}
             appStore={project.appStore}
