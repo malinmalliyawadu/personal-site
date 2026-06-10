@@ -8,172 +8,41 @@ import { Image } from 'astro:assets';
 const { name, icon } = Astro.props;
 ---
 
-<div class="skill-card group">
-  <div class="skill-card-inner">
-    <div class="glow-effect"></div>
-    <div class="skill-icon-container">
-      <Image 
-        src={icon} 
-        alt={name} 
-        width={48}
-        height={48}
-        class="skill-icon"
-        loading="lazy"
-      />
-    </div>
-    <span class="skill-name">{name}</span>
-  </div>
-</div>
+<li class="skill-chip">
+  <Image
+    src={icon}
+    alt=""
+    width={32}
+    height={32}
+    class="skill-chip-icon"
+    loading="lazy"
+  />
+  <span>{name}</span>
+</li>
 
 <style>
-  .skill-card {
-    position: relative;
-    width: 6.5rem;
-    height: 6.5rem;
-    perspective: 1000px;
-  }
-  
-  .skill-card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+  .skill-chip {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    padding: 0.75rem;
-    background: rgba(15, 23, 42, 0.4);
-    border: 1px solid rgba(99, 102, 241, 0.1);
-    border-radius: 0.875rem;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    overflow: hidden;
-    backdrop-filter: blur(10px);
-  }
-  
-  .skill-card:hover .skill-card-inner {
-    transform: translateY(-4px);
-    border-color: rgba(99, 102, 241, 0.3);
-    box-shadow:
-      0 10px 20px rgba(0, 0, 0, 0.25),
-      0 6px 6px rgba(0, 0, 0, 0.15),
-      0 0 0 1px rgba(99, 102, 241, 0.2) inset;
-  }
-  
-  .glow-effect {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-      circle at 50% 40%,
-      rgba(255, 0, 0, 0.15),
-      transparent 20%
-    );
-    opacity: 0;
-    transition: opacity 0.6s;
-    pointer-events: none;
-  }
-  
-  .skill-card:hover .glow-effect {
-    opacity: 1;
-  }
-  
-  .skill-icon-container {
-    position: relative;
-    width: 2.5rem;
-    height: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 0.5rem;
-  }
-  
-  .skill-icon-container::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(
-      circle at center,
-      rgba(99, 102, 241, 0.5) 0%,
-      transparent 70%
-    );
-    border-radius: 50%;
-    opacity: 0;
-    filter: blur(8px);
-    transition: all 0.4s ease;
-    transform: scale(0.8);
-  }
-  
-  .skill-card:hover .skill-icon-container::after {
-    opacity: 0.7;
-    transform: scale(1.2);
-  }
-  
-  .skill-icon {
-    width: 2rem;
-    height: 2rem;
-    object-fit: contain;
-    z-index: 1;
-    position: relative;
-    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.1));
-    transition: all 0.4s ease;
-  }
-  
-  .skill-card:hover .skill-icon {
-    transform: scale(1.15) rotate(5deg);
-    filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.4));
-  }
-  
-  .skill-name {
-    font-size: 0.75rem;
+    gap: 0.5rem;
+    padding: 0.45rem 0.85rem;
+    border: 1px solid var(--line);
+    background: var(--paper-raised);
+    font-size: 0.85rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.8);
-    text-align: center;
-    margin-top: auto;
-    transition: all 0.3s ease;
-    z-index: 1;
+    color: var(--ink-soft);
+    transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
   }
-  
-  .skill-card:hover .skill-name {
-    color: white;
-    text-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
+
+  .skill-chip:hover {
+    border-color: var(--ink);
+    color: var(--ink);
+    transform: translateY(-1px);
   }
-  
-  /* Light mode styles - Glassy white appearance */
-  :global(html.light) .skill-card-inner {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5));
-    border-color: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: 
-      0 4px 16px rgba(31, 38, 135, 0.08),
-      inset 0 1px 0 rgba(255, 255, 255, 0.8),
-      inset 0 -1px 0 rgba(255, 255, 255, 0.3);
+
+  .skill-chip-icon {
+    width: 1rem;
+    height: 1rem;
+    object-fit: contain;
   }
-  
-  :global(html.light) .skill-card:hover .skill-card-inner {
-    border-color: rgba(99, 102, 241, 0.4);
-    box-shadow: 
-      0 12px 30px rgba(31, 38, 135, 0.15),
-      inset 0 1px 0 rgba(255, 255, 255, 0.9),
-      inset 0 -1px 0 rgba(255, 255, 255, 0.4),
-      0 0 0 1px rgba(99, 102, 241, 0.3) inset;
-  }
-  
-  :global(html.light) .skill-name {
-    color: #4b5563;
-    font-weight: 600;
-  }
-  
-  :global(html.light) .skill-card:hover .skill-name {
-    color: #4f46e5;
-    text-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
-  }
-  
-  :global(html.light) .glow-effect {
-    background: radial-gradient(
-      circle at 50% 40%,
-      rgba(99, 102, 241, 0.15),
-      transparent 30%
-    );
-  }
-</style> 
+</style>
