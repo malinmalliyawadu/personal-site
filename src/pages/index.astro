@@ -99,6 +99,29 @@ const skillCategories = [
 // Projects from your GitHub
 const projects = [
   {
+    title: "Everybody Eats Website",
+    description: "The public-facing website for Everybody Eats, the New Zealand charity behind a network of pay-as-you-feel restaurants serving restaurant-quality meals made from rescued ingredients. Migrated off Webflow onto a fully open-source stack (Payload CMS with a Next.js front end), cutting subscription costs and giving the team unrestricted control over content and design across dining, fundraising, volunteering, impact reporting, and events, from booking a table to backing the annual gala.",
+    github: "https://github.com/everybody-eats-nz/marketing-cms",
+    image: '/screenshots/everybody-eats-website.png',
+    demo: 'https://new.everybodyeats.nz/',
+    wip: true,
+    stats: [
+      { label: 'Monthly Visitors', value: '7K+' },
+      { label: 'Monthly Page Views', value: '22K+' },
+    ],
+  },
+  {
+    title: "Fair Food Volunteer Portal",
+    description: "Built for Fair Food Aotearoa, an Auckland-based charity that has rescued over 4.7 million kilos of surplus food since 2011. Replacing SignUpGenius with a purpose-built platform, it coordinates volunteers across three programmes (Pack Kai Boxes, Conscious Kitchen, and Inclusive Volunteering) with accessibility-first shift booking and bilingual English/te reo Māori content. Built on Next.js and React with Prisma and Postgres, Tailwind CSS, and Playwright end-to-end tests, tailored to a community of 400+ active volunteers.",
+    github: "https://github.com/fairfoodnz/fairfood-volunteer",
+    image: '/screenshots/fairfood.png',
+    demo: 'https://volunteer.fairfood.org.nz/',
+    stats: [
+      { label: 'Volunteers', value: '400+' },
+      { label: 'Monthly Page Views', value: '9K+' },
+    ],
+  },
+  {
     title: "Everybody Eats Volunteer Portal",
     description: "Built for Everybody Eats, a charity rescuing surplus food to serve free restaurant-quality meals to communities across New Zealand. The portal coordinates volunteer shifts across multiple kitchen locations, tracks individual and team achievements, and uses a gamification system with badges and leaderboards to drive ongoing engagement and retention. Available on web and as native iOS and Android apps.",
     github: "https://github.com/everybody-eats-nz/volunteer-portal",
@@ -110,7 +133,7 @@ const projects = [
     playStore: 'https://play.google.com/store/apps/details?id=com.everybodyeats.app',
     stats: [
       { label: 'Volunteers', value: '9,000+' },
-      { label: 'Weekly Active Users', value: '1.5K' },
+      { label: 'Monthly Active Users', value: '4.8K' },
     ],
   },
   {
@@ -122,17 +145,6 @@ const projects = [
     wip: true,
     stats: [
       { label: 'Serving the Community', value: '125+ years' },
-    ],
-  },
-  {
-    title: "Fair Food Volunteer Portal",
-    description: "Built for Fair Food Aotearoa, an Auckland-based charity that has rescued over 4.7 million kilos of surplus food since 2011. The portal coordinates volunteers across three programmes — Pack Kai Boxes, Conscious Kitchen, and Inclusive Volunteering — with accessibility-first shift booking, bilingual English/te reo Māori content, and tooling tailored to a community of 400+ active volunteers.",
-    github: "https://github.com/fairfoodnz/fairfood-volunteer",
-    image: '/screenshots/fairfood.png',
-    demo: 'https://volunteer.fairfood.org.nz/',
-    stats: [
-      { label: 'Volunteers', value: '400+' },
-      { label: 'Lighthouse', value: '100' },
     ],
   },
 ];
