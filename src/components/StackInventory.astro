@@ -1,0 +1,175 @@
+---
+import Panel from "./Panel.astro";
+import { techStack } from "../data/site";
+
+const groups = techStack.map((g) => g.name);
+const items = techStack.flatMap((g) => g.skills.map(([name, icon]) => ({ name, icon, group: g.name })));
+const total = items.length;
+---
+
+<Panel id="stack" svc="svc-04" path="svc://resource-inventory" status={`${total} loaded`} tone="route">
+  <div class="sec-head reveal">
+    <p class="eyebrow">stack · resource inventory</p>
+    <h2 class="section-title">The toolkit, by tier</h2>
+    <p class="section-lede">
+      {total} technologies in active rotation. Breadth that lets me own a system from the browser to
+      the database to the pipeline that ships it.
+    </p>
+  </div>
+
+  <div class="stack-filters font-mono reveal" role="group" aria-label="Filter stack by tier">
+    <button class="sfilter is-active" data-filter="all" aria-pressed="true">
+      all <span class="sfilter-n">{total}</span>
+    </button>
+    {
+      techStack.map((g) => (
+        <button class="sfilter" data-filter={g.name} aria-pressed="false">
+          {g.name.toLowerCase()} <span class="sfilter-n">{g.skills.length}</span>
+        </button>
+      ))
+    }
+  </div>
+
+  <ul class="stack-grid" id="stack-grid">
+    {
+      items.map((it, i) => (
+        <li class="sitem reveal" data-group={it.group} style={`--reveal-delay:${Math.min(i, 24) * 16}ms`}>
+          <span class="sitem-icon">
+            <img src={it.icon} alt="" loading="lazy" decoding="async" width="28" height="28" />
+          </span>
+          <span class="sitem-name font-mono">{it.name}</span>
+        </li>
+      ))
+    }
+  </ul>
+</Panel>
+
+<style>
+  .sec-head {
+    margin-bottom: 1.4rem;
+    max-width: 46rem;
+  }
+  .sec-head .eyebrow {
+    margin-bottom: 0.7rem;
+    display: block;
+  }
+  .sec-head .section-title {
+    margin-bottom: 0.6rem;
+  }
+
+  .stack-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-bottom: 1.4rem;
+  }
+  .sfilter {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.7rem;
+    border-radius: 7px;
+    border: 1px solid var(--line);
+    background: var(--tile);
+    color: var(--fg-dim);
+    font-size: 0.72rem;
+    cursor: pointer;
+    transition: border-color 0.16s var(--ease), color 0.16s var(--ease), background 0.16s var(--ease);
+  }
+  .sfilter:hover {
+    color: var(--fg);
+    border-color: var(--fg-faint);
+  }
+  .sfilter.is-active {
+    color: var(--route);
+    border-color: rgba(77, 163, 255, 0.5);
+    background: rgba(77, 163, 255, 0.08);
+  }
+  .sfilter-n {
+    color: var(--fg-faint);
+    font-size: 0.64rem;
+  }
+  .sfilter.is-active .sfilter-n {
+    color: var(--route);
+  }
+
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(98px, 1fr));
+    gap: 0.55rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .sitem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.95rem 0.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--tile);
+    transition: border-color 0.16s var(--ease), transform 0.16s var(--ease), background 0.16s var(--ease);
+  }
+  .sitem.is-hidden {
+    display: none;
+  }
+  .sitem:hover {
+    border-color: rgba(77, 163, 255, 0.4);
+    transform: translateY(-2px);
+    background: var(--inset);
+  }
+  .sitem-icon {
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+  }
+  .sitem-icon img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    filter: grayscale(1);
+    opacity: 0.66;
+    transition: filter 0.18s var(--ease), opacity 0.18s var(--ease);
+  }
+  .sitem:hover .sitem-icon img {
+    filter: none;
+    opacity: 1;
+  }
+  .sitem-name {
+    font-size: 0.66rem;
+    color: var(--fg-dim);
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  @media (max-width: 520px) {
+    .stack-grid {
+      grid-template-columns: repeat(auto-fill, minmax(78px, 1fr));
+    }
+    .sitem-name {
+      font-size: 0.6rem;
+    }
+  }
+</style>
+
+<script>
+  const filters = Array.from(document.querySelectorAll<HTMLButtonElement>(".sfilter"));
+  const items = Array.from(document.querySelectorAll<HTMLElement>("#stack-grid .sitem"));
+  filters.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const f = btn.dataset.filter;
+      filters.forEach((b) => {
+        const active = b === btn;
+        b.classList.toggle("is-active", active);
+        b.setAttribute("aria-pressed", String(active));
+      });
+      items.forEach((it) => {
+        const show = f === "all" || it.dataset.group === f;
+        it.classList.toggle("is-hidden", !show);
+      });
+    });
+  });
+</script>

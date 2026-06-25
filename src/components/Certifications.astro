@@ -1,0 +1,56 @@
+---
+import Panel from "./Panel.astro";
+import CertCard from "./CertCard.astro";
+import { certifications, profile } from "../data/site";
+---
+
+<Panel id="certs" svc="svc-06" path="svc://verified-credentials" status="2× pro" tone="violet">
+  <div class="sec-head reveal">
+    <p class="eyebrow">certifications · independently verified</p>
+    <h2 class="section-title">Like certifications? I've got 'em</h2>
+    <p class="section-lede">
+      The top tier of AWS certification - Solutions Architect and DevOps Engineer, both Professional -
+      plus the Associate path beneath them.
+    </p>
+  </div>
+
+  <div class="cert-grid">
+    {certifications.map((c) => <CertCard {...c} />)}
+  </div>
+
+  <div class="cert-foot reveal">
+    <a href={profile.socials.credly} target="_blank" rel="noopener noreferrer" class="link-route font-mono cert-all">
+      view all on Credly ↗
+    </a>
+  </div>
+</Panel>
+
+<style>
+  .sec-head {
+    margin-bottom: 1.5rem;
+    max-width: 46rem;
+  }
+  .sec-head .eyebrow {
+    margin-bottom: 0.7rem;
+    display: block;
+  }
+  .sec-head .section-title {
+    margin-bottom: 0.6rem;
+  }
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+  }
+  .cert-foot {
+    margin-top: 1.4rem;
+  }
+  .cert-all {
+    font-size: 0.74rem;
+  }
+  @media (max-width: 720px) {
+    .cert-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
