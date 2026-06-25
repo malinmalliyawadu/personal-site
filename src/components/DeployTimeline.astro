@@ -1,0 +1,251 @@
+---
+import Panel from "./Panel.astro";
+import { experience } from "../data/site";
+---
+
+<Panel id="experience" svc="svc-05" path="~/career.log" status="15y · clean">
+  <div class="sec-head reveal">
+    <p class="eyebrow">experience · deploy history</p>
+    <h2 class="section-title">A clean changelog, graduate to lead</h2>
+    <p class="section-lede">
+      Fifteen years of high-quality, on-time delivery - from graduate to technical lead across banks,
+      government, and high-traffic marketplaces. Every engagement shipped to production, newest first.
+    </p>
+  </div>
+
+  <ol class="timeline">
+    {
+      experience.map((job, i) => (
+        <li id={job.id} class={`tl-entry reveal ${job.current ? "is-current" : ""}`}>
+          <span class="tl-rail" aria-hidden="true">
+            <span class="tl-node" />
+          </span>
+          <div class="tl-card">
+            <div class="tl-head">
+              <span class="tl-logo">
+                <img src={job.logo} alt={`${job.company} logo`} loading="lazy" decoding="async" />
+              </span>
+              <div class="tl-titles">
+                <h3 class="tl-company">{job.company}</h3>
+                <p class="tl-role">{job.role}</p>
+              </div>
+              <div class="tl-side font-mono">
+                <span class={`tl-status ${job.current ? "live" : "ok"}`}>
+                  <span class="tls-dot" />
+                  {job.current ? "live" : "deployed"}
+                </span>
+                <span class="tl-period">{job.period}</span>
+              </div>
+            </div>
+            <p class="tl-desc">{job.description}</p>
+            <ul class="tl-tech">
+              {job.tech.map((t) => (
+                <li class="chip">{t}</li>
+              ))}
+            </ul>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</Panel>
+
+<style>
+  .sec-head {
+    margin-bottom: 1.8rem;
+    max-width: 46rem;
+  }
+  .sec-head .eyebrow {
+    margin-bottom: 0.7rem;
+    display: block;
+  }
+  .sec-head .section-title {
+    margin-bottom: 0.6rem;
+  }
+
+  .timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .tl-entry {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 1rem;
+    scroll-margin-top: calc(var(--statusbar-h) + 60px);
+  }
+  /* brief highlight when navigated to from a logo / topology node */
+  .tl-entry:target .tl-card {
+    animation: tlTarget 1.8s var(--ease);
+  }
+  @keyframes tlTarget {
+    0%, 30% { background: rgba(77, 163, 255, 0.07); box-shadow: -12px 0 0 rgba(77, 163, 255, 0.07); }
+    100% { background: transparent; box-shadow: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tl-entry:target .tl-card { animation: none; }
+  }
+  .tl-rail {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+  .tl-rail::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: -1px;
+    width: 1px;
+    background: var(--line);
+  }
+  .tl-entry:first-child .tl-rail::before {
+    top: 22px;
+  }
+  .tl-entry:last-child .tl-rail::before {
+    bottom: auto;
+    height: 22px;
+  }
+  .tl-node {
+    position: relative;
+    z-index: 1;
+    margin-top: 16px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--inset);
+    border: 2px solid var(--fg-faint);
+    transition: background 0.4s var(--ease), border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  }
+  /* Past deploys settle to a calm filled state; green is rationed to the live role. */
+  .tl-entry.is-in .tl-node {
+    background: var(--fg-faint);
+    border-color: var(--fg-faint);
+  }
+  .tl-entry.is-current.is-in .tl-node {
+    background: var(--signal);
+    border-color: var(--signal);
+    box-shadow: 0 0 9px var(--signal-glow);
+    animation: tlPulse 2.4s var(--ease) infinite;
+  }
+  @keyframes tlPulse {
+    0% { box-shadow: 0 0 0 0 rgba(61, 220, 151, 0.5); }
+    70% { box-shadow: 0 0 0 8px rgba(61, 220, 151, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(61, 220, 151, 0); }
+  }
+
+  .tl-card {
+    padding-bottom: 1.6rem;
+  }
+  .tl-entry:last-child .tl-card {
+    padding-bottom: 0;
+  }
+  .tl-head {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 0.7rem;
+    flex-wrap: wrap;
+  }
+  .tl-logo {
+    width: 46px;
+    height: 46px;
+    flex: none;
+    display: grid;
+    place-items: center;
+    border-radius: 9px;
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, #fbfcfe, #e9eef4);
+    padding: 0.4rem;
+  }
+  .tl-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  .tl-titles {
+    min-width: 0;
+  }
+  .tl-company {
+    font-family: "Clash Display", sans-serif;
+    font-weight: 600;
+    font-size: 1.12rem;
+    color: var(--fg);
+    line-height: 1.1;
+  }
+  .tl-role {
+    font-size: 0.84rem;
+    color: var(--fg-dim);
+  }
+  .tl-side {
+    margin-left: auto;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+  }
+  .tl-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.66rem;
+    color: var(--fg-faint);
+  }
+  .tls-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--fg-faint);
+  }
+  .tl-status.ok {
+    color: var(--fg-faint);
+  }
+  .tl-status.ok .tls-dot {
+    background: var(--fg-faint);
+  }
+  .tl-status.live {
+    color: var(--signal);
+  }
+  .tl-status.live .tls-dot {
+    background: var(--signal);
+    box-shadow: 0 0 6px var(--signal-glow);
+  }
+  .tl-period {
+    font-size: 0.68rem;
+    color: var(--fg-faint);
+  }
+  .tl-desc {
+    font-size: 0.9rem;
+    color: var(--fg-dim);
+    line-height: 1.58;
+    margin-bottom: 0.85rem;
+  }
+  .tl-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.38rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .tl-tech .chip {
+    font-size: 0.64rem;
+    padding: 0.18rem 0.46rem;
+  }
+
+  @media (max-width: 620px) {
+    .tl-side {
+      margin-left: 0;
+      width: 100%;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      text-align: left;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tl-entry.is-current .tl-node {
+      animation: none;
+    }
+  }
+</style>

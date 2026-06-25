@@ -1,0 +1,82 @@
+---
+import "../styles/global.css";
+import PostHog from "../components/posthog.astro";
+import StatusBar from "../components/StatusBar.astro";
+import LeftRail from "../components/LeftRail.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = "Malin Malliya Wadu - senior full-stack engineer and technical lead in Wellington, NZ. 15+ years architecting and shipping scalable software for banks, government, and high-traffic marketplaces. Available for contract work.",
+} = Astro.props;
+
+const ogImage = "https://malin.nz/profile.jpg";
+const favicon =
+  "data:image/svg+xml," +
+  encodeURIComponent(
+    `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='#0a0e14'/><path d='M30 34 L52 50 M52 50 L74 34 M52 50 L52 72' stroke='#243040' stroke-width='4' fill='none' stroke-linecap='round'/><circle cx='30' cy='34' r='8' fill='#4da3ff'/><circle cx='74' cy='34' r='8' fill='#a78bfa'/><circle cx='52' cy='72' r='8' fill='#4da3ff'/><circle cx='52' cy='50' r='11' fill='#3ddc97'/></svg>`
+  );
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0a0e14" />
+    <meta name="author" content="Malin Malliya Wadu" />
+    <link rel="icon" href={favicon} />
+
+    <!-- Open Graph / social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content="https://malin.nz" />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Preload above-the-fold fonts -->
+    <link rel="preload" href="/fonts/clash-display-600.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/hanken-grotesk-400.woff2" as="font" type="font/woff2" crossorigin />
+
+    <PostHog />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <StatusBar />
+    <LeftRail />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  .skip-link {
+    position: fixed;
+    top: -100px;
+    left: 1rem;
+    z-index: 200;
+    padding: 0.6rem 1rem;
+    background: var(--signal);
+    color: #04140d;
+    border-radius: 8px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.8rem;
+    transition: top 0.2s var(--ease);
+  }
+  .skip-link:focus {
+    top: calc(var(--statusbar-h) + 8px);
+  }
+</style>

@@ -19,3 +19,7 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# Unoptimized source photos (kept locally; only optimized webp are committed)
+src/images/7M406130.jpg
+src/images/IMG_*.jpeg

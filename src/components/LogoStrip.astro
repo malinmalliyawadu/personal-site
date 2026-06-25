@@ -1,0 +1,155 @@
+---
+import Panel from "./Panel.astro";
+
+const deps = [
+  { name: "Trade Me", logo: "/logos/trademe.png", role: "NZ's largest marketplace", years: "2011-2019", href: "#exp-trademe" },
+  { name: "ANZ Bank", logo: "/logos/anz.svg", role: "Open banking APIs", years: "2025-2026", href: "#exp-anz" },
+  { name: "Stats NZ", logo: "/logos/statsnz.svg", role: "National census pipelines", years: "2026-now", href: "#exp-statsnz" },
+  { name: "PartsTrader", logo: "/logos/partstrader.svg", role: "US auto-parts SaaS", years: "2022-2025", href: "#exp-partstrader" },
+  { name: "Kiwi Wealth", logo: "/logos/kiwiwealth.svg", role: "Wealth platform", years: "2019-2020", href: "#exp-kiwiwealth" },
+  { name: "Open Polytechnic", logo: "/logos/open-polytechnic.jpeg", role: "CI/CD + microservices", years: "2021-2022", href: "#exp-openpoly" },
+];
+---
+
+<Panel id="trusted" svc="svc-01" path="svc://upstream-deps" status="6 resolved">
+  <div class="sec-head reveal">
+    <p class="eyebrow">trusted by · upstream dependencies</p>
+    <h2 class="section-title">Banks, government, and the marketplaces millions use</h2>
+    <p class="section-lede">
+      Fifteen years shipping inside regulated and high-traffic environments - from New Zealand's
+      largest marketplace to a major bank and the national statistics office.
+    </p>
+  </div>
+
+  <ul class="dep-grid">
+    {
+      deps.map((d) => (
+        <li class="dep reveal">
+          <a href={d.href} class="dep-link" aria-label={`${d.name} - ${d.role}, ${d.years}. Jump to role in experience.`}>
+            <div class="dep-chip">
+              <img src={d.logo} alt={`${d.name} logo`} loading="lazy" decoding="async" />
+            </div>
+            <div class="dep-meta font-mono">
+              <span class="dep-name">{d.name}<span class="dep-jump">role ↓</span></span>
+              <span class="dep-role">{d.role}</span>
+              <span class="dep-years">{d.years}</span>
+            </div>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Panel>
+
+<style>
+  .sec-head {
+    margin-bottom: 1.6rem;
+    max-width: 46rem;
+  }
+  .sec-head .eyebrow {
+    margin-bottom: 0.7rem;
+    display: block;
+  }
+  .sec-head .section-title {
+    margin-bottom: 0.6rem;
+  }
+
+  .dep-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .dep-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    color: inherit;
+  }
+  .dep-chip {
+    height: 84px;
+    display: grid;
+    place-items: center;
+    padding: 0 1.4rem;
+    border-radius: 11px;
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, #fbfcfe, #e9eef4);
+    transition: transform 0.18s var(--ease), border-color 0.18s var(--ease), box-shadow 0.18s var(--ease);
+  }
+  .dep-chip img {
+    max-height: 34px;
+    max-width: 78%;
+    object-fit: contain;
+    filter: grayscale(1);
+    opacity: 0.72;
+    transition: filter 0.2s var(--ease), opacity 0.2s var(--ease);
+  }
+  .dep-link:hover .dep-chip,
+  .dep-link:focus-visible .dep-chip {
+    transform: translateY(-2px);
+    border-color: rgba(77, 163, 255, 0.45);
+    box-shadow: 0 14px 30px -18px rgba(0, 0, 0, 0.9);
+  }
+  .dep-link:hover .dep-chip img,
+  .dep-link:focus-visible .dep-chip img {
+    filter: none;
+    opacity: 1;
+  }
+  .dep-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.12rem;
+    padding-left: 0.1rem;
+  }
+  .dep-name {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    color: var(--fg);
+  }
+  .dep-jump {
+    margin-left: auto;
+    font-size: 0.62rem;
+    color: var(--route);
+    opacity: 0;
+    transform: translateX(-3px);
+    transition: opacity 0.16s var(--ease), transform 0.16s var(--ease);
+  }
+  .dep-link:hover .dep-jump,
+  .dep-link:focus-visible .dep-jump {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .dep-role {
+    font-size: 0.68rem;
+    color: var(--fg-dim);
+  }
+  .dep-years {
+    font-size: 0.64rem;
+    color: var(--fg-faint);
+  }
+
+  @media (max-width: 760px) {
+    .dep-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 420px) {
+    .dep-grid {
+      grid-template-columns: 1fr;
+    }
+    .dep-link {
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+    }
+    .dep-chip {
+      width: 120px;
+      flex: none;
+      height: 64px;
+    }
+  }
+</style>
