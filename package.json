@@ -10,7 +10,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "deploy": "gh-pages -b gh-pages -d dist",
-    "generate-cv": "mkdir -p public/cv && cd cv && docker run --rm -v \"$(pwd):/data\" -w /data texlive/texlive lualatex Malin_CV.tex && cp Malin_CV.pdf ../public/cv/"
+    "generate-cv": "mkdir -p public/cv && cd cv && docker run --rm -v \"$(pwd):/data\" -w /data texlive/texlive:TL2023-historic lualatex Malin_CV.tex && cp Malin_CV.pdf ../public/cv/"
   },
   "dependencies": {
     "astro": "^6.4.6",
