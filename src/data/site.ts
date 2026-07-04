@@ -82,8 +82,8 @@ export const projects = [
     playStore: "https://play.google.com/store/apps/details?id=com.everybodyeats.app",
     stack: ["Next.js", "React", "TypeScript", "Prisma", "Postgres", "Expo"],
     stats: [
-      { label: "Volunteers", value: "9K+" },
-      { label: "Monthly Active Users", value: "4.8K" },
+      { label: "Volunteers", value: "10K+" },
+      { label: "Monthly Active Users", value: "4.6K" },
     ],
   },
   {
@@ -117,8 +117,8 @@ export const projects = [
     demo: "https://volunteer.fairfood.org.nz/",
     stack: ["Next.js", "React", "Prisma", "Postgres", "Tailwind", "Playwright"],
     stats: [
-      { label: "Active Volunteers", value: "400+" },
-      { label: "Monthly Page Views", value: "9K+" },
+      { label: "Active Volunteers", value: "500+" },
+      { label: "Monthly Page Views", value: "9.7K" },
     ],
   },
   {
