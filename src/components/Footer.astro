@@ -22,6 +22,7 @@ import { profile } from "../data/site";
         <a href={profile.socials.linkedin} target="_blank" rel="noopener noreferrer">linkedin</a>
         <a href={profile.socials.github} target="_blank" rel="noopener noreferrer">github</a>
         <a href={profile.cv} download>cv</a>
+        <a href="/lab">lab</a>
       </nav>
       <p class="foot-built font-mono">
         built with Astro · vanilla canvas · self-hosted type
@@ -190,6 +191,7 @@ import { profile } from "../data/site";
       () => `cache hit · edge · ${ms()}ms`,
       () => `GET /malin.nz -> 200 · ${ms()}ms`,
       () => `lighthouse · perf 98 · a11y 100`,
+      () => `lab 001 online · 262,144 particles · /lab`,
     ];
     let seq = 4120 + Math.floor(Math.random() * 800);
     let count = 0;

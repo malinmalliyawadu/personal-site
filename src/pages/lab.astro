@@ -1,0 +1,687 @@
+---
+// Lab 001 — Signal & Structure
+// A standalone interactive piece: a GPU particle field that moves from noise
+// to order as you scroll. Deliberately independent of the main site's shell.
+import PostHog from "../components/posthog.astro";
+import { profile } from "../data/site.ts";
+
+const title = "Lab 001 · Signal & Structure — Malin Malliya Wadu";
+const description =
+  "A quarter-million GPU particles, one hand-written WebGL2 program, zero libraries. An interactive field study by Malin Malliya Wadu — from noise to structure.";
+
+const favicon =
+  "data:image/svg+xml," +
+  encodeURIComponent(
+    `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='#0a0e14'/><path d='M30 34 L52 50 M52 50 L74 34 M52 50 L52 72' stroke='#243040' stroke-width='4' fill='none' stroke-linecap='round'/><circle cx='30' cy='34' r='8' fill='#4da3ff'/><circle cx='74' cy='34' r='8' fill='#a78bfa'/><circle cx='52' cy='72' r='8' fill='#4da3ff'/><circle cx='52' cy='50' r='11' fill='#3ddc97'/></svg>`
+  );
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#050810" />
+    <meta name="author" content="Malin Malliya Wadu" />
+    <link rel="icon" href={favicon} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content="https://malin.nz/lab" />
+    <meta property="og:image" content="https://malin.nz/lab-og.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://malin.nz/lab-og.jpg" />
+
+    <link rel="preload" href="/fonts/instrument-serif-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin />
+
+    <PostHog />
+  </head>
+
+  <body>
+    <canvas id="field" aria-hidden="true"></canvas>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <a class="back" href="/">&larr; malin.nz</a>
+      <span class="mark">LAB 001 &middot; PARTICLE FIELD</span>
+    </header>
+
+    <nav class="rail" aria-label="Chapters">
+      <div class="rail-track"><span class="rail-thumb" aria-hidden="true"></span></div>
+      <a href="#ch0" style="--i: 0" class="on"><span class="lbl">noise</span><span class="dot"></span></a>
+      <a href="#ch1" style="--i: 1"><span class="lbl">hello</span><span class="dot"></span></a>
+      <a href="#ch2" style="--i: 2"><span class="lbl">lattice</span><span class="dot"></span></a>
+      <a href="#ch3" style="--i: 3"><span class="lbl">crux</span><span class="dot"></span></a>
+      <a href="#ch4" style="--i: 4"><span class="lbl">signal</span><span class="dot"></span></a>
+    </nav>
+
+    <main>
+      <section class="chapter hero" id="ch0" style="--acc: var(--teal)">
+        <div class="copy center">
+          <p class="eyebrow">Malin Malliya Wadu &middot; Lab 001</p>
+          <h1>Every system starts as <em>noise</em>.</h1>
+          <p class="sub">
+            <span data-count>262,144</span> particles &middot; one hand-written WebGL2 program &middot; zero
+            libraries. Stir the field with your cursor. Hold to bend it. Scroll to give it order.
+          </p>
+        </div>
+        <div class="cue" aria-hidden="true"><span></span>scroll</div>
+      </section>
+
+      <section class="chapter" id="ch1" style="--acc: #f2e5c8">
+        <div class="copy low-left">
+          <p class="eyebrow">01 &middot; Greeting</p>
+          <h2>First, you say <em>hello</em>.</h2>
+          <p class="body">
+            Kia ora — I'm Malin, a full-stack engineer and technical lead in Wellington. Fifteen years of
+            turning ambiguous problems into software that ships: banks, government, high-traffic
+            marketplaces.
+          </p>
+        </div>
+      </section>
+
+      <section class="chapter" id="ch2" style="--acc: var(--blue)">
+        <div class="copy mid-right">
+          <p class="eyebrow">02 &middot; Structure</p>
+          <h2>Then you give it<br /><em>structure</em>.</h2>
+          <p class="body">
+            <span id="lattice-dims">18 × 18 × 18</span> nodes holding formation. Systems stay healthy the
+            same way: clear boundaries, strong contracts, room to move.
+          </p>
+        </div>
+      </section>
+
+      <section class="chapter" id="ch3" style="--acc: #cdd6ff">
+        <div class="copy mid-left">
+          <p class="eyebrow">03 &middot; Bearings</p>
+          <h2>Built under the <em>Southern&nbsp;Cross</em>.</h2>
+          <p class="body">
+            Wellington, Aotearoa New Zealand — working with teams anywhere. The five stars overhead are
+            Crux, placed from their real coordinates.
+          </p>
+        </div>
+      </section>
+
+      <section class="chapter last" id="ch4" style="--acc: var(--gold)">
+        <div class="copy center">
+          <p class="eyebrow">04 &middot; Signal</p>
+          <h2>The field is <em>listening</em>.</h2>
+          <p class="body">
+            If you're building something hard — or just want to know how this page works — send a signal.
+          </p>
+          <div class="actions">
+            <a class="btn primary" href={`mailto:${profile.email}`}>Email me</a>
+            <a class="btn" href="/">Main site</a>
+            <a class="btn" href={profile.socials.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+          <p class="fine">No frameworks, no three.js — just WebGL2, arithmetic, and fifteen years of practice.</p>
+        </div>
+        <footer class="colophon">&copy; 2026 Malin Malliya Wadu &middot; Lab 001 &middot; malin.nz</footer>
+      </section>
+    </main>
+
+    <div class="hud" id="hud" aria-hidden="true">IGNITING FIELD&hellip;</div>
+    <div class="hint" id="hint" aria-hidden="true">move to stir &middot; hold to attract &middot; tap to pulse</div>
+    <div class="cursor" id="cursor" aria-hidden="true"></div>
+
+    <noscript>
+      <style>
+        .copy { opacity: 1 !important; transform: none !important; filter: none !important; }
+        .hint, .cursor, .hud { display: none !important; }
+      </style>
+    </noscript>
+
+    <script>
+      import "../scripts/lab.ts";
+    </script>
+
+    <style>
+      /* ── faces ─────────────────────────────────────────────────────────── */
+      @font-face {
+        font-family: "Instrument Serif";
+        src: url("/fonts/instrument-serif-400.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "Instrument Serif";
+        src: url("/fonts/instrument-serif-italic.woff2") format("woff2");
+        font-weight: 400;
+        font-style: italic;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "JetBrains Mono";
+        src: url("/fonts/jetbrains-mono-400.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "JetBrains Mono";
+        src: url("/fonts/jetbrains-mono-500.woff2") format("woff2");
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      /* ── tokens ────────────────────────────────────────────────────────── */
+      :root {
+        color-scheme: dark;
+        --void: #050810;
+        --star: #f2f5ff;
+        --dim: #9aa8c7;
+        --faint: #5b6785;
+        --teal: #5ff5d8;
+        --blue: #7fb2ff;
+        --gold: #ffc880;
+        --edge: rgba(154, 168, 199, 0.16);
+        --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+        --mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+        --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--void);
+        color: var(--dim);
+        font-family: var(--mono);
+        overflow-x: hidden;
+      }
+      ::selection {
+        background: var(--gold);
+        color: var(--void);
+      }
+      :focus-visible {
+        outline: 1px solid var(--gold);
+        outline-offset: 3px;
+      }
+
+      /* ── field + atmosphere ────────────────────────────────────────────── */
+      #field {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        opacity: 0;
+        transition: opacity 1.2s ease;
+      }
+      body.live-field #field {
+        opacity: 1;
+      }
+      .vignette {
+        position: fixed;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        background: radial-gradient(ellipse 120% 90% at 50% 42%, transparent 55%, rgba(2, 4, 9, 0.55) 100%);
+      }
+      .grain {
+        position: fixed;
+        inset: -50%;
+        z-index: 3;
+        pointer-events: none;
+        opacity: 0.055;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
+      body.static #field {
+        display: none;
+      }
+      body.static {
+        background:
+          radial-gradient(1px 1px at 12% 24%, rgba(242, 245, 255, 0.7), transparent 100%),
+          radial-gradient(1px 1px at 78% 12%, rgba(242, 245, 255, 0.5), transparent 100%),
+          radial-gradient(1.5px 1.5px at 62% 58%, rgba(255, 200, 128, 0.5), transparent 100%),
+          radial-gradient(1px 1px at 32% 76%, rgba(95, 245, 216, 0.45), transparent 100%),
+          radial-gradient(1px 1px at 88% 82%, rgba(242, 245, 255, 0.4), transparent 100%),
+          radial-gradient(ellipse 90% 70% at 50% 30%, #0a1020 0%, var(--void) 70%);
+        background-attachment: fixed;
+      }
+      body.static .cursor,
+      body.static .hint {
+        display: none;
+      }
+
+      /* ── chrome ────────────────────────────────────────────────────────── */
+      .topbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 20;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.1rem 1.4rem 2.2rem;
+        font-size: 0.68rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        background: linear-gradient(rgba(5, 8, 16, 0.8), transparent);
+        pointer-events: none;
+      }
+      .topbar a {
+        pointer-events: auto;
+      }
+      .topbar .back {
+        color: var(--dim);
+        text-decoration: none;
+        transition: color 0.25s;
+      }
+      .topbar .back:hover {
+        color: var(--star);
+      }
+      .topbar .mark {
+        color: var(--faint);
+      }
+
+      .rail {
+        position: fixed;
+        right: 1.4rem;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 20;
+        height: 190px;
+        width: 20px;
+      }
+      .rail-track {
+        position: absolute;
+        right: 4px;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background: var(--edge);
+      }
+      .rail-thumb {
+        position: absolute;
+        left: -1.5px;
+        top: calc(var(--p, 0) * 100%);
+        width: 4px;
+        height: 4px;
+        margin-top: -2px;
+        border-radius: 50%;
+        background: var(--gold);
+        box-shadow: 0 0 8px var(--gold);
+        transition: top 0.15s linear;
+      }
+      .rail a {
+        position: absolute;
+        right: 0;
+        top: calc(var(--i) / 4 * 100%);
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        text-decoration: none;
+        padding: 4px;
+      }
+      .rail .dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--faint);
+        transition: background 0.3s, box-shadow 0.3s;
+      }
+      .rail .lbl {
+        font-size: 0.6rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--faint);
+        opacity: 0;
+        transform: translateX(6px);
+        transition: opacity 0.3s, transform 0.3s;
+        pointer-events: none;
+      }
+      .rail a:hover .lbl,
+      .rail a.on .lbl {
+        opacity: 1;
+        transform: none;
+      }
+      .rail a.on .dot {
+        background: var(--gold);
+        box-shadow: 0 0 10px var(--gold);
+      }
+
+      /* ── chapters ──────────────────────────────────────────────────────── */
+      main {
+        position: relative;
+        z-index: 10;
+      }
+      .chapter {
+        position: relative;
+        height: 150vh;
+        height: 150svh;
+      }
+      .chapter.last {
+        height: 100vh;
+        height: 100svh;
+      }
+      .copy {
+        position: absolute;
+        max-width: 34rem;
+        opacity: 0;
+        transform: translateY(30px);
+        filter: blur(6px);
+        transition: opacity 0.9s var(--ease), transform 0.9s var(--ease), filter 0.9s var(--ease);
+      }
+      .copy.live {
+        opacity: 1;
+        transform: none;
+        filter: none;
+      }
+      .copy::before {
+        content: "";
+        position: absolute;
+        inset: -4rem -5.5rem;
+        z-index: -1;
+        background: radial-gradient(closest-side, rgba(5, 8, 16, 0.92), rgba(5, 8, 16, 0.55) 60%, transparent);
+        border-radius: 50%;
+      }
+      .copy.center {
+        left: 50%;
+        top: 50vh;
+        top: 50svh;
+        transform: translate(-50%, calc(-50% + 30px));
+        text-align: center;
+      }
+      .copy.center.live {
+        transform: translate(-50%, -50%);
+      }
+      .copy.low-left {
+        left: clamp(1.4rem, 8vw, 9rem);
+        top: 66vh;
+        top: 66svh;
+      }
+      .copy.mid-right {
+        right: clamp(1.4rem, 9vw, 11rem);
+        top: 42vh;
+        top: 42svh;
+      }
+      .copy.mid-left {
+        left: clamp(1.4rem, 8vw, 9rem);
+        top: 46vh;
+        top: 46svh;
+      }
+      .hero .copy {
+        max-width: 52rem;
+      }
+
+      .eyebrow {
+        font-size: 0.66rem;
+        font-weight: 500;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--acc, var(--teal));
+        margin-bottom: 1.3rem;
+      }
+      h1,
+      h2 {
+        font-family: var(--serif);
+        font-weight: 400;
+        color: var(--star);
+        line-height: 1.04;
+        letter-spacing: -0.01em;
+        text-shadow: 0 2px 40px rgba(0, 0, 0, 0.65);
+        text-wrap: balance;
+      }
+      h1 {
+        font-size: clamp(3rem, 8.5vw, 6.6rem);
+      }
+      h2 {
+        font-size: clamp(2.3rem, 5.5vw, 4.3rem);
+      }
+      h1 em,
+      h2 em {
+        font-style: italic;
+        color: var(--acc, var(--gold));
+      }
+      .sub {
+        margin-top: 1.6rem;
+        font-size: 0.82rem;
+        line-height: 1.85;
+        color: var(--dim);
+        max-width: 36rem;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .sub [data-count] {
+        color: var(--star);
+      }
+      .body {
+        margin-top: 1.4rem;
+        font-size: 0.8rem;
+        line-height: 1.85;
+        color: var(--dim);
+      }
+      .body #lattice-dims {
+        color: var(--star);
+      }
+
+      .cue {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 88vh;
+        top: 88svh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.7rem;
+        font-size: 0.6rem;
+        letter-spacing: 0.34em;
+        text-transform: uppercase;
+        color: var(--faint);
+      }
+      .cue span {
+        display: block;
+        width: 1px;
+        height: 44px;
+        background: linear-gradient(var(--faint), transparent);
+        animation: cue-drop 2.2s var(--ease) infinite;
+      }
+      @keyframes cue-drop {
+        0% {
+          transform: scaleY(0);
+          transform-origin: top;
+        }
+        45% {
+          transform: scaleY(1);
+          transform-origin: top;
+        }
+        55% {
+          transform: scaleY(1);
+          transform-origin: bottom;
+        }
+        100% {
+          transform: scaleY(0);
+          transform-origin: bottom;
+        }
+      }
+
+      /* ── actions ───────────────────────────────────────────────────────── */
+      .actions {
+        margin-top: 2.2rem;
+        display: flex;
+        gap: 0.8rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .btn {
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: var(--star);
+        border: 1px solid var(--edge);
+        padding: 0.85rem 1.5rem;
+        border-radius: 2px;
+        transition: border-color 0.3s, color 0.3s, background 0.3s, transform 0.3s, box-shadow 0.3s;
+      }
+      .btn:hover {
+        border-color: var(--gold);
+        color: var(--gold);
+        transform: translateY(-2px);
+      }
+      .btn.primary {
+        background: var(--gold);
+        border-color: var(--gold);
+        color: #1a1005;
+      }
+      .btn.primary:hover {
+        background: #ffd9a3;
+        color: #1a1005;
+        box-shadow: 0 4px 28px rgba(255, 200, 128, 0.35);
+      }
+      .fine {
+        margin-top: 2rem;
+        font-size: 0.64rem;
+        letter-spacing: 0.06em;
+        color: var(--dim);
+      }
+      .colophon {
+        position: absolute;
+        bottom: 1.2rem;
+        right: 1.4rem;
+        text-align: right;
+        font-size: 0.6rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--faint);
+      }
+
+      /* ── hud / hint / cursor ───────────────────────────────────────────── */
+      .hud {
+        position: fixed;
+        left: 1.4rem;
+        bottom: 1.2rem;
+        z-index: 20;
+        font-size: 0.6rem;
+        letter-spacing: 0.18em;
+        color: var(--faint);
+        white-space: nowrap;
+      }
+      .hint {
+        position: fixed;
+        left: 50%;
+        bottom: 1.6rem;
+        transform: translate(-50%, 12px);
+        z-index: 20;
+        font-size: 0.62rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--dim);
+        border: 1px solid var(--edge);
+        border-radius: 999px;
+        padding: 0.55rem 1.1rem;
+        background: rgba(5, 8, 16, 0.6);
+        backdrop-filter: blur(6px);
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.6s ease, transform 0.6s var(--ease);
+      }
+      .hint.show {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+      .cursor {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 30;
+        width: 26px;
+        height: 26px;
+        margin: -13px 0 0 -13px;
+        border: 1px solid rgba(242, 245, 255, 0.5);
+        border-radius: 50%;
+        pointer-events: none;
+        mix-blend-mode: screen;
+        opacity: 0;
+        transition: scale 0.35s var(--ease), border-color 0.35s, opacity 0.35s;
+      }
+      body.cursor-on .cursor {
+        opacity: 1;
+      }
+      body.holding .cursor {
+        scale: 2.1;
+        border-color: var(--gold);
+      }
+      @media (pointer: coarse) {
+        .cursor {
+          display: none;
+        }
+      }
+
+      /* ── small screens ─────────────────────────────────────────────────── */
+      @media (max-width: 720px) {
+        .rail {
+          right: 0.8rem;
+        }
+        .rail .lbl {
+          display: none;
+        }
+        .copy,
+        .copy.low-left,
+        .copy.mid-right,
+        .copy.mid-left {
+          left: 1.4rem;
+          right: 3rem;
+          max-width: none;
+        }
+        .copy.center {
+          left: 50%;
+          right: auto;
+          width: calc(100vw - 4rem);
+        }
+        .topbar {
+          padding: 1rem 1.1rem;
+        }
+        .hud {
+          left: 1.1rem;
+          font-size: 0.54rem;
+        }
+        .colophon {
+          right: 50%;
+          transform: translateX(50%);
+          bottom: 2.8rem;
+          white-space: nowrap;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        .copy,
+        .hint,
+        .btn,
+        .rail-thumb {
+          transition: none;
+        }
+        .cue span {
+          animation: none;
+        }
+      }
+    </style>
+  </body>
+</html>
