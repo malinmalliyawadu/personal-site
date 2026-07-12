@@ -130,16 +130,12 @@ const personLd = JSON.stringify({
           experience.map((job) => (
             <article class="entry side-right">
               <p class="entry-period">
-                {job.period}
+                <span class="logo-chip"><img src={job.logo} alt="" width="40" height="40" loading="lazy" decoding="async" /></span>
+                <span>{job.period}</span>
                 {"current" in job && job.current ? <span class="now-badge">now</span> : null}
               </p>
-              <div class="entry-head">
-                <span class="logo-chip"><img src={job.logo} alt="" width="46" height="46" loading="lazy" decoding="async" /></span>
-                <div>
-                  <h3>{job.company}</h3>
-                  <p class="entry-role">{job.role}</p>
-                </div>
-              </div>
+              <h3>{job.company}</h3>
+              <p class="entry-role">{job.role}</p>
               <p class="body">{job.description}</p>
               <ul class="chips" aria-label="Technologies">
                 {job.tech.map((t) => (
@@ -182,14 +178,20 @@ const personLd = JSON.stringify({
           projects.map((p) => (
             <article class="card side-left">
               <figure class="shot">
-                <img
-                  src={p.image}
-                  alt={`Screenshot of ${p.title}`}
-                  width={p.imageW}
-                  height={p.imageH}
-                  loading="lazy"
-                  decoding="async"
-                />
+                <span class="shot-bar" aria-hidden="true">
+                  <i></i><i></i><i></i>
+                  <span class="shot-url">{new URL(p.demo).hostname}</span>
+                </span>
+                <span class="shot-screen">
+                  <img
+                    src={p.image}
+                    alt={`Screenshot of ${p.title}`}
+                    width={p.imageW}
+                    height={p.imageH}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </span>
                 {"phoneImage" in p && p.phoneImage ? (
                   <img
                     class="phone"
@@ -741,31 +743,27 @@ const personLd = JSON.stringify({
         color: var(--star);
         letter-spacing: -0.005em;
       }
-      .entry-head {
-        margin-top: 0.9rem;
+      .entry .entry-period {
         display: flex;
         align-items: center;
-        gap: 1rem;
-      }
-      .entry-head h3 {
-        margin-top: 0;
+        gap: 0.7rem;
       }
       .logo-chip {
-        width: 44px;
-        height: 44px;
+        width: 28px;
+        height: 28px;
         flex: none;
-        display: grid;
-        place-items: center;
-        border-radius: 9px;
-        border: 1px solid var(--edge);
-        background: linear-gradient(180deg, #fbfcfe, #e9eef4);
-        padding: 0.35rem;
+        border-radius: 6px;
+        border: 1px solid rgba(154, 168, 199, 0.22);
+        background: linear-gradient(180deg, #f3efe3, #ddd6c4);
+        padding: 3px;
+        box-shadow: 0 0 16px color-mix(in srgb, var(--acc, var(--blue)) 16%, transparent);
       }
       .logo-chip img {
-        max-width: 100%;
-        max-height: 100%;
+        display: block;
+        width: 100%;
+        height: 100%;
         object-fit: contain;
-        border-radius: 4px;
+        border-radius: 3px;
       }
       .entry-role {
         margin-top: 0.3rem;
@@ -817,38 +815,80 @@ const personLd = JSON.stringify({
         margin-top: 34vh;
         margin-top: 34svh;
         padding: 1.7rem 1.9rem 1.5rem;
-        background: rgba(7, 11, 20, 0.78);
+        background: rgba(7, 11, 20, 0.85);
         border: 1px solid var(--edge);
         border-radius: 4px;
-      }
-      @media (min-width: 721px) {
-        .card {
-          backdrop-filter: blur(8px);
-        }
+        box-shadow:
+          0 24px 60px rgba(0, 0, 0, 0.45),
+          0 0 50px color-mix(in srgb, var(--acc, var(--violet)) 7%, transparent);
       }
       .card .entry-period {
         color: var(--acc, var(--violet));
       }
+      /* the screenshot bleeds to the card edges: the card is the window */
       .shot {
         position: relative;
-        margin-bottom: 1.5rem;
+        margin: -1.7rem -1.9rem 1.5rem;
+        border-bottom: 1px solid var(--edge);
       }
-      .shot > img:first-child {
+      .shot-bar {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0 1rem;
+        height: 32px;
+        background: rgba(10, 15, 26, 0.92);
+        border-bottom: 1px solid var(--edge);
+        border-radius: 4px 4px 0 0;
+      }
+      .shot-bar i {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: rgba(154, 168, 199, 0.22);
+      }
+      .shot-bar i:first-child {
+        background: color-mix(in srgb, var(--acc, var(--violet)) 55%, transparent);
+      }
+      .shot-url {
+        margin-left: 0.6rem;
+        font-size: 0.58rem;
+        letter-spacing: 0.1em;
+        color: var(--faint);
+      }
+      .shot-screen {
+        display: block;
+        overflow: hidden;
+        aspect-ratio: 16 / 9;
+      }
+      .shot-screen img {
         display: block;
         width: 100%;
-        height: auto;
-        border-radius: 4px;
-        border: 1px solid var(--edge);
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+        filter: brightness(0.8) saturate(0.9);
+        transition: filter 0.5s ease, transform 0.5s var(--ease);
+      }
+      .card:hover .shot-screen img {
+        filter: brightness(1) saturate(1);
+        transform: scale(1.015);
       }
       .shot .phone {
         position: absolute;
-        right: -12px;
-        bottom: -18px;
-        width: 21%;
+        right: 1.1rem;
+        bottom: -1.3rem;
+        width: 19%;
         height: auto;
+        z-index: 1;
         border-radius: 10px;
         border: 1px solid rgba(154, 168, 199, 0.35);
-        box-shadow: 0 14px 36px rgba(0, 0, 0, 0.6);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
+        filter: brightness(0.88);
+        transition: filter 0.5s ease;
+      }
+      .card:hover .shot .phone {
+        filter: brightness(1);
       }
       .stats {
         margin-top: 1.3rem;
@@ -1061,8 +1101,13 @@ const personLd = JSON.stringify({
         .card,
         .hint,
         .btn,
-        .rail-thumb {
+        .rail-thumb,
+        .shot-screen img,
+        .shot .phone {
           transition: none;
+        }
+        .card:hover .shot-screen img {
+          transform: none;
         }
         .cue span,
         .avail-dot {
