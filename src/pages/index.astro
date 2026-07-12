@@ -133,8 +133,13 @@ const personLd = JSON.stringify({
                 {job.period}
                 {"current" in job && job.current ? <span class="now-badge">now</span> : null}
               </p>
-              <h3>{job.company}</h3>
-              <p class="entry-role">{job.role}</p>
+              <div class="entry-head">
+                <span class="logo-chip"><img src={job.logo} alt="" width="46" height="46" loading="lazy" decoding="async" /></span>
+                <div>
+                  <h3>{job.company}</h3>
+                  <p class="entry-role">{job.role}</p>
+                </div>
+              </div>
               <p class="body">{job.description}</p>
               <ul class="chips" aria-label="Technologies">
                 {job.tech.map((t) => (
@@ -176,6 +181,27 @@ const personLd = JSON.stringify({
         {
           projects.map((p) => (
             <article class="card side-left">
+              <figure class="shot">
+                <img
+                  src={p.image}
+                  alt={`Screenshot of ${p.title}`}
+                  width={p.imageW}
+                  height={p.imageH}
+                  loading="lazy"
+                  decoding="async"
+                />
+                {"phoneImage" in p && p.phoneImage ? (
+                  <img
+                    class="phone"
+                    src={p.phoneImage}
+                    alt={p.phoneImageAlt}
+                    width={p.phoneImageW}
+                    height={p.phoneImageH}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : null}
+              </figure>
               <p class="entry-period">{p.tag} · {p.year}{"wip" in p && p.wip ? " · in progress" : ""}</p>
               <h3>{p.title}</h3>
               <p class="body">{p.description}</p>
@@ -715,6 +741,32 @@ const personLd = JSON.stringify({
         color: var(--star);
         letter-spacing: -0.005em;
       }
+      .entry-head {
+        margin-top: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      .entry-head h3 {
+        margin-top: 0;
+      }
+      .logo-chip {
+        width: 44px;
+        height: 44px;
+        flex: none;
+        display: grid;
+        place-items: center;
+        border-radius: 9px;
+        border: 1px solid var(--edge);
+        background: linear-gradient(180deg, #fbfcfe, #e9eef4);
+        padding: 0.35rem;
+      }
+      .logo-chip img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        border-radius: 4px;
+      }
       .entry-role {
         margin-top: 0.3rem;
         font-size: 0.7rem;
@@ -776,6 +828,27 @@ const personLd = JSON.stringify({
       }
       .card .entry-period {
         color: var(--acc, var(--violet));
+      }
+      .shot {
+        position: relative;
+        margin-bottom: 1.5rem;
+      }
+      .shot > img:first-child {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 4px;
+        border: 1px solid var(--edge);
+      }
+      .shot .phone {
+        position: absolute;
+        right: -12px;
+        bottom: -18px;
+        width: 21%;
+        height: auto;
+        border-radius: 10px;
+        border: 1px solid rgba(154, 168, 199, 0.35);
+        box-shadow: 0 14px 36px rgba(0, 0, 0, 0.6);
       }
       .stats {
         margin-top: 1.3rem;
