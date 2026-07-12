@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Lab 001 — Signal & Structure
+// malin.nz — the field
 // A GPU particle field: positions/velocities live in float textures and are
 // integrated entirely on the GPU (ping-pong FBOs, MRT). The DOM only scrolls.
 // No libraries. WebGL2 + arithmetic.
@@ -25,15 +25,17 @@ const CHAPTERS: ChapterParams[] = [
   { strength: 0.18, noise: 2.1, drag: 1.05, tint: [0.42, 0.86, 0.78], hot: [1.0, 0.72, 0.46], exposure: 0.92, yawAmp: 0.4, yawSpeed: 0.24, pitch: 0.07, point: 4.6 },
   // 01 HELLO — "KIA ORA", warm paper white
   { strength: 1.0, noise: 0.1, drag: 5.2, tint: [0.98, 0.93, 0.83], hot: [1.0, 0.62, 0.34], exposure: 0.4, yawAmp: 0.05, yawSpeed: 0.4, pitch: 0.02, point: 3.8 },
-  // 02 LATTICE — cool structural blue, visibly 3D
+  // 02 STRUCTURE — the career lattice, cool structural blue, visibly 3D
   { strength: 1.0, noise: 0.03, drag: 5.6, tint: [0.5, 0.7, 1.0], hot: [0.6, 1.0, 0.85], exposure: 0.55, yawAmp: 0.85, yawSpeed: 0.22, pitch: 0.33, point: 3.6 },
-  // 03 CRUX — starlight, gold-hot
+  // 03 NETWORK — a system topology for the shipped projects, violet
+  { strength: 1.0, noise: 0.05, drag: 5.6, tint: [0.74, 0.64, 1.0], hot: [0.55, 1.0, 0.85], exposure: 0.6, yawAmp: 0.16, yawSpeed: 0.26, pitch: 0.12, point: 3.8 },
+  // 04 CRUX — starlight, gold-hot
   { strength: 1.0, noise: 0.04, drag: 6.0, tint: [0.93, 0.93, 1.0], hot: [1.0, 0.8, 0.5], exposure: 0.6, yawAmp: 0.08, yawSpeed: 0.3, pitch: 0.04, point: 4.0 },
-  // 04 SIGNAL — amber "@"
+  // 05 SIGNAL — amber ring
   { strength: 1.0, noise: 0.16, drag: 4.6, tint: [1.0, 0.72, 0.4], hot: [1.0, 0.95, 0.8], exposure: 0.45, yawAmp: 0.04, yawSpeed: 0.4, pitch: 0.02, point: 3.8 },
 ];
 
-const CHAPTER_NAMES = ["NOISE", "HELLO", "LATTICE", "CRUX", "SIGNAL"];
+const CHAPTER_NAMES = ["NOISE", "HELLO", "STRUCTURE", "NETWORK", "CRUX", "SIGNAL"];
 const EYE_Z = 3.1;
 const FOV_TAN = Math.tan((40 * Math.PI) / 360); // half-fov of 20°
 
@@ -228,6 +230,8 @@ interface Viewport {
   halfH: number;
 }
 
+const isLandscape = (vp: Viewport) => vp.halfW > vp.halfH * 1.15;
+
 function shuffled(n: number): Uint32Array {
   const a = new Uint32Array(n);
   for (let i = 0; i < n; i++) a[i] = i;
@@ -238,6 +242,14 @@ function shuffled(n: number): Uint32Array {
     a[j] = t;
   }
   return a;
+}
+
+/** Uniform ambient dust across the visible plane, with depth. */
+function dust(out: Float32Array, o: number, vp: Viewport): void {
+  out[o] = (Math.random() - 0.5) * vp.halfW * 2.3;
+  out[o + 1] = (Math.random() - 0.5) * vp.halfH * 2.3;
+  out[o + 2] = -0.5 + Math.random() * 0.8;
+  out[o + 3] = 0.05 + 0.1 * Math.pow(Math.random(), 4);
 }
 
 /**
@@ -290,10 +302,7 @@ function textTargets(count: number, lines: string[], vp: Viewport, opts: { maxWi
   for (let i = 0; i < count; i++) {
     const o = i * 4;
     if (Math.random() < dustFrac) {
-      out[o] = (Math.random() - 0.5) * vp.halfW * 2.3;
-      out[o + 1] = (Math.random() - 0.5) * vp.halfH * 2.3;
-      out[o + 2] = -0.5 + Math.random() * 0.8;
-      out[o + 3] = 0.05 + 0.1 * Math.pow(Math.random(), 4);
+      dust(out, o, vp);
     } else {
       const s = perm[i % xs.length];
       out[o] = (xs[s] / cvs.width - 0.5) * worldW + xOff + gauss() * jitter;
@@ -309,11 +318,11 @@ function textTargets(count: number, lines: string[], vp: Viewport, opts: { maxWi
  * n×n×n grid of nodes; many particles share each node so the structure stays
  * legible — a sparse constellation of stations rather than a solid volume.
  */
-function latticeTargets(count: number, vp: Viewport): { data: Float32Array; n: number } {
+function latticeTargets(count: number, vp: Viewport): Float32Array {
   const n = 18;
   const half = Math.min(0.95, vp.halfW * 0.44, vp.halfH * 0.44);
-  // copy sits right on landscape, so the cube drifts left
-  const xOff = vp.halfW > vp.halfH * 1.15 ? -vp.halfW * 0.18 : 0;
+  // content sits right on landscape, so the cube drifts left
+  const xOff = isLandscape(vp) ? -vp.halfW * 0.3 : 0;
   const out = new Float32Array(count * 4);
   const total = n * n * n;
   const perNode = count / total;
@@ -331,7 +340,96 @@ function latticeTargets(count: number, vp: Viewport): { data: Float32Array; n: n
     // per-particle brightness divides the node's glow budget
     out[o + 3] = (ext === 0 ? 0.5 : ext === 1 ? 0.75 : ext === 2 ? 1.05 : 1.3) / Math.max(1, perNode * 0.18);
   }
-  return { data: out, n };
+  return out;
+}
+
+/**
+ * A system topology: hub-and-spoke nodes joined by faint edges — the shape of
+ * the shipped-systems chapter. Node layout is re-rolled on each build.
+ */
+function networkTargets(count: number, vp: Viewport): Float32Array {
+  const out = new Float32Array(count * 4);
+  const landscape = isLandscape(vp);
+  const xOff = landscape ? vp.halfW * 0.32 : 0;
+  const spanX = landscape ? vp.halfW * 0.52 : vp.halfW * 0.78;
+  const spanY = vp.halfH * 0.6;
+
+  // scatter nodes with a minimum separation so the graph stays readable
+  const NODE_COUNT = 15;
+  const nodes: { x: number; y: number; z: number; hub: boolean }[] = [];
+  const minDist = Math.min(spanX, spanY) * 0.42;
+  for (let i = 0; i < NODE_COUNT; i++) {
+    let x = 0, y = 0, z = 0;
+    for (let attempt = 0; attempt < 40; attempt++) {
+      x = (Math.random() * 2 - 1) * spanX;
+      y = (Math.random() * 2 - 1) * spanY;
+      z = (Math.random() * 2 - 1) * 0.22;
+      let ok = true;
+      for (const nd of nodes) {
+        if (Math.hypot(nd.x - x, nd.y - y) < minDist) {
+          ok = false;
+          break;
+        }
+      }
+      if (ok) break;
+    }
+    nodes.push({ x, y, z, hub: i < 3 });
+  }
+
+  // connect each node to its two nearest neighbours (deduplicated)
+  const edgeSet = new Set<string>();
+  const edges: [number, number][] = [];
+  for (let i = 0; i < nodes.length; i++) {
+    const near = nodes
+      .map((nd, j) => ({ j, d: Math.hypot(nd.x - nodes[i].x, nd.y - nodes[i].y) }))
+      .filter((e) => e.j !== i)
+      .sort((a, b) => a.d - b.d)
+      .slice(0, 2);
+    for (const e of near) {
+      const key = i < e.j ? `${i}-${e.j}` : `${e.j}-${i}`;
+      if (!edgeSet.has(key)) {
+        edgeSet.add(key);
+        edges.push(i < e.j ? [i, e.j] : [e.j, i]);
+      }
+    }
+  }
+
+  // weighted node pick: hubs draw more particles
+  const weights = nodes.map((nd) => (nd.hub ? 2.4 : 1));
+  const weightSum = weights.reduce((a, b) => a + b, 0);
+  const nodeShare = 0.58;
+  const perWeight = (count * nodeShare) / weightSum;
+
+  for (let i = 0; i < count; i++) {
+    const o = i * 4;
+    const r = Math.random();
+    if (r < nodeShare) {
+      let pick = Math.random() * weightSum;
+      let ni = 0;
+      while (pick > weights[ni] && ni < nodes.length - 1) {
+        pick -= weights[ni];
+        ni++;
+      }
+      const nd = nodes[ni];
+      const perNode = perWeight * weights[ni];
+      const core = Math.random() < 0.4;
+      const sg = nd.hub ? (core ? 0.01 : 0.045) : core ? 0.007 : 0.026;
+      out[o] = nd.x + xOff + gauss() * sg;
+      out[o + 1] = nd.y + gauss() * sg;
+      out[o + 2] = nd.z + gauss() * 0.02;
+      out[o + 3] = ((nd.hub ? 1.5 : 1.0) * (core ? 1.6 : 0.7)) / Math.max(1, perNode * 0.02);
+    } else if (r < nodeShare + 0.18) {
+      const [a, b] = edges[(Math.random() * edges.length) | 0];
+      const t = Math.random();
+      out[o] = lerp(nodes[a].x, nodes[b].x, t) + xOff + gauss() * 0.008;
+      out[o + 1] = lerp(nodes[a].y, nodes[b].y, t) + gauss() * 0.008;
+      out[o + 2] = lerp(nodes[a].z, nodes[b].z, t) + gauss() * 0.015;
+      out[o + 3] = 0.08;
+    } else {
+      dust(out, o, vp);
+    }
+  }
+  return out;
 }
 
 /**
@@ -348,7 +446,7 @@ function cruxTargets(count: number, vp: Viewport): Float32Array {
   ];
   const scale = Math.min(vp.halfH * 0.78, vp.halfW * 1.05);
   // on landscape screens the copy sits left, so the cross drifts right
-  const xOff = vp.halfW > vp.halfH * 1.15 ? vp.halfW * 0.22 : 0;
+  const xOff = isLandscape(vp) ? vp.halfW * 0.22 : 0;
   const cum: number[] = [];
   let sum = 0;
   for (const s of stars) {
@@ -412,9 +510,7 @@ function ringTargets(count: number, vp: Viewport): Float32Array {
       out[o + 2] = gauss() * 0.05;
       out[o + 3] = 0.4 + 0.8 * Math.pow(Math.random(), 9);
     } else {
-      out[o] = (Math.random() - 0.5) * vp.halfW * 2.3;
-      out[o + 1] = (Math.random() - 0.5) * vp.halfH * 2.3;
-      out[o + 2] = -0.5 + Math.random() * 0.8;
+      dust(out, o, vp);
       out[o + 3] = 0.04 + 0.1 * Math.pow(Math.random(), 4);
     }
   }
@@ -437,6 +533,39 @@ function shellTargets(count: number, vp: Viewport): Float32Array {
     out[o + 3] = 0.7;
   }
   return out;
+}
+
+// ── scroll → chapter progress over variable-height sections ─────────────────
+
+let sectionTops: number[] = [];
+
+function measureSections(): void {
+  sectionTops = Array.from(document.querySelectorAll<HTMLElement>(".chapter")).map((el) => {
+    let top = 0;
+    let node: HTMLElement | null = el;
+    while (node) {
+      top += node.offsetTop;
+      node = node.offsetParent as HTMLElement | null;
+    }
+    return top;
+  });
+}
+
+/**
+ * Continuous chapter index: holds on i through a section, then ramps toward
+ * i+1 across a morph window just before the next section arrives.
+ */
+function scrollChapter(): number {
+  const n = sectionTops.length;
+  if (n === 0) return 0;
+  const y = window.scrollY;
+  let i = n - 1;
+  while (i > 0 && y < sectionTops[i]) i--;
+  if (i >= n - 1) return n - 1;
+  const next = sectionTops[i + 1];
+  const win = Math.min(window.innerHeight * 0.9, (next - sectionTops[i]) * 0.5);
+  const p = Math.min(1, Math.max(0, 1 - (next - y) / Math.max(1, win)));
+  return i + p;
 }
 
 // ── engine ───────────────────────────────────────────────────────────────────
@@ -463,15 +592,18 @@ export function boot(): void {
     : canvas.getContext("webgl2", { alpha: false, antialias: false, depth: false, stencil: false, powerPreference: "high-performance" });
   const ext = gl?.getExtension("EXT_color_buffer_float");
 
-  // chapter progress derives from the real rendered section height (svh-sized)
-  let sectionH = window.innerHeight * 1.5;
-  const measureSections = () => {
-    const el = document.querySelector<HTMLElement>(".chapter");
-    sectionH = el && el.offsetHeight > 0 ? el.offsetHeight : window.innerHeight * 1.5;
-  };
   measureSections();
   window.addEventListener("resize", measureSections);
-  const scrollChapter = () => Math.min(CHAPTERS.length - 1, Math.max(0, window.scrollY / sectionH));
+  window.addEventListener("load", measureSections);
+  // content height shifts as fonts swap in; keep section offsets honest
+  if ("ResizeObserver" in window) {
+    let roTimer = 0;
+    const ro = new ResizeObserver(() => {
+      window.clearTimeout(roTimer);
+      roTimer = window.setTimeout(measureSections, 120);
+    });
+    ro.observe(document.body);
+  }
 
   if (!gl || !ext) {
     body.classList.add("static");
@@ -545,17 +677,18 @@ export function boot(): void {
       xOffset: portrait ? 0 : vp.halfW * 0.4,
       heightFrac: portrait ? 0.5 : 0.62,
     });
-    const lattice = latticeTargets(state.count, vp);
-    const crux = cruxTargets(state.count, vp);
-    const ring = ringTargets(state.count, vp);
-    const shell = shellTargets(state.count, vp);
-    const sets = [shell, kia, lattice.data, crux, ring];
+    const sets = [
+      shellTargets(state.count, vp),
+      kia,
+      latticeTargets(state.count, vp),
+      networkTargets(state.count, vp),
+      cruxTargets(state.count, vp),
+      ringTargets(state.count, vp),
+    ];
     for (let i = 0; i < sets.length; i++) {
       gl!.bindTexture(gl!.TEXTURE_2D, state.targets[i]);
       gl!.texSubImage2D(gl!.TEXTURE_2D, 0, 0, 0, state.size, state.size, gl!.RGBA, gl!.FLOAT, sets[i]);
     }
-    const dims = document.getElementById("lattice-dims");
-    if (dims) dims.textContent = `${lattice.n} × ${lattice.n} × ${lattice.n}`;
   }
 
   function buildSim(size: number): SimState {
@@ -615,7 +748,7 @@ export function boot(): void {
   try {
     sim = buildSim(smallScreen ? 256 : 512);
   } catch (err) {
-    console.error("lab: field init failed, falling back to static", err);
+    console.error("field: init failed, falling back to static", err);
     body.classList.add("static");
     wireDom(scrollChapter);
     return;
@@ -874,14 +1007,14 @@ export function boot(): void {
 // ── DOM wiring shared by live + static modes ─────────────────────────────────
 
 function wireDom(getChapter: () => number): void {
-  // copy blocks reveal as they cross the viewport
+  // copy blocks and cards reveal as they cross the viewport
   const io = new IntersectionObserver(
     (entries) => {
       for (const e of entries) e.target.classList.toggle("live", e.isIntersecting);
     },
-    { threshold: 0.35 }
+    { threshold: 0.25 }
   );
-  for (const el of document.querySelectorAll(".copy")) io.observe(el);
+  for (const el of document.querySelectorAll(".copy, .card, .entry")) io.observe(el);
 
   // progress rail
   const railItems = Array.from(document.querySelectorAll<HTMLElement>(".rail a"));

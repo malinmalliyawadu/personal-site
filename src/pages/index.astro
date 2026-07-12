@@ -1,36 +1,1001 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import TopologyHero from "../components/TopologyHero.astro";
-import LogoStrip from "../components/LogoStrip.astro";
-import Capabilities from "../components/Capabilities.astro";
-import Projects from "../components/Projects.astro";
-import StackInventory from "../components/StackInventory.astro";
-import DeployTimeline from "../components/DeployTimeline.astro";
-import Certifications from "../components/Certifications.astro";
-import ContactPanel from "../components/ContactPanel.astro";
-import Footer from "../components/Footer.astro";
+// malin.nz — the field
+// The whole site is one scroll-driven GPU particle experience: the field
+// morphs from noise into structure while the real portfolio — career,
+// projects, bearings, contact — scrolls through it. Content lives in
+// src/data/site.ts; the engine lives in src/scripts/field.ts.
+import { Image } from "astro:assets";
+import PostHog from "../components/posthog.astro";
+import { profile, experience, projects, certifications } from "../data/site.ts";
+import profilePic from "../images/profile.webp";
+
+const title = "Malin Malliya Wadu — Senior Full-Stack Engineer & Technical Lead";
+const description =
+  "Malin Malliya Wadu - senior full-stack engineer and technical lead in Wellington, NZ. 15+ years architecting and shipping scalable software for banks, government, and high-traffic marketplaces. Available for contract work.";
+
+const favicon =
+  "data:image/svg+xml," +
+  encodeURIComponent(
+    `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='#0a0e14'/><path d='M30 34 L52 50 M52 50 L74 34 M52 50 L52 72' stroke='#243040' stroke-width='4' fill='none' stroke-linecap='round'/><circle cx='30' cy='34' r='8' fill='#4da3ff'/><circle cx='74' cy='34' r='8' fill='#a78bfa'/><circle cx='52' cy='72' r='8' fill='#4da3ff'/><circle cx='52' cy='50' r='11' fill='#3ddc97'/></svg>`
+  );
+
+const personLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.name,
+  jobTitle: profile.role,
+  url: "https://malin.nz",
+  email: `mailto:${profile.email}`,
+  address: { "@type": "PostalAddress", addressLocality: "Wellington", addressCountry: "NZ" },
+  sameAs: [profile.socials.linkedin, profile.socials.github],
+});
 ---
 
-<BaseLayout title="Malin Malliya Wadu - Senior Full-Stack Engineer & Technical Lead">
-  <div class="shell page">
-    <TopologyHero />
-    <LogoStrip />
-    <Capabilities />
-    <Projects />
-    <StackInventory />
-    <DeployTimeline />
-    <Certifications />
-    <ContactPanel />
-    <Footer />
-  </div>
-</BaseLayout>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#050810" />
+    <meta name="author" content={profile.name} />
+    <link rel="canonical" href="https://malin.nz/" />
+    <link rel="icon" href={favicon} />
 
-<style>
-  .page {
-    padding-bottom: 1rem;
-  }
-</style>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content="https://malin.nz" />
+    <meta property="og:image" content="https://malin.nz/og.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://malin.nz/og.jpg" />
 
-<script>
-  import "../scripts/reveal.ts";
-</script>
+    <link rel="preload" href="/fonts/instrument-serif-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin />
+
+    <script type="application/ld+json" set:html={personLd} />
+    <PostHog />
+  </head>
+
+  <body>
+    <canvas id="field" aria-hidden="true"></canvas>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <a class="wordmark" href="#ch0">MALIN.NZ</a>
+      <span class="avail"><span class="avail-dot" aria-hidden="true"></span>{profile.availabilityLabel}</span>
+    </header>
+
+    <nav class="rail" aria-label="Sections">
+      <div class="rail-track"><span class="rail-thumb" aria-hidden="true"></span></div>
+      <a href="#ch0" style="--i: 0" class="on" aria-label="Noise — intro"><span class="lbl">noise</span><span class="dot"></span></a>
+      <a href="#ch1" style="--i: 1" aria-label="Kia ora — about"><span class="lbl">kia ora</span><span class="dot"></span></a>
+      <a href="#ch2" style="--i: 2" aria-label="Career"><span class="lbl">career</span><span class="dot"></span></a>
+      <a href="#ch3" style="--i: 3" aria-label="Projects"><span class="lbl">projects</span><span class="dot"></span></a>
+      <a href="#ch4" style="--i: 4" aria-label="Crux — bearings"><span class="lbl">crux</span><span class="dot"></span></a>
+      <a href="#ch5" style="--i: 5" aria-label="Signal — contact"><span class="lbl">signal</span><span class="dot"></span></a>
+    </nav>
+
+    <main>
+      <!-- 00 · NOISE -->
+      <section class="chapter hero" id="ch0" style="--acc: var(--teal)">
+        <div class="copy center">
+          <p class="eyebrow">{profile.name} · Senior Full-Stack Engineer &amp; Technical Lead</p>
+          <h1>Every system starts as <em>noise</em>.</h1>
+          <p class="sub">
+            <span data-count>262,144</span> particles · one hand-written WebGL2 program · zero libraries.
+            Stir the field with your cursor. Hold to bend it. Scroll to give it order — fifteen years of it.
+          </p>
+          <p class="meta-line">Wellington, Aotearoa New Zealand · UTC+12 · {profile.availabilityLabel.toLowerCase()}</p>
+        </div>
+        <div class="cue" aria-hidden="true"><span></span>scroll</div>
+      </section>
+
+      <!-- 01 · KIA ORA -->
+      <section class="chapter statement" id="ch1" style="--acc: #f2e5c8">
+        <div class="copy side-left">
+          <p class="eyebrow">01 · Kia ora</p>
+          <h2>First, you say <em>hello</em>.</h2>
+          <div class="intro-row">
+            <Image src={profilePic} alt={`Portrait of ${profile.name}`} width={128} height={128} class="portrait" />
+            <p class="body">
+              Kia ora — I'm Malin, a senior full-stack engineer and technical lead in Wellington. For
+              fifteen years I've turned ambiguous problems into software that ships: open banking at ANZ,
+              census data pipelines at Stats NZ, and marketplaces serving millions at Trade Me and
+              PartsTrader.
+            </p>
+          </div>
+          <p class="cap-line">Architecture &amp; cloud · Full-stack product · DevOps &amp; delivery · Technical leadership</p>
+        </div>
+      </section>
+
+      <!-- 02 · CAREER -->
+      <section class="chapter flow" id="ch2" style="--acc: var(--blue)">
+        <div class="copy side-right">
+          <p class="eyebrow">02 · Career</p>
+          <h2>Then you give it<br /><em>structure</em>.</h2>
+          <p class="body">
+            Fifteen years across banks, government and marketplaces — as engineer, lead and architect.
+            Every point in this lattice holds its place; so does every system I've left behind.
+          </p>
+        </div>
+
+        {
+          experience.map((job) => (
+            <article class="entry side-right">
+              <p class="entry-period">
+                {job.period}
+                {"current" in job && job.current ? <span class="now-badge">now</span> : null}
+              </p>
+              <h3>{job.company}</h3>
+              <p class="entry-role">{job.role}</p>
+              <p class="body">{job.description}</p>
+              <ul class="chips" aria-label="Technologies">
+                {job.tech.map((t) => (
+                  <li>{t}</li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+
+        <aside class="entry side-right certs">
+          <p class="entry-period">AWS certifications</p>
+          <ul class="chips" aria-label="AWS certifications">
+            {certifications.map((c) => (
+              <li>
+                <a href={c.link} target="_blank" rel="noopener noreferrer" aria-label={`${c.title}, issued ${new Date(c.issueDate).getFullYear()} (opens Credly badge in new tab)`}>
+                  {c.short} · {new Date(c.issueDate).getFullYear()}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p class="entry-role">
+            Verified on <a class="text-link" href={profile.socials.credly} target="_blank" rel="noopener noreferrer">Credly</a>
+          </p>
+        </aside>
+      </section>
+
+      <!-- 03 · PROJECTS -->
+      <section class="chapter flow" id="ch3" style="--acc: var(--violet)">
+        <div class="copy side-left">
+          <p class="eyebrow">03 · In production</p>
+          <h2>Systems that <em>feed people</em>.</h2>
+          <p class="body">
+            Open-source platforms I build and run for Aotearoa's food-rescue and community-kitchen
+            charities — live in production, coordinating thousands of volunteers every week.
+          </p>
+        </div>
+
+        {
+          projects.map((p) => (
+            <article class="card side-left">
+              <p class="entry-period">{p.tag} · {p.year}{"wip" in p && p.wip ? " · in progress" : ""}</p>
+              <h3>{p.title}</h3>
+              <p class="body">{p.description}</p>
+              <div class="stats">
+                {p.stats.map((s) => (
+                  <div class="stat">
+                    <b>{s.value}</b>
+                    <span>{s.label}</span>
+                  </div>
+                ))}
+              </div>
+              <ul class="chips" aria-label="Stack">
+                {p.stack.map((t) => (
+                  <li>{t}</li>
+                ))}
+              </ul>
+              <p class="links">
+                <a href={p.demo} target="_blank" rel="noopener noreferrer" aria-label={`${p.title} — live site (new tab)`}>live ↗</a>
+                <a href={p.github} target="_blank" rel="noopener noreferrer" aria-label={`${p.title} — source on GitHub (new tab)`}>source ↗</a>
+                {"appStore" in p && p.appStore ? (
+                  <a href={p.appStore} target="_blank" rel="noopener noreferrer" aria-label={`${p.title} — App Store (new tab)`}>app store ↗</a>
+                ) : null}
+                {"playStore" in p && p.playStore ? (
+                  <a href={p.playStore} target="_blank" rel="noopener noreferrer" aria-label={`${p.title} — Google Play (new tab)`}>google play ↗</a>
+                ) : null}
+              </p>
+            </article>
+          ))
+        }
+      </section>
+
+      <!-- 04 · CRUX -->
+      <section class="chapter statement" id="ch4" style="--acc: #cdd6ff">
+        <div class="copy side-left">
+          <p class="eyebrow">04 · Bearings</p>
+          <h2>Built under the <em>Southern&nbsp;Cross</em>.</h2>
+          <p class="body">
+            Wellington, Aotearoa New Zealand — remote-friendly and comfortable owning hard problems end
+            to end. The five stars overhead are Crux, placed from their real coordinates.
+          </p>
+        </div>
+      </section>
+
+      <!-- 05 · SIGNAL -->
+      <section class="chapter last" id="ch5" style="--acc: var(--gold)">
+        <div class="copy center">
+          <p class="eyebrow">05 · Signal</p>
+          <h2>The field is <em>listening</em>.</h2>
+          <p class="body">
+            If you're building something hard — or your team needs a safe pair of hands — send a signal.
+          </p>
+          <div class="actions">
+            <a class="btn primary" href={`mailto:${profile.email}`}>Email me</a>
+            <a class="btn" href={profile.cv} download>Download CV</a>
+            <a class="btn" href={profile.socials.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a class="btn" href={profile.socials.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          </div>
+          <p class="fine">No frameworks, no three.js — just WebGL2, arithmetic, and fifteen years of practice.</p>
+        </div>
+        <footer class="colophon">&copy; 2026 {profile.name} &middot; malin.nz</footer>
+      </section>
+    </main>
+
+    <div class="hud" id="hud" aria-hidden="true">IGNITING FIELD&hellip;</div>
+    <div class="hint" id="hint" aria-hidden="true">move to stir &middot; hold to attract &middot; tap to pulse</div>
+    <div class="cursor" id="cursor" aria-hidden="true"></div>
+
+    <noscript>
+      <style>
+        .copy, .entry, .card { opacity: 1 !important; transform: none !important; filter: none !important; }
+        .hint, .cursor, .hud { display: none !important; }
+      </style>
+    </noscript>
+
+    <script>
+      import "../scripts/field.ts";
+    </script>
+
+    <style>
+      /* ── faces ─────────────────────────────────────────────────────────── */
+      @font-face {
+        font-family: "Instrument Serif";
+        src: url("/fonts/instrument-serif-400.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "Instrument Serif";
+        src: url("/fonts/instrument-serif-italic.woff2") format("woff2");
+        font-weight: 400;
+        font-style: italic;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "JetBrains Mono";
+        src: url("/fonts/jetbrains-mono-400.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "JetBrains Mono";
+        src: url("/fonts/jetbrains-mono-500.woff2") format("woff2");
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      /* ── tokens ────────────────────────────────────────────────────────── */
+      :root {
+        color-scheme: dark;
+        --void: #050810;
+        --star: #f2f5ff;
+        --dim: #9aa8c7;
+        --faint: #5b6785;
+        --teal: #5ff5d8;
+        --blue: #7fb2ff;
+        --violet: #b9a5ff;
+        --gold: #ffc880;
+        --edge: rgba(154, 168, 199, 0.16);
+        --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+        --mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+        --ease: cubic-bezier(0.22, 1, 0.36, 1);
+        --inset-l: clamp(1.4rem, 8vw, 9rem);
+        --inset-r: clamp(1.4rem, 9vw, 11rem);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--void);
+        color: var(--dim);
+        font-family: var(--mono);
+        overflow-x: hidden;
+      }
+      ::selection {
+        background: var(--gold);
+        color: var(--void);
+      }
+      :focus-visible {
+        outline: 1px solid var(--gold);
+        outline-offset: 3px;
+      }
+
+      /* ── field + atmosphere ────────────────────────────────────────────── */
+      #field {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        opacity: 0;
+        transition: opacity 1.2s ease;
+      }
+      body.live-field #field {
+        opacity: 1;
+      }
+      .vignette {
+        position: fixed;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        background: radial-gradient(ellipse 120% 90% at 50% 42%, transparent 55%, rgba(2, 4, 9, 0.55) 100%);
+      }
+      .grain {
+        position: fixed;
+        inset: -50%;
+        z-index: 3;
+        pointer-events: none;
+        opacity: 0.055;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
+      body.static #field {
+        display: none;
+      }
+      body.static {
+        background:
+          radial-gradient(1px 1px at 12% 24%, rgba(242, 245, 255, 0.7), transparent 100%),
+          radial-gradient(1px 1px at 78% 12%, rgba(242, 245, 255, 0.5), transparent 100%),
+          radial-gradient(1.5px 1.5px at 62% 58%, rgba(255, 200, 128, 0.5), transparent 100%),
+          radial-gradient(1px 1px at 32% 76%, rgba(95, 245, 216, 0.45), transparent 100%),
+          radial-gradient(1px 1px at 88% 82%, rgba(242, 245, 255, 0.4), transparent 100%),
+          radial-gradient(ellipse 90% 70% at 50% 30%, #0a1020 0%, var(--void) 70%);
+        background-attachment: fixed;
+      }
+      body.static .cursor,
+      body.static .hint {
+        display: none;
+      }
+
+      /* ── chrome ────────────────────────────────────────────────────────── */
+      .topbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 20;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.1rem 1.4rem 2.2rem;
+        font-size: 0.68rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        background: linear-gradient(rgba(5, 8, 16, 0.8), transparent);
+        pointer-events: none;
+      }
+      .topbar a {
+        pointer-events: auto;
+      }
+      .wordmark {
+        color: var(--star);
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .avail {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        color: var(--dim);
+      }
+      .avail-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--teal);
+        box-shadow: 0 0 8px var(--teal);
+        animation: avail-pulse 2.4s ease-in-out infinite;
+      }
+      @keyframes avail-pulse {
+        50% {
+          opacity: 0.35;
+        }
+      }
+
+      .rail {
+        position: fixed;
+        right: 1.4rem;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 20;
+        height: 220px;
+        width: 20px;
+      }
+      .rail-track {
+        position: absolute;
+        right: 4px;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background: var(--edge);
+      }
+      .rail-thumb {
+        position: absolute;
+        left: -1.5px;
+        top: calc(var(--p, 0) * 100%);
+        width: 4px;
+        height: 4px;
+        margin-top: -2px;
+        border-radius: 50%;
+        background: var(--gold);
+        box-shadow: 0 0 8px var(--gold);
+        transition: top 0.15s linear;
+      }
+      .rail a {
+        position: absolute;
+        right: 0;
+        top: calc(var(--i) / 5 * 100%);
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        text-decoration: none;
+        padding: 4px;
+      }
+      .rail .dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--faint);
+        transition: background 0.3s, box-shadow 0.3s;
+      }
+      .rail .lbl {
+        font-size: 0.6rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--faint);
+        opacity: 0;
+        transform: translateX(6px);
+        transition: opacity 0.3s, transform 0.3s;
+        pointer-events: none;
+        white-space: nowrap;
+      }
+      .rail a:hover .lbl,
+      .rail a:focus-visible .lbl,
+      .rail a.on .lbl {
+        opacity: 1;
+        transform: none;
+      }
+      .rail a.on .dot {
+        background: var(--gold);
+        box-shadow: 0 0 10px var(--gold);
+      }
+
+      /* ── chapters ──────────────────────────────────────────────────────── */
+      main {
+        position: relative;
+        z-index: 10;
+      }
+      .chapter {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: 150vh;
+        min-height: 150svh;
+        padding: 42vh 0 34vh;
+        padding: 42svh 0 34svh;
+      }
+      .chapter.hero,
+      .chapter.statement {
+        justify-content: center;
+        padding-top: 0;
+        padding-bottom: 50vh;
+        padding-bottom: 50svh;
+      }
+      .chapter.statement {
+        padding-bottom: 30vh;
+        padding-bottom: 30svh;
+      }
+      .chapter.last {
+        min-height: 100vh;
+        min-height: 100svh;
+        justify-content: center;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+
+      .copy,
+      .entry,
+      .card {
+        opacity: 0;
+        transform: translateY(30px);
+        filter: blur(6px);
+        transition: opacity 0.9s var(--ease), transform 0.9s var(--ease), filter 0.9s var(--ease);
+      }
+      .copy.live,
+      .entry.live,
+      .card.live {
+        opacity: 1;
+        transform: none;
+        filter: none;
+      }
+      .copy {
+        position: relative;
+        max-width: 34rem;
+      }
+      .copy::before,
+      .entry::before {
+        content: "";
+        position: absolute;
+        inset: -4rem -5.5rem;
+        z-index: -1;
+        background: radial-gradient(closest-side, rgba(5, 8, 16, 0.92), rgba(5, 8, 16, 0.55) 60%, transparent);
+        border-radius: 50%;
+      }
+      .side-left {
+        margin-left: var(--inset-l);
+        margin-right: auto;
+      }
+      .side-right {
+        margin-right: var(--inset-r);
+        margin-left: auto;
+      }
+      .copy.center {
+        margin: 0 auto;
+        text-align: center;
+        max-width: 52rem;
+        padding: 0 1.4rem;
+      }
+
+      .eyebrow {
+        font-size: 0.66rem;
+        font-weight: 500;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--acc, var(--teal));
+        margin-bottom: 1.3rem;
+      }
+      h1,
+      h2 {
+        font-family: var(--serif);
+        font-weight: 400;
+        color: var(--star);
+        line-height: 1.04;
+        letter-spacing: -0.01em;
+        text-shadow: 0 2px 40px rgba(0, 0, 0, 0.65);
+        text-wrap: balance;
+      }
+      h1 {
+        font-size: clamp(3rem, 8.5vw, 6.6rem);
+      }
+      h2 {
+        font-size: clamp(2.3rem, 5.5vw, 4.3rem);
+      }
+      h1 em,
+      h2 em {
+        font-style: italic;
+        color: var(--acc, var(--gold));
+      }
+      .sub {
+        margin-top: 1.6rem;
+        font-size: 0.82rem;
+        line-height: 1.85;
+        color: var(--dim);
+        max-width: 36rem;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .sub [data-count] {
+        color: var(--star);
+      }
+      .meta-line {
+        margin-top: 1.1rem;
+        font-size: 0.66rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--dim);
+      }
+      .body {
+        margin-top: 1.4rem;
+        font-size: 0.8rem;
+        line-height: 1.85;
+        color: var(--dim);
+      }
+
+      .intro-row {
+        display: flex;
+        gap: 1.4rem;
+        align-items: flex-start;
+      }
+      .portrait {
+        margin-top: 1.6rem;
+        width: 64px;
+        height: 64px;
+        flex: none;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 1px solid var(--edge);
+        box-shadow: 0 0 24px rgba(95, 245, 216, 0.15);
+      }
+      .cap-line {
+        margin-top: 1.5rem;
+        font-size: 0.64rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--dim);
+      }
+
+      .cue {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 6vh;
+        bottom: 6svh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.7rem;
+        font-size: 0.6rem;
+        letter-spacing: 0.34em;
+        text-transform: uppercase;
+        color: var(--faint);
+      }
+      .cue span {
+        display: block;
+        width: 1px;
+        height: 44px;
+        background: linear-gradient(var(--faint), transparent);
+        animation: cue-drop 2.2s var(--ease) infinite;
+      }
+      @keyframes cue-drop {
+        0% {
+          transform: scaleY(0);
+          transform-origin: top;
+        }
+        45% {
+          transform: scaleY(1);
+          transform-origin: top;
+        }
+        55% {
+          transform: scaleY(1);
+          transform-origin: bottom;
+        }
+        100% {
+          transform: scaleY(0);
+          transform-origin: bottom;
+        }
+      }
+
+      /* ── career entries ────────────────────────────────────────────────── */
+      .entry {
+        position: relative;
+        max-width: 34rem;
+        margin-top: 42vh;
+        margin-top: 42svh;
+      }
+      .entry-period {
+        font-size: 0.64rem;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--acc, var(--blue));
+      }
+      .now-badge {
+        display: inline-block;
+        margin-left: 0.7rem;
+        padding: 0.1rem 0.5rem;
+        border: 1px solid var(--acc, var(--blue));
+        border-radius: 999px;
+        font-size: 0.56rem;
+        letter-spacing: 0.18em;
+      }
+      .entry h3,
+      .card h3 {
+        margin-top: 0.8rem;
+        font-family: var(--serif);
+        font-weight: 400;
+        font-size: 1.9rem;
+        color: var(--star);
+        letter-spacing: -0.005em;
+      }
+      .entry-role {
+        margin-top: 0.3rem;
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--dim);
+      }
+      .chips {
+        margin-top: 1.1rem;
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+      }
+      .chips li {
+        font-size: 0.6rem;
+        letter-spacing: 0.08em;
+        color: var(--dim);
+        border: 1px solid var(--edge);
+        border-radius: 999px;
+        padding: 0.28rem 0.7rem;
+        white-space: nowrap;
+      }
+      .chips li a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .chips li a:hover {
+        color: var(--gold);
+      }
+      .certs {
+        margin-top: 34vh;
+        margin-top: 34svh;
+      }
+      .text-link {
+        color: var(--dim);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+      .text-link:hover {
+        color: var(--gold);
+      }
+
+      /* ── project cards ─────────────────────────────────────────────────── */
+      .card {
+        position: relative;
+        max-width: 40rem;
+        margin-top: 34vh;
+        margin-top: 34svh;
+        padding: 1.7rem 1.9rem 1.5rem;
+        background: rgba(7, 11, 20, 0.78);
+        border: 1px solid var(--edge);
+        border-radius: 4px;
+      }
+      @media (min-width: 721px) {
+        .card {
+          backdrop-filter: blur(8px);
+        }
+      }
+      .card .entry-period {
+        color: var(--acc, var(--violet));
+      }
+      .stats {
+        margin-top: 1.3rem;
+        display: flex;
+        gap: 2.4rem;
+        flex-wrap: wrap;
+      }
+      .stat b {
+        display: block;
+        font-family: var(--serif);
+        font-weight: 400;
+        font-size: 1.7rem;
+        color: var(--star);
+      }
+      .stat span {
+        font-size: 0.6rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--dim);
+      }
+      .links {
+        margin-top: 1.3rem;
+        padding-top: 1.1rem;
+        border-top: 1px solid var(--edge);
+        display: flex;
+        gap: 1.4rem;
+        flex-wrap: wrap;
+      }
+      .links a {
+        font-size: 0.66rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--dim);
+        text-decoration: none;
+        transition: color 0.25s;
+      }
+      .links a:hover {
+        color: var(--gold);
+      }
+
+      /* ── actions ───────────────────────────────────────────────────────── */
+      .actions {
+        margin-top: 2.2rem;
+        display: flex;
+        gap: 0.8rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .btn {
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: var(--star);
+        border: 1px solid var(--edge);
+        padding: 0.85rem 1.5rem;
+        border-radius: 2px;
+        transition: border-color 0.3s, color 0.3s, background 0.3s, transform 0.3s, box-shadow 0.3s;
+      }
+      .btn:hover {
+        border-color: var(--gold);
+        color: var(--gold);
+        transform: translateY(-2px);
+      }
+      .btn.primary {
+        background: var(--gold);
+        border-color: var(--gold);
+        color: #1a1005;
+      }
+      .btn.primary:hover {
+        background: #ffd9a3;
+        color: #1a1005;
+        box-shadow: 0 4px 28px rgba(255, 200, 128, 0.35);
+      }
+      .fine {
+        margin-top: 2rem;
+        font-size: 0.64rem;
+        letter-spacing: 0.06em;
+        color: var(--dim);
+      }
+      .colophon {
+        position: absolute;
+        bottom: 1.2rem;
+        right: 1.4rem;
+        text-align: right;
+        font-size: 0.6rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--dim);
+      }
+
+      /* ── hud / hint / cursor ───────────────────────────────────────────── */
+      .hud {
+        position: fixed;
+        left: 1.4rem;
+        bottom: 1.2rem;
+        z-index: 20;
+        font-size: 0.6rem;
+        letter-spacing: 0.18em;
+        color: var(--faint);
+        white-space: nowrap;
+      }
+      .hint {
+        position: fixed;
+        left: 50%;
+        bottom: 1.6rem;
+        transform: translate(-50%, 12px);
+        z-index: 20;
+        font-size: 0.62rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--dim);
+        border: 1px solid var(--edge);
+        border-radius: 999px;
+        padding: 0.55rem 1.1rem;
+        background: rgba(5, 8, 16, 0.6);
+        backdrop-filter: blur(6px);
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.6s ease, transform 0.6s var(--ease);
+      }
+      .hint.show {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+      .cursor {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 30;
+        width: 26px;
+        height: 26px;
+        margin: -13px 0 0 -13px;
+        border: 1px solid rgba(242, 245, 255, 0.5);
+        border-radius: 50%;
+        pointer-events: none;
+        mix-blend-mode: screen;
+        opacity: 0;
+        transition: scale 0.35s var(--ease), border-color 0.35s, opacity 0.35s;
+      }
+      body.cursor-on .cursor {
+        opacity: 1;
+      }
+      body.holding .cursor {
+        scale: 2.1;
+        border-color: var(--gold);
+      }
+      @media (pointer: coarse) {
+        .cursor {
+          display: none;
+        }
+      }
+
+      /* ── small screens ─────────────────────────────────────────────────── */
+      @media (max-width: 720px) {
+        .rail {
+          right: 0.8rem;
+        }
+        .rail .lbl {
+          display: none;
+        }
+        .copy,
+        .entry,
+        .card {
+          margin-left: 1.4rem;
+          margin-right: 3rem;
+          max-width: none;
+        }
+        .copy.center {
+          margin: 0 auto;
+          width: calc(100vw - 4rem);
+          padding: 0;
+        }
+        .copy::before,
+        .entry::before {
+          inset: -2.5rem -1.8rem;
+        }
+        .intro-row {
+          flex-direction: column;
+          gap: 0;
+        }
+        .avail {
+          font-size: 0.56rem;
+          letter-spacing: 0.14em;
+        }
+        .topbar {
+          padding: 1rem 1.1rem 2rem;
+        }
+        .hud {
+          left: 1.1rem;
+          font-size: 0.54rem;
+        }
+        .colophon {
+          right: 50%;
+          transform: translateX(50%);
+          bottom: 2.8rem;
+          white-space: nowrap;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        .copy,
+        .entry,
+        .card,
+        .hint,
+        .btn,
+        .rail-thumb {
+          transition: none;
+        }
+        .cue span,
+        .avail-dot {
+          animation: none;
+        }
+      }
+    </style>
+  </body>
+</html>

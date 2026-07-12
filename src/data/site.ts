@@ -123,7 +123,7 @@ export const projects = [
   },
   {
     title: "Compassion Soup Kitchen - Volunteer App",
-    tag: "Charity · In progress",
+    tag: "Charity · Volunteer ops",
     year: "2025 - now",
     wip: true,
     description:
