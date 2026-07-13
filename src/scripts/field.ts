@@ -35,7 +35,7 @@ const CHAPTERS: ChapterParams[] = [
   { strength: 1.0, noise: 0.16, drag: 4.6, tint: [1.0, 0.72, 0.4], hot: [1.0, 0.95, 0.8], exposure: 0.45, yawAmp: 0.04, yawSpeed: 0.4, pitch: 0.02, point: 3.8 },
 ];
 
-const CHAPTER_NAMES = ["NOISE", "HELLO", "STRUCTURE", "NETWORK", "CRUX", "SIGNAL"];
+const CHAPTER_NAMES = ["INTRO", "ABOUT", "EXPERIENCE", "PROJECTS", "CRUX", "CONTACT"];
 const EYE_Z = 3.1;
 const FOV_TAN = Math.tan((40 * Math.PI) / 360); // half-fov of 20°
 

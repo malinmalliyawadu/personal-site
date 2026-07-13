@@ -74,34 +74,31 @@ const personLd = JSON.stringify({
 
     <nav class="rail" aria-label="Sections">
       <div class="rail-track"><span class="rail-thumb" aria-hidden="true"></span></div>
-      <a href="#ch0" style="--i: 0" class="on" aria-label="Noise — intro"><span class="lbl">noise</span><span class="dot"></span></a>
-      <a href="#ch1" style="--i: 1" aria-label="Kia ora — about"><span class="lbl">kia ora</span><span class="dot"></span></a>
-      <a href="#ch2" style="--i: 2" aria-label="Career"><span class="lbl">career</span><span class="dot"></span></a>
+      <a href="#ch0" style="--i: 0" class="on" aria-label="Top"><span class="lbl">top</span><span class="dot"></span></a>
+      <a href="#ch1" style="--i: 1" aria-label="About"><span class="lbl">about</span><span class="dot"></span></a>
+      <a href="#ch2" style="--i: 2" aria-label="Experience"><span class="lbl">experience</span><span class="dot"></span></a>
       <a href="#ch3" style="--i: 3" aria-label="Projects"><span class="lbl">projects</span><span class="dot"></span></a>
-      <a href="#ch4" style="--i: 4" aria-label="Crux — bearings"><span class="lbl">crux</span><span class="dot"></span></a>
-      <a href="#ch5" style="--i: 5" aria-label="Signal — contact"><span class="lbl">signal</span><span class="dot"></span></a>
+      <a href="#ch4" style="--i: 4" aria-label="Location"><span class="lbl">location</span><span class="dot"></span></a>
+      <a href="#ch5" style="--i: 5" aria-label="Contact"><span class="lbl">contact</span><span class="dot"></span></a>
     </nav>
 
     <main>
-      <!-- 00 · NOISE -->
+      <!-- 00 · INTRO -->
       <section class="chapter hero" id="ch0" style="--acc: var(--teal)">
         <div class="copy center">
-          <p class="eyebrow">{profile.name} · Senior Full-Stack Engineer &amp; Technical Lead</p>
-          <h1>Every system starts as <em>noise</em>.</h1>
-          <p class="sub">
-            <span data-count>262,144</span> particles · one hand-written WebGL2 program · zero libraries.
-            Stir the field with your cursor. Hold to bend it. Scroll to give it order — fifteen years of it.
-          </p>
-          <p class="meta-line">Wellington, Aotearoa New Zealand · UTC+12 · {profile.availabilityLabel.toLowerCase()}</p>
+          <p class="eyebrow">Senior Full-Stack Engineer &amp; Technical Lead · Wellington, NZ</p>
+          <h1>Malin Malliya Wadu</h1>
+          <p class="sub">{profile.tagline}</p>
+          <p class="meta-line">{profile.availabilityLabel} · {profile.timezone}</p>
         </div>
         <div class="cue" aria-hidden="true"><span></span>scroll</div>
       </section>
 
-      <!-- 01 · KIA ORA -->
+      <!-- 01 · ABOUT -->
       <section class="chapter statement" id="ch1" style="--acc: #f2e5c8">
         <div class="copy side-left">
-          <p class="eyebrow">01 · Kia ora</p>
-          <h2>First, you say <em>hello</em>.</h2>
+          <p class="eyebrow">01 · About</p>
+          <h2>Kia ora.</h2>
           <div class="intro-row">
             <Image src={profilePic} alt={`Portrait of ${profile.name}`} width={128} height={128} class="portrait" />
             <p class="body">
@@ -115,14 +112,13 @@ const personLd = JSON.stringify({
         </div>
       </section>
 
-      <!-- 02 · CAREER -->
+      <!-- 02 · EXPERIENCE -->
       <section class="chapter flow" id="ch2" style="--acc: var(--blue)">
         <div class="copy side-right">
-          <p class="eyebrow">02 · Career</p>
-          <h2>Then you give it<br /><em>structure</em>.</h2>
+          <p class="eyebrow">02 · Experience</p>
+          <h2>Experience.</h2>
           <p class="body">
             Fifteen years across banks, government and marketplaces — as engineer, lead and architect.
-            Every point in this lattice holds its place; so does every system I've left behind.
           </p>
         </div>
 
@@ -166,8 +162,8 @@ const personLd = JSON.stringify({
       <!-- 03 · PROJECTS -->
       <section class="chapter flow" id="ch3" style="--acc: var(--violet)">
         <div class="copy side-left">
-          <p class="eyebrow">03 · In production</p>
-          <h2>Systems that <em>feed people</em>.</h2>
+          <p class="eyebrow">03 · Projects</p>
+          <h2>Community projects.</h2>
           <p class="body">
             Open-source platforms I build and run for Aotearoa's food-rescue and community-kitchen
             charities — live in production, coordinating thousands of volunteers every week.
@@ -235,25 +231,25 @@ const personLd = JSON.stringify({
         }
       </section>
 
-      <!-- 04 · CRUX -->
+      <!-- 04 · LOCATION -->
       <section class="chapter statement" id="ch4" style="--acc: #cdd6ff">
         <div class="copy side-left">
-          <p class="eyebrow">04 · Bearings</p>
-          <h2>Built under the <em>Southern&nbsp;Cross</em>.</h2>
+          <p class="eyebrow">04 · Based in</p>
+          <h2>Wellington, New&nbsp;Zealand.</h2>
           <p class="body">
-            Wellington, Aotearoa New Zealand — remote-friendly and comfortable owning hard problems end
-            to end. The five stars overhead are Crux, placed from their real coordinates.
+            Remote-friendly, UTC+12, and comfortable owning hard problems end to end. The five stars
+            overhead are Crux — the Southern Cross — placed from their real coordinates.
           </p>
         </div>
       </section>
 
-      <!-- 05 · SIGNAL -->
+      <!-- 05 · CONTACT -->
       <section class="chapter last" id="ch5" style="--acc: var(--gold)">
         <div class="copy center">
-          <p class="eyebrow">05 · Signal</p>
-          <h2>The field is <em>listening</em>.</h2>
+          <p class="eyebrow">05 · Contact</p>
+          <h2>Get in touch.</h2>
           <p class="body">
-            If you're building something hard — or your team needs a safe pair of hands — send a signal.
+            If you're building something hard — or your team needs a safe pair of hands — email me.
           </p>
           <div class="actions">
             <a class="btn primary" href={`mailto:${profile.email}`}>Email me</a>
@@ -261,7 +257,7 @@ const personLd = JSON.stringify({
             <a class="btn" href={profile.socials.github} target="_blank" rel="noopener noreferrer">GitHub</a>
             <a class="btn" href={profile.socials.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
           </div>
-          <p class="fine">No frameworks, no three.js — just WebGL2, arithmetic, and fifteen years of practice.</p>
+          <p class="fine">This page is a single hand-written WebGL2 program — <span data-count>262,144</span> particles, zero libraries.</p>
         </div>
         <footer class="colophon">&copy; 2026 {profile.name} &middot; malin.nz</footer>
       </section>
@@ -611,7 +607,7 @@ const personLd = JSON.stringify({
         text-wrap: balance;
       }
       h1 {
-        font-size: clamp(3rem, 8.5vw, 6.6rem);
+        font-size: clamp(2.8rem, 7vw, 5.6rem);
       }
       h2 {
         font-size: clamp(2.3rem, 5.5vw, 4.3rem);
@@ -1017,26 +1013,36 @@ const personLd = JSON.stringify({
         opacity: 1;
         transform: translate(-50%, 0);
       }
+      /* ring lives on ::after so the hold-scale can't compose with the
+         JS-set translate3d and shove the cursor off-position */
       .cursor {
         position: fixed;
         left: 0;
         top: 0;
         z-index: 30;
+        width: 0;
+        height: 0;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.35s;
+      }
+      .cursor::after {
+        content: "";
+        position: absolute;
+        left: -13px;
+        top: -13px;
         width: 26px;
         height: 26px;
-        margin: -13px 0 0 -13px;
         border: 1px solid rgba(242, 245, 255, 0.5);
         border-radius: 50%;
-        pointer-events: none;
         mix-blend-mode: screen;
-        opacity: 0;
-        transition: scale 0.35s var(--ease), border-color 0.35s, opacity 0.35s;
+        transition: transform 0.35s var(--ease), border-color 0.35s;
       }
       body.cursor-on .cursor {
         opacity: 1;
       }
-      body.holding .cursor {
-        scale: 2.1;
+      body.holding .cursor::after {
+        transform: scale(2.1);
         border-color: var(--gold);
       }
       @media (pointer: coarse) {
