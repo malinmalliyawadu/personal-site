@@ -90,14 +90,13 @@ export const projects = [
     title: "Everybody Eats - Website",
     tag: "Charity · Marketing + CMS",
     year: "2025 - now",
-    wip: true,
     description:
       "The public-facing site for the NZ charity behind a network of pay-as-you-feel restaurants. Migrated off Webflow onto a fully open-source stack - Payload CMS with a Next.js front end - cutting subscription cost and giving the team total control across dining, fundraising, volunteering, impact reporting and events.",
     image: "/screenshots/everybody-eats-website.webp",
     imageW: 1600,
     imageH: 1000,
     github: "https://github.com/everybody-eats-nz/marketing-cms",
-    demo: "https://new.everybodyeats.nz/",
+    demo: "https://everybodyeats.nz",
     stack: ["Next.js", "Payload CMS", "TypeScript", "Tailwind"],
     stats: [
       { label: "Monthly Visitors", value: "7K+" },
