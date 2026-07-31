@@ -39,8 +39,8 @@ const TX = [0.085, 0.305, 0.515, 0.725, 0.925];
 
 const NODES: NodeDef[] = [
   // Edge
-  { id: "everybody-eats", label: "everybody-eats", sub: "9,000+ volunteers · 4.8K MAU", icon: "/icons/nextjs.svg", tier: 0, nx: TX[0], ny: 0.22, accent: "route", href: "#work-ee" },
-  { id: "fair-food", label: "fair-food", sub: "400+ volunteers · a11y-first", icon: "/icons/react.svg", tier: 0, nx: TX[0], ny: 0.52, accent: "route", href: "#work-ff" },
+  { id: "everybody-eats", label: "everybody-eats", sub: "10,000+ volunteers · 4.6K MAU", icon: "/icons/nextjs.svg", tier: 0, nx: TX[0], ny: 0.22, accent: "route", href: "#work-ee" },
+  { id: "fair-food", label: "fair-food", sub: "600+ volunteers · a11y-first", icon: "/icons/react.svg", tier: 0, nx: TX[0], ny: 0.52, accent: "route", href: "#work-ff" },
   { id: "microfrontends", label: "microfrontends", sub: "PartsTrader · supplier platform", icon: "/icons/single-spa.svg", tier: 0, nx: TX[0], ny: 0.82, accent: "route", href: "#exp-partstrader" },
   // Compute
   { id: "open-banking-api", label: "open-banking-api", sub: "ANZ · regulated APIs", icon: "/icons/nodejs.svg", tier: 1, nx: TX[1], ny: 0.16, accent: "route", href: "#exp-anz" },

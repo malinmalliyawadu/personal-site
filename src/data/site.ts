@@ -116,7 +116,7 @@ export const projects = [
     demo: "https://volunteer.fairfood.org.nz/",
     stack: ["Next.js", "React", "Prisma", "Postgres", "Tailwind", "Playwright"],
     stats: [
-      { label: "Active Volunteers", value: "500+" },
+      { label: "Active Volunteers", value: "600+" },
       { label: "Monthly Page Views", value: "9.7K" },
     ],
   },
