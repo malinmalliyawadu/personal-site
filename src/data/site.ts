@@ -83,7 +83,7 @@ export const projects = [
     stack: ["Next.js", "React", "TypeScript", "Prisma", "Postgres", "Expo"],
     stats: [
       { label: "Volunteers", value: "10K+" },
-      { label: "Monthly Active Users", value: "4.6K" },
+      { label: "Monthly Active Users", value: "6.9K" },
     ],
   },
   {
@@ -99,8 +99,8 @@ export const projects = [
     demo: "https://everybodyeats.nz",
     stack: ["Next.js", "Payload CMS", "TypeScript", "Tailwind"],
     stats: [
-      { label: "Monthly Visitors", value: "7K+" },
-      { label: "Monthly Page Views", value: "22K+" },
+      { label: "Monthly Visitors", value: "9K+" },
+      { label: "Monthly Page Views", value: "31K+" },
     ],
   },
   {
@@ -108,7 +108,7 @@ export const projects = [
     tag: "Charity · Accessibility-first",
     year: "2024 - now",
     description:
-      "Built for an Auckland charity that has rescued 4.7M+ kilos of surplus food since 2011. Replaced SignUpGenius with a purpose-built platform coordinating volunteers across three programmes, with accessibility-first shift booking and bilingual English / te reo Māori content.",
+      "Built for an Auckland charity that has rescued 5.2M+ kilos of surplus food since 2011. Replaced SignUpGenius with a purpose-built platform coordinating volunteers across three programmes, with accessibility-first shift booking and bilingual English / te reo Māori content.",
     image: "/screenshots/fairfood.webp",
     imageW: 1440,
     imageH: 900,
@@ -116,8 +116,8 @@ export const projects = [
     demo: "https://volunteer.fairfood.org.nz/",
     stack: ["Next.js", "React", "Prisma", "Postgres", "Tailwind", "Playwright"],
     stats: [
-      { label: "Active Volunteers", value: "600+" },
-      { label: "Monthly Page Views", value: "9.7K" },
+      { label: "Active Volunteers", value: "800+" },
+      { label: "Monthly Page Views", value: "11.2K" },
     ],
   },
   {
