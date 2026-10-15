@@ -13,16 +13,23 @@
     "generate-cv": "mkdir -p public/cv && cd cv && docker run --rm -v \"$(pwd):/data\" -w /data texlive/texlive:TL2023-historic lualatex Malin_CV.tex && cp Malin_CV.pdf ../public/cv/"
   },
   "dependencies": {
-    "astro": "^7.2.8",
-    "sharp": "^0.35.4",
-    "tailwindcss": "^3.3.3"
+    "astro": "^7.3.8",
+    "sharp": "^0.35.5",
+    "tailwindcss": "^3.4.19"
   },
   "devDependencies": {
-    "@typescript-eslint/parser": "^6.4.0",
-    "autoprefixer": "^10.4.27",
-    "eslint": "^8.47.0",
-    "eslint-plugin-astro": "^0.28.0",
-    "gh-pages": "^6.0.0",
-    "postcss": "^8.5.23"
+    "autoprefixer": "^10.6.1",
+    "gh-pages": "^6.3.0",
+    "postcss": "^8.5.30"
+  },
+  "pnpm": {
+    "overrides": {
+      "postcss-selector-parser@<7.1.6": "^7.1.6"
+    },
+    "auditConfig": {
+      "ignoreGhsas": [
+        "GHSA-vfj7-8cjw-p6xm"
+      ]
+    }
   }
 }
