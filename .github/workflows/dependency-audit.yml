@@ -1,0 +1,82 @@
+name: Dependency audit
+
+on:
+  pull_request:
+    branches:
+      - develop
+    paths:
+      - package.json
+      - pnpm-lock.yaml
+  schedule:
+    - cron: "0 18 * * 0"
+  workflow_dispatch:
+
+jobs:
+  # Blocks dependency changes that introduce a known vulnerability.
+  audit:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm audit --audit-level moderate
+
+  # Weekly: refresh dependencies within their ranges, add pnpm overrides for
+  # vulnerable transitive packages that are still pinned, and open a PR.
+  fix:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: develop
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm update
+
+      - run: pnpm audit --fix
+
+      - run: pnpm install --no-frozen-lockfile
+
+      # PRs opened with GITHUB_TOKEN do not trigger CI, so build here first.
+      - run: pnpm run build
+
+      - uses: peter-evans/create-pull-request@v8
+        with:
+          branch: automation/dependency-audit
+          base: develop
+          title: Fix vulnerable dependencies
+          commit-message: Fix vulnerable dependencies
+          body: |
+            Automated weekly dependency refresh from the `Dependency audit` workflow:
+
+            - `pnpm update` within the ranges in `package.json`
+            - `pnpm audit --fix` to add overrides for vulnerable transitive packages
+            - `pnpm run build` passed on this branch
+
+            CI does not run on PRs opened by this workflow. Close and reopen the PR to trigger it.
+          delete-branch: true
+
+      # Fails the run (and notifies) when vulnerabilities remain that no
+      # update or override could fix.
+      - run: pnpm audit --audit-level moderate
