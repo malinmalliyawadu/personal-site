@@ -126,9 +126,8 @@ export const projects = [
   {
     anchor: "work-csk",
     title: "Compassion Soup Kitchen - Volunteer App",
-    tag: "Charity · In progress",
+    tag: "Charity · Web + iOS App",
     year: "2025 - now",
-    wip: true,
     description:
       "A volunteer management app helping a kitchen serving the community for 125+ years coordinate meal-service shifts - simplifying sign-ups, tracking attendance, and keeping service running smoothly.",
     image: "/screenshots/compassion-volunteer-app.webp",
