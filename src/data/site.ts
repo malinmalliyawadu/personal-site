@@ -136,6 +136,7 @@ export const projects = [
     imageH: 720,
     github: "https://github.com/compassion-soup-kitchen/volunteer-app",
     demo: "https://compassion.awhinatech.nz/",
+    appStore: "https://apps.apple.com/nz/app/compassion-soup-kitchen/id6785313022",
     stack: ["Next.js", "React", "TypeScript"],
     stats: [{ label: "Serving the community", value: "125+ yrs" }],
   },
