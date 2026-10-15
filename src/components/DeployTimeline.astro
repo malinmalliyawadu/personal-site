@@ -1,6 +1,8 @@
 ---
 import Panel from "./Panel.astro";
 import { experience } from "../data/site";
+
+const jobs = experience.map((job) => ({ ...job, live: "current" in job && job.current }));
 ---
 
 <Panel id="experience" svc="svc-05" path="~/career.log" status="15y">
@@ -15,8 +17,8 @@ import { experience } from "../data/site";
 
   <ol class="timeline">
     {
-      experience.map((job, i) => (
-        <li id={job.id} class={`tl-entry reveal ${job.current ? "is-current" : ""}`}>
+      jobs.map((job) => (
+        <li id={job.id} class={`tl-entry reveal ${job.live ? "is-current" : ""}`}>
           <span class="tl-rail" aria-hidden="true">
             <span class="tl-node" />
           </span>
@@ -30,9 +32,9 @@ import { experience } from "../data/site";
                 <p class="tl-role">{job.role}</p>
               </div>
               <div class="tl-side font-mono">
-                <span class={`tl-status ${job.current ? "live" : "ok"}`}>
+                <span class={`tl-status ${job.live ? "live" : "ok"}`}>
                   <span class="tls-dot" />
-                  {job.current ? "live" : "deployed"}
+                  {job.live ? "live" : "deployed"}
                 </span>
                 <span class="tl-period">{job.period}</span>
               </div>
