@@ -95,16 +95,18 @@ const num = String(index + 1).padStart(2, "0");
     <h3 class="proj-title">{title}</h3>
     <p class="proj-desc">{description}</p>
 
-    <div class="proj-stats">
-      {
-        stats.map((s) => (
-          <div class="pstat">
-            <span class="pstat-val font-mono">{s.value}</span>
-            <span class="pstat-label">{s.label}</span>
-          </div>
-        ))
-      }
-    </div>
+    {
+      stats.length > 0 && (
+        <div class="proj-stats">
+          {stats.map((s) => (
+            <div class="pstat">
+              <span class="pstat-val font-mono">{s.value}</span>
+              <span class="pstat-label">{s.label}</span>
+            </div>
+          ))}
+        </div>
+      )
+    }
 
     <ul class="proj-stack">
       {stack.map((t) => <li class="chip">{t}</li>)}

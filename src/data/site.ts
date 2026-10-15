@@ -64,6 +64,7 @@ export const capabilities = [
 // Flagship work - proof, with real metrics.
 export const projects = [
   {
+    anchor: "work-ee",
     title: "Everybody Eats - Volunteer Portal",
     tag: "Charity · Web + Native Apps",
     year: "2024 - now",
@@ -87,6 +88,7 @@ export const projects = [
     ],
   },
   {
+    anchor: "work-eeweb",
     title: "Everybody Eats - Website",
     tag: "Charity · Marketing + CMS",
     year: "2025 - now",
@@ -104,6 +106,7 @@ export const projects = [
     ],
   },
   {
+    anchor: "work-ff",
     title: "Fair Food - Volunteer Portal",
     tag: "Charity · Accessibility-first",
     year: "2024 - now",
@@ -121,10 +124,10 @@ export const projects = [
     ],
   },
   {
+    anchor: "work-csk",
     title: "Compassion Soup Kitchen - Volunteer App",
-    tag: "Charity · In progress",
+    tag: "Charity · Web + iOS App",
     year: "2025 - now",
-    wip: true,
     description:
       "A volunteer management app helping a kitchen serving the community for 125+ years coordinate meal-service shifts - simplifying sign-ups, tracking attendance, and keeping service running smoothly.",
     image: "/screenshots/compassion-volunteer-app.webp",
@@ -132,8 +135,28 @@ export const projects = [
     imageH: 720,
     github: "https://github.com/compassion-soup-kitchen/volunteer-app",
     demo: "https://compassion.awhinatech.nz/",
+    appStore: "https://apps.apple.com/nz/app/compassion-soup-kitchen/id6785313022",
     stack: ["Next.js", "React", "TypeScript"],
     stats: [{ label: "Serving the community", value: "125+ yrs" }],
+  },
+  {
+    anchor: "work-sfr",
+    title: "Satisfy Food Rescue - Volunteer Platform",
+    tag: "Charity · In progress",
+    year: "2026 - now",
+    wip: true,
+    description:
+      "A volunteer platform for a charity rescuing surplus food in Rangiora and North Canterbury. Coordinators get a roster, coverage gaps when volunteers are away, training compliance with automatic refresher reminders, and applications from their Infoodle sign-up form. Volunteers book shifts, cover gaps, complete online refreshers and mark themselves away. Built as a web app plus native iOS and Android apps.",
+    image: "/screenshots/satisfy-volunteers.webp",
+    imageW: 1600,
+    imageH: 1200,
+    phoneImage: "/screenshots/satisfy-app.webp",
+    phoneImageW: 640,
+    phoneImageH: 1391,
+    phoneImageAlt: "Satisfy Food Rescue volunteer app - Home screen with next shift and refresher reminder",
+    github: "https://github.com/satisfy-food-rescue/satisfy-volunteer",
+    stack: ["Next.js", "React", "TypeScript", "Prisma", "Postgres", "Expo"],
+    stats: [],
   },
 ] as const;
 

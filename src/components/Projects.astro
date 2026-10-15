@@ -2,11 +2,9 @@
 import Panel from "./Panel.astro";
 import ProjectPanel from "./ProjectPanel.astro";
 import { projects, profile } from "../data/site";
-
-const anchors = ["work-ee", "work-eeweb", "work-ff", "work-csk"];
 ---
 
-<Panel id="work" svc="svc-03" path="svc://flagship-projects" status="4 running">
+<Panel id="work" svc="svc-03" path="svc://flagship-projects" status={`${projects.length} running`}>
   <div class="sec-head reveal">
     <p class="eyebrow">selected work · monitored services</p>
     <h2 class="section-title">Real products, shipped and running</h2>
@@ -20,7 +18,7 @@ const anchors = ["work-ee", "work-eeweb", "work-ff", "work-csk"];
     {
       projects.map((p, i) => (
         <ProjectPanel
-          anchor={anchors[i]}
+          anchor={p.anchor}
           index={i}
           title={p.title}
           tag={p.tag}
@@ -33,7 +31,7 @@ const anchors = ["work-ee", "work-eeweb", "work-ff", "work-csk"];
           phoneImageW={"phoneImageW" in p ? (p as any).phoneImageW : undefined}
           phoneImageH={"phoneImageH" in p ? (p as any).phoneImageH : undefined}
           phoneImageAlt={"phoneImageAlt" in p ? (p as any).phoneImageAlt : undefined}
-          demo={p.demo}
+          demo={"demo" in p ? p.demo : undefined}
           github={p.github}
           appStore={"appStore" in p ? (p as any).appStore : undefined}
           playStore={"playStore" in p ? (p as any).playStore : undefined}
