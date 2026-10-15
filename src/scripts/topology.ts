@@ -105,12 +105,10 @@ function start() {
 
   // Preload icons.
   const icons = new Map<string, HTMLImageElement>();
-  let iconsLoaded = 0;
   NODES.forEach((n) => {
     if (icons.has(n.icon)) return;
     const img = new Image();
-    img.onload = () => { iconsLoaded++; requestDraw(); };
-    img.onerror = () => { iconsLoaded++; };
+    img.onload = () => requestDraw();
     img.src = n.icon;
     icons.set(n.icon, img);
   });
@@ -198,15 +196,13 @@ function start() {
 
   function drawEdge(a: string, b: string) {
     const g = edgeGeom(a, b);
-    const key = `${a}>${b}`;
     let alpha = 0.16;
-    let color = C.route;
     if (related) {
       const on = related.has(a) && related.has(b) && (a === hovered || b === hovered);
       alpha = on ? 0.55 : 0.05;
     }
     ctx!.save();
-    ctx!.strokeStyle = color;
+    ctx!.strokeStyle = C.route;
     ctx!.globalAlpha = alpha;
     ctx!.lineWidth = related && related.has(a) && related.has(b) && (a === hovered || b === hovered) ? 1.6 : 1;
     ctx!.beginPath();
@@ -285,7 +281,7 @@ function start() {
       ctx!.globalAlpha = related && !related.has(n.id) ? 0.28 : 1;
       try {
         ctx!.drawImage(img, p.x - isz / 2, p.y - isz / 2, isz, isz);
-      } catch (_e) { /* ignore */ }
+      } catch { /* ignore */ }
     } else {
       ctx!.globalAlpha = alpha;
       ctx!.fillStyle = ac;
@@ -331,7 +327,7 @@ function start() {
   }
 
   function updatePackets(dt: number, now: number) {
-    packets.forEach((store, key) => {
+    packets.forEach((store) => {
       // advance
       for (let i = store.list.length - 1; i >= 0; i--) {
         store.list[i].t += store.list[i].speed * dt;

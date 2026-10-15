@@ -2,7 +2,6 @@
 import Panel from "./Panel.astro";
 import { techStack } from "../data/site";
 
-const groups = techStack.map((g) => g.name);
 const items = techStack.flatMap((g) => g.skills.map(([name, icon]) => ({ name, icon, group: g.name })));
 const total = items.length;
 ---

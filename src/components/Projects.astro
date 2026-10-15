@@ -22,22 +22,21 @@ import { projects, profile } from "../data/site";
           index={i}
           title={p.title}
           tag={p.tag}
-          year={p.year}
           description={p.description}
           image={p.image}
           imageW={p.imageW}
           imageH={p.imageH}
-          phoneImage={"phoneImage" in p ? (p as any).phoneImage : undefined}
-          phoneImageW={"phoneImageW" in p ? (p as any).phoneImageW : undefined}
-          phoneImageH={"phoneImageH" in p ? (p as any).phoneImageH : undefined}
-          phoneImageAlt={"phoneImageAlt" in p ? (p as any).phoneImageAlt : undefined}
+          phoneImage={"phoneImage" in p ? p.phoneImage : undefined}
+          phoneImageW={"phoneImageW" in p ? p.phoneImageW : undefined}
+          phoneImageH={"phoneImageH" in p ? p.phoneImageH : undefined}
+          phoneImageAlt={"phoneImageAlt" in p ? p.phoneImageAlt : undefined}
           demo={"demo" in p ? p.demo : undefined}
           github={p.github}
-          appStore={"appStore" in p ? (p as any).appStore : undefined}
-          playStore={"playStore" in p ? (p as any).playStore : undefined}
+          appStore={"appStore" in p ? p.appStore : undefined}
+          playStore={"playStore" in p ? p.playStore : undefined}
           stack={p.stack}
           stats={p.stats}
-          wip={"wip" in p ? (p as any).wip : false}
+          wip={"wip" in p ? p.wip : false}
           reverse={i % 2 === 1}
         />
       ))

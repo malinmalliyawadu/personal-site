@@ -173,7 +173,6 @@ const markers = [
 
 <script>
   const items = Array.from(document.querySelectorAll<HTMLElement>(".rail-item"));
-  const byId = new Map(items.map((el) => [el.dataset.target, el]));
   const sections = items
     .map((el) => document.getElementById(el.dataset.target || ""))
     .filter((s): s is HTMLElement => Boolean(s));
