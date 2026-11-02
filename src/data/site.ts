@@ -83,8 +83,8 @@ export const projects = [
     playStore: "https://play.google.com/store/apps/details?id=com.everybodyeats.app",
     stack: ["Next.js", "React", "TypeScript", "Prisma", "Postgres", "Expo"],
     stats: [
-      { label: "Volunteers", value: "10K+" },
-      { label: "Monthly Active Users", value: "6.9K" },
+      { label: "Volunteers", value: "11K+" },
+      { label: "Monthly Active Users", value: "7.3K" },
     ],
   },
   {
@@ -119,7 +119,7 @@ export const projects = [
     demo: "https://volunteer.fairfood.org.nz/",
     stack: ["Next.js", "React", "Prisma", "Postgres", "Tailwind", "Playwright"],
     stats: [
-      { label: "Active Volunteers", value: "800+" },
+      { label: "Active Volunteers", value: "1,000+" },
       { label: "Monthly Page Views", value: "11.2K" },
     ],
   },
@@ -141,7 +141,10 @@ export const projects = [
     demo: "https://compassion.awhinatech.nz/",
     appStore: "https://apps.apple.com/nz/app/compassion-soup-kitchen/id6785313022",
     stack: ["Next.js", "React", "TypeScript"],
-    stats: [{ label: "Serving the community", value: "125+ yrs" }],
+    stats: [
+      { label: "Volunteers", value: "100+" },
+      { label: "Serving the community", value: "125+ yrs" },
+    ],
   },
   {
     anchor: "work-sfr",
