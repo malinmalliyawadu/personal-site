@@ -1,7 +1,8 @@
-FROM node:22.12.0-alpine AS builder
+FROM node:22-alpine AS builder
 WORKDIR /app
-RUN corepack enable
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+# Corepack cannot install pnpm 12's native binary, so use npm for the pinned version
+RUN npm install -g "$(node -p "require('./package.json').packageManager")"
 RUN pnpm install --frozen-lockfile
 COPY . .
 RUN pnpm run build

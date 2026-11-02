@@ -2,7 +2,7 @@
   "name": "personal-site",
   "type": "module",
   "version": "0.0.1",
-  "packageManager": "pnpm@9.15.1",
+  "packageManager": "pnpm@12.16.1",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -31,16 +31,5 @@
     "postcss": "^8.5.32",
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.72.1"
-  },
-  "pnpm": {
-    "overrides": {
-      "postcss-selector-parser@<7.1.6": "^7.1.6",
-      "minimatch@<11.0.1": ">=11.0.1"
-    },
-    "auditConfig": {
-      "ignoreGhsas": [
-        "GHSA-vfj7-8cjw-p6xm"
-      ]
-    }
   }
 }

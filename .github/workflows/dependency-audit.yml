@@ -7,6 +7,7 @@ on:
     paths:
       - package.json
       - pnpm-lock.yaml
+      - pnpm-workspace.yaml
   schedule:
     - cron: "0 18 * * 0"
   workflow_dispatch:
@@ -71,7 +72,7 @@ jobs:
             Automated weekly dependency refresh from the `Dependency audit` workflow:
 
             - `pnpm update` within the ranges in `package.json`
-            - `pnpm audit --fix` to add overrides for vulnerable transitive packages
+            - `pnpm audit --fix` to add overrides in `pnpm-workspace.yaml` for vulnerable transitive packages
             - `pnpm run build` passed on this branch
 
             CI does not run on PRs opened by this workflow. Close and reopen the PR to trigger it.
